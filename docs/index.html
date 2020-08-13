@@ -23,7 +23,18 @@
       repo: 'https://github.com/creichel/FiMi-Fitness-Smart-Mirror',
       loadNavbar: false,
       loadSidebar: true,
-      search: 'auto',
+      search: {
+        maxAge: 86400000, // Expiration time, the default one day
+        paths: 'auto',
+        placeholder: 'Type to search',
+
+        noData: 'No Results!',
+
+        // Headline depth, 1 - 6
+        depth: 6,
+
+        hideOtherSidebarContent: true, // whether or not to hide other sidebar content
+      },
       auto2top: true,
       autoHeader: true,
       coverpage: true,
@@ -51,6 +62,7 @@
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/external-script.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
