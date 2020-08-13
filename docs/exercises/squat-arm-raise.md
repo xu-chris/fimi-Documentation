@@ -2,8 +2,6 @@
 
 !> Status: Draft
 
-The question of selecting the movement is based on if it’s suitable to evaluate the range of functionality of the proposed system. The evaluation the pose evaluation needs to be as objective as possible - which is actually not that easy. But there are some globally accepted rules that are getting applied accordingly to the exercise.
-
 For my master thesis, I want to evaluate a full body movement during a fitness activity which includes weight / muscle activation exercises. Thus, the exercise I need has to cover the main body joint areas:
 - shoulder, 
 - back, 
@@ -17,6 +15,7 @@ My movement is therefore a squat with lateral arm abductions which you can see i
 
 ![Squat Arm Abduction - Frontal and sagital view](squat-arm-abduction.png)
 
+## Ruleset
 The ruleset for this movement is summarized as the following:
 Frontal aspects
 - Head vertically in line

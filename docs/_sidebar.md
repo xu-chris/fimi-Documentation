@@ -8,6 +8,7 @@
         * [Squat Arm Raise](exercises/squat-arm-raise.md)
 * [Architecture](application/architecture.md)
     * [Pose Estimation](pose-estimation/pose-estimation.md)
-        * [XNECT 3D Multi-Person](pose-estimation/xnect.md)
+        * [XNECT 3D Multi-Person](pose-estimation/XNECT/xnect.md)
+            * [Library (Readme)](pose-estimation/XNECT/library.md)
     * [Pose Evaluation](pose-evaluation/pose-evaluation.md)
 * [Evaluation](application/evaluation/evaluation.md)
