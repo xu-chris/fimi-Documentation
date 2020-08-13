@@ -8,8 +8,9 @@
   <meta name="viewport" content="viewport-fit=cover" />
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
-  <link rel="stylesheet" href="//unpkg.com/mermaid/dist/mermaid.min.css">
-  <script src="//unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  <script src="//unpkg.com/mermaid/dist/mermaid.js" />
+  <script src="//unpkg.com/docsify-mermaid@latest/dist/docsify-mermaid.js" />
+  <script>mermaid.initialize({ startOnLoad: true });</script>
   <style>
         /* Fix issue on mobile devices where a custom cover image goes off the screen. */
         section.cover.show {
@@ -32,10 +33,6 @@
   <div id="app"></div>
   <script src="//unpkg.com/docsify-edit-on-github"></script>
   <script>
-
-    var num = 0;
-    mermaid.initialize({ startOnLoad: false });
-
     window.$docsify = {
       name: 'fimi - Fitness Mirror Documentation',
       repo: 'https://github.com/creichel/FiMi-Fitness-Smart-Mirror',
