@@ -1,4 +1,4 @@
-# fimi.
+![logo](_media/logo/logo.svg)
 
 > Safety-first fitness smart mirror.
 
