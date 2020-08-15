@@ -16,7 +16,7 @@
             * [ML based](application/pose-evaluation/ml-based.md)
             * [Rule based](application/pose-evaluation/rule-based.md)
             * [Datasets](application/pose-evaluation/datasets.md)
-    * [User Interface](application/ui/ui.md)
+    * [User Interface & Interaction](application/ui/ui.md)
 ----
 * [**Hardware**](hardware/hardware.md)
     * [Camera](hardware/camera/camera.md)
