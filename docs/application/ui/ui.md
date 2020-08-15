@@ -6,7 +6,9 @@
 ### Situation description
 - Trainee might be readying themselve for the training
 - Trainee might need an indeterminate time to be ready to start the exercise
+- Trainee is facing the mirror / display
 - Trainee might not have made the exercise before 
+- Trainee might not have used fimi before and does not know about how to interact
 
 ### Problem statement
 #### Information
@@ -56,7 +58,12 @@ After starting the exercise, this screen shows the necessary information about t
 ## Post-exercise
 
 ### Situation description
+- Trainee might be fatigue
+- Trainee is facing the mirror / display
+- Trainee might not have used fimi before and does not know about how to interact
 
 ### Problem statement
+- Trainee wants to know their progress
+- Trainee might want to know what to improve next time
 
 ### Possible solutions
