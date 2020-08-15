@@ -44,6 +44,13 @@ After starting the exercise, this screen shows the necessary information about t
 
 ### Possible solutions
 
+#### Motivation
+1. Collision tracking based form pose goals like in [Homecourt.ai](https://www.homecourt.ai)
+    - Could lead to more mirror facing activity but could also prevent trainees to move correctly
+2. Scoring system for form correctness
+3. Scoring system for reaching the areas with the body (like Homecourt.ai)
+4. Virtual agent saying motivational things
+
 #### Correction hints
 
 1. Audio feedback about how to correct the form. 
