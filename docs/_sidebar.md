@@ -7,7 +7,7 @@
     * Exercises
         * [Squat Arm Raise](introduction/exercises/squat-arm-raise.md)
 ----
-* **Application**
+* [**Application**](application/application.md)
     * [Architecture](application/architecture/architecture.md)
         * [Pose Estimation](application/pose-estimation/pose-estimation.md)
             * [XNECT 3D Multi-Person](application/pose-estimation/XNECT/xnect.md)
