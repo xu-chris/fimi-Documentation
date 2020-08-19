@@ -25,10 +25,11 @@
 All apps are mainly available for the iOS platform since iOS already includes a pose estimation algorithm. According to App Store reviews, all apps have problems with app stability.
 
 Most of the apps are probably using the [Fittonic iOS SDK](http://fittonic.app) built by [Synesis](https://synesis.partners/) which provides a pre-trained model for a price of 500$ / month + 100$ for more than 1.000 devices for each 1.000th device.  
+
 | Product name | Platform | Main directives | Price | Additional costs |
 | - | - | - | - | - |
 | [FitMe / Fittonic](http://fittonic.ai) | iOS | Counting mistakes while doing fitness reps. After-training feedback. Offers Fitness SDK for iPhone apps called "Fittonic". | | |
-| [Kaia Motion Coach](https://www.kaiahealth.com/ai-platforms/motion-coach/) | iOS, supervised movement trainings, using built in pose estimation. Paid by insurance companies. | ? | ? | 
+| [Kaia Motion Coach](https://www.kaiahealth.com/ai-platforms/motion-coach/) | iOS | supervised movement trainings, using built in pose estimation. Paid by insurance companies. | ? | ? | 
 | [VAY](https://www.vay-sports.com/index) | iOS | Supervised movement training with audio feedback, using pose estimation for the full body | 0$ | ? |
 | [Artifit](https://artifit.app) | iOS | Supervised bodyweight training with in-training audio feedback and after-training overview. | | 4.99$ / Month |
 | [Body Time](https://bodytime.app) | iOS | Supervised bodyweight training, in-training audio feedback. | ? | ? |
