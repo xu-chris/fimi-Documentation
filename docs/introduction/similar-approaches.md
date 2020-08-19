@@ -18,6 +18,7 @@
 | [Pixformance](https://www.pixformance.com/) | Supervised display stand for movement training, including pose estimation | ? | ? |
 | [QAIO Flex](https://www.myqaio.com/qaio-flex/) | Two-Display smart mirror that streams the training video of the smartphone | 1899$ | none |
 | [Yoganotch](https://yoganotch.com) | iOS app, connecting to IMUs for motion tracking, developed by [Notch Interfaces](https://wearnotch.com). In-training poor audio feedback ("Not quite!"). | 299$ | 0 |
+| [Millie Fit (disc.)](https://millie.fit) | Display, uses pose estimation with audio-feedback and after-training form scoring. Counts reps. | | |
 
 ### Apps
 
@@ -33,4 +34,4 @@ Most of the apps are probably using the [Fittonic iOS SDK](http://fittonic.app) 
 | [Body Time](https://bodytime.app) | iOS | Supervised bodyweight training, in-training audio feedback. | ? | ? |
 | [Perfect Plank](http://www.exer.ai) | iOS | Using Fittonic iOS SDK for in-training audio feedback, counting mistakes and after-training guidance. Claims to be usable also for physiotherapy. | | |
 | [Onyx](https://www.onyx.fit) | iOS | 3D motion capturing using built in FaceID camera, counts only reps. | | 65.99€ / year |
-
+| [ally](https://fitnessallyapp.com) | iOS | Pose estimation with audio-feedback and after-training form scoring. Virtual agent built by [twentybn](https://20bn.com). Counts reps. | | |
