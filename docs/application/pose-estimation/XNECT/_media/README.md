@@ -22,6 +22,7 @@ Installing the layer in caffe:
 2) edit caffe.proto at C:\caffe\src\caffe\proto (check example of proto in extern/caffe)
  Inside the function message LayerParameter add these layers with correct next id:
  Example:
+ ```
 	// LayerParameter next available layer-specific ID: 149 (last added: recurrent_param)
 	message LayerParameter {
 
@@ -32,9 +33,10 @@ Installing the layer in caffe:
   optional NmsParameter nms_param = 148;
    
    }
+```
     
 3)	At the end of the file caffe.proto add:
-	
+```	
 	// CPM extra code: new layers description
 message NmsParameter {
   optional float threshold = 1 [default = 0.5];
@@ -50,11 +52,13 @@ message ImResizeParameter {
   optional float start_scale = 4 [default = 1];
   optional float scale_gap = 5 [default = 0.1];
 }
-			
+```
 You need to have caffe built for Windows. Identify the path of caffe cmake cache and run cmake initialized with the caffe cache:
 
 For instance:
+```
 cmake -G "Visual Studio 14 Win64" -C /c/Users/<your_usename>/.caffe/dependencies/libraries_v140_x64_py27_1.1.0/libraries/caffe-builder-config.cmake ..
+```
 
 ## Linux
  Same steps as for windows. 
@@ -67,30 +71,30 @@ cmake -G "Visual Studio 14 Win64" -C /c/Users/<your_usename>/.caffe/dependencies
  Tips: 
  1) Compile boost 1.5.8. Make sure caffe finds correct version. You might change cmake in caffe in dependencies.cmake and specify rigidly this version.
  2) Compile protobuf. We used 3.1.0 version. 
- 
+ ```
       ./autogen.sh
       
       ./configure CFLAGS="-fPIC" CXXFLAGS="-fPIC"
       
       make
-   
+```
   3) make sure caffe doesn't have clip_layer. If it is there delete it following these steps:
   
       3.1) remove clip_layer.hpp and clip_layer.cpp from caffe_root/src/caffe/layers.
    
-      3.2) In caffe_root/src/caffe/layers/clip_layer.cu comment out the include and the two templates and the instantiate. Comment out the     include in caffe_root/src/caffe/layer_factory.cpp.
+      3.2) In caffe_root/src/caffe/layers/clip_layer.cu comment out the include and the two templates and the instantiate. Comment out the `include` in `caffe_root/src/caffe/layer_factory.cpp`.
    
        3.3) in src/caffe/proto/caffe.proto comment out the ClipParameter message and the optional clipparameter.
        If there are any other errors just comment out the source line.
    
  4) finally run cmake for caffe:
- 
+ ```
  cmake -DProtobuf_LIBRARY_DEBUG=/path_to_protobuf/src/.libs/libprotobuf.so -DProtobuf_PROTOC_EXECUTABLE=/path_to_protobuf/src/.libs/protoc -DProtobuf_LIBRARY_RELEASE=/path_to_protobuf/src/.libs/libprotobuf.a  -DProtobuf_LITE_LIBRARY_RELEASE=/path_to_protobuf/src/.libs/libprotobuf-lite.a -DBOOST_INCLUDEDIR=/path_to_boost_1_58_0/  -DBOOST_LIBRARYDIR=/path_to_boost_1_58_0/stage/lib -DProtobuf_INCLUDE_DIR=/path_to_protobuf/src/ -DProtobuf_PROTOC_LIBRARY_RELEASE=/path_to_protobuf/src/.libs/libprotoc.so .. 
- 
+```
 5) To compile the project you might need to compile OpenCV 3 and give the path as:
- 
+```
    cmake -DOpenCV_DIR=/path_to_install_folder_OpenCV/share/OpenCV  -DCaffe_DIR=/path_to_caffe/build ..
- 
+```
 
 ## Features
 1. Build live or offline applications for Multi-Person 3D Human Pose estimation
