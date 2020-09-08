@@ -5,7 +5,7 @@ RescaleFrameNum: 2
 
 # Maximum number of people to track and visualize. More can be tracked, but the scene becomes too clutterd
 # to make out anything. Keeping it at 10 would work for most reasonable scenarios
-MaxNumPeople: 15
+MaxNumPeople: 1
 
 ## Pre-recorded Sequence Camera Calibration
 ## Used for MuPoTS-3D Test seq from ts6-ts20
@@ -17,19 +17,19 @@ MaxNumPeople: 15
 
 ## Pre-recorded Sequence Camera Calibration
 ## Used for MuPoTS-3D Test seq from ts1-ts5
-ProcessHeight: 1024		
-ProcessWidth: 1024
-FirstNetHeight: 512			
-FirstNetWidth: 512
-OrigIntrinsics: 1479.677, 0, 1008.087, 0, 1480.849, 1000.121, 0, 0, 1 
+#ProcessHeight: 1024
+#ProcessWidth: 1024
+#FirstNetHeight: 512
+#FirstNetWidth: 512
+#OrigIntrinsics: 1479.677, 0, 1008.087, 0, 1480.849, 1000.121, 0, 0, 1
 
 ## Live Webcam Camera Calibration
 # camera type: webcam or playback
-#ProcessHeight: 360
-#ProcessWidth: 640 
-#FirstNetHeight: 320
-#FirstNetWidth: 544
-#OrigIntrinsics:  576, 0, 320, 0, 576, 240, 0, 0, 1 
+ProcessHeight: 360
+ProcessWidth: 640
+FirstNetHeight: 320
+FirstNetWidth: 544
+OrigIntrinsics:  576, 0, 320, 0, 576, 240, 0, 0, 1
 
 
 
