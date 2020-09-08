@@ -2,6 +2,8 @@
 //
 
 #include "xnect.hpp"
+#include <sys/timeb.h>
+#include <time.h>
 
 #define WEB_CAM 0
 
@@ -10,7 +12,8 @@ std::string videoFilePath = "../../data/videos/pepper_front_1.mp4";
 
 void drawBones(cv::Mat &img, XNECT &xnect, int person)
 {
-	int numOfJoints = xnect.getNumOf3DJoints() - 2; // don't render feet, can be unstable
+	//int numOfJoints = xnect.getNumOf3DJoints() - 2; // don't render feet, can be unstable
+	int numOfJoints = xnect.getNumOf3DJoints();
 
 	for (int i = 0; i < numOfJoints; i++)
 	{
@@ -32,8 +35,8 @@ void drawBones(cv::Mat &img, XNECT &xnect, int person)
 void drawJoints(cv::Mat &img, XNECT &xnect, int person)
 {
 
-	int numOfJoints = xnect.getNumOf3DJoints() - 2; // don't render feet, can be unstable
-
+	//int numOfJoints = xnect.getNumOf3DJoints() - 2; // don't render feet, can be unstable
+	int numOfJoints = xnect.getNumOf3DJoints();
 	for (int i = 0; i < numOfJoints; i++)
 	{
 		int thickness = -1;
@@ -53,6 +56,23 @@ void drawPeople(cv::Mat &img, XNECT &xnect)
 	     	drawJoints(img, xnect,i);     
 	     }
 
+}
+void writeFPS(cv::Mat &frame, double time)
+{
+	cv::Point position = cv::Point(10, 20);
+	time = std::round(time * 100) / 100;
+	std::string fpsText = "XNECT FPS: "+ std::to_string(time);
+	cv::putText(frame, fpsText, cv::Point(position.x+1, position.y+1), cv::FONT_HERSHEY_PLAIN, 1, cv::Scalar(0, 0, 0), 1);
+	cv::putText(frame, fpsText, cv::Point(position.x, position.y), cv::FONT_HERSHEY_PLAIN, 1, cv::Scalar(255, 255, 255), 1);
+}
+
+void writeCameraFPS(cv::Mat &frame, double time)
+{
+	cv::Point position = cv::Point(10, frame.rows - 10);
+	time = std::round(time * 100) / 100;
+	std::string fpsText = "Camera FPS: " + std::to_string(time);
+	cv::putText(frame, fpsText, cv::Point(position.x + 1, position.y + 1), cv::FONT_HERSHEY_PLAIN, 1, cv::Scalar(0, 0, 0), 1);
+	cv::putText(frame, fpsText, cv::Point(position.x, position.y), cv::FONT_HERSHEY_PLAIN, 1, cv::Scalar(255, 255, 255), 1);
 }
 bool playLive(XNECT &xnect)
 {
@@ -74,9 +94,10 @@ bool playLive(XNECT &xnect)
 	// open the default camera, use something different from 0 otherwise;
 	// Check VideoCapture documentation.
 
-
 	for (;;)
 	{
+		int64 start = cv::getTickCount();
+
 		cv::Mat frame;
 		cap >> frame;
 		if (frame.empty()) break; // end of video stream
@@ -85,7 +106,12 @@ bool playLive(XNECT &xnect)
 		xnect.sendDataToUnity();
 		drawPeople(frame, xnect);
 
-		cv::namedWindow("liveWebCam", cv::WINDOW_NORMAL);
+		int64 end = cv::getTickCount();
+		double fps = cv::getTickFrequency() / (end - start);
+		writeFPS(frame, fps);
+		writeCameraFPS(frame, cap.get(cv::CAP_PROP_FPS));
+
+		cv::namedWindow("liveWebCam");
 		imshow("liveWebCam", frame);
 
 		char ch = cv::waitKey(1);
@@ -137,44 +163,56 @@ void readImageSeq(XNECT &xnect)
 }
 void readVideoSeq(XNECT &xnect, std::string videoFilePath)
 {
-    cv::VideoCapture = cap(videoFilePath);
+    cv::VideoCapture cap(videoFilePath);
 
-    if (!videoFilePath.isOpened()) {
+    if (!cap.isOpened()) {
         std::cout << "Error opening video file with path " << videoFilePath << ". Probably the file is missing?";
-        return -1;
+        return;
     }
 
     // Default resolution of the frame is obtained.The default resolution is system dependent.
-    int frame_width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
-    int frame_height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
+	cv::Mat frame;
+	cap >> frame;
+	int frame_width = frame.cols;
+    int frame_height = frame.rows;
 
-    VideoWriter video("out.avi",CV_FOURCC('M','J','P','G'),10, Size(frame_width,frame_height));
+    cv::VideoWriter video("out.avi",CV_FOURCC('M','J','P','G'),10, cv::Size(frame_width,frame_height));
 
     while(1) {
+
+		int64 start = cv::getTickCount();
 
         cv::Mat frame;
         cap >> frame;
 
-        if (frame.empty()) {
-            break;
-        }
+        if (frame.empty()) break;
+
         xnect.processImg(frame);
-
-        xnect.sendDataToUnity();
+        //xnect.sendDataToUnity();
         drawPeople(frame, xnect);
+		cv::resize(frame, frame, cv::Size(frame_width, frame_height), 0, 0, cv::INTER_LINEAR);
+		int64 end = cv::getTickCount();
+		double fps = cv::getTickFrequency() / (end - start);
 
-        video.write(frame);
-
+		writeCameraFPS(frame, cap.get(cv::CAP_PROP_FPS));
+		writeFPS(frame, fps);
+       
         cv::namedWindow("main", cv::WINDOW_NORMAL);
         imshow("main", frame);
 
+		video.write(frame);
+
         // Press  ESC on keyboard to exit
-        char c = (char)waitKey(25);
+		char c = (char) cv::waitKey(25);
         if(c == 27)
             break;
     }
 
-    return true;
+	cap.release();
+	video.release();
+	cv::destroyAllWindows();
+
+    return;
 }
 int main()
 {
