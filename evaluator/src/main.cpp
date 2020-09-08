@@ -6,7 +6,7 @@
 #define WEB_CAM 0
 
 std::string images_to_load = "../../data/images";
-std::string videoFilePath = "../../data/videos/logitech_front_1.mp4"
+std::string videoFilePath = "../../data/videos/pepper_front_1.mp4"
 
 void drawBones(cv::Mat &img, XNECT &xnect, int person)
 {
