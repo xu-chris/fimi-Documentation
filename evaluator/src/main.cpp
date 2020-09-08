@@ -6,7 +6,7 @@
 #define WEB_CAM 0
 
 std::string images_to_load = "../../data/images";
-
+std::string videoFilePath = "../../data/videos/logitech_front_1.mp4"
 
 void drawBones(cv::Mat &img, XNECT &xnect, int person)
 {
@@ -54,11 +54,17 @@ void drawPeople(cv::Mat &img, XNECT &xnect)
 	     }
 
 }
-bool playLIVE(XNECT &xnect)
+bool readVideoSequence(XNECT &xnect, std::filePath = "", int camera = 0)
 {
 	cv::VideoCapture cap;
 
-	if (!cap.open(0))
+	if (filePath != "") {
+        cap.open(filePath)
+	} else {
+        !cap.open(camera)
+	}
+
+	if (!cap.isOpened())
 	{
 		std::cout << "Can't open webcam!\n";
 		cv::waitKey(0);
@@ -112,6 +118,7 @@ bool playLIVE(XNECT &xnect)
 
 	return true;
 }
+
 void readImageSeq(XNECT &xnect)
 {
 	vector<cv::String> fn;
@@ -141,11 +148,11 @@ int main()
 
 	if (WEB_CAM)
 	{
-		if (playLIVE(xnect) == false)
+		if (readVideoSequence(xnect) == false)
 			return 1;
 	}
 	else
-		readImageSeq(xnect);
+        readVideoSequence(xnect, videoFilePath)
 
 
 	xnect.save_joint_positions(".");
