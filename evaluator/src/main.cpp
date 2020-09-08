@@ -54,17 +54,11 @@ void drawPeople(cv::Mat &img, XNECT &xnect)
 	     }
 
 }
-bool readVideoSequence(XNECT &xnect, std::string filePath = "", int camera = 0)
+bool playLive(XNECT &xnect)
 {
 	cv::VideoCapture cap;
 
-	if (filePath != "") {
-		cap.open(filePath);
-	} else {
-		!cap.open(camera);
-	}
-
-	if (!cap.isOpened())
+	if (!cap.open(0))
 	{
 		std::cout << "Can't open webcam!\n";
 		cv::waitKey(0);
@@ -141,6 +135,47 @@ void readImageSeq(XNECT &xnect)
 		cv::waitKey(1);
 	}
 }
+void readVideoSeq(XNECT &xnect, std::string videoFilePath)
+{
+    cv::VideoCapture = cap(videoFilePath);
+
+    if (!videoFilePath.isOpened()) {
+        std::cout << "Error opening video file with path " << videoFilePath << ". Probably the file is missing?";
+        return -1;
+    }
+
+    // Default resolution of the frame is obtained.The default resolution is system dependent.
+    int frame_width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
+    int frame_height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
+
+    VideoWriter video("out.avi",CV_FOURCC('M','J','P','G'),10, Size(frame_width,frame_height));
+
+    while(1) {
+
+        cv::Mat frame;
+        cap >> frame;
+
+        if (frame.empty()) {
+            break;
+        }
+        xnect.processImg(frame);
+
+        xnect.sendDataToUnity();
+        drawPeople(frame, xnect);
+
+        video.write(frame);
+
+        cv::namedWindow("main", cv::WINDOW_NORMAL);
+        imshow("main", frame);
+
+        // Press  ESC on keyboard to exit
+        char c = (char)waitKey(25);
+        if(c == 27)
+            break;
+    }
+
+    return true;
+}
 int main()
 {
 	XNECT xnect;
@@ -148,16 +183,15 @@ int main()
 
 	if (WEB_CAM)
 	{
-		if (readVideoSequence(xnect) == false)
+		if (playLive(xnect) == false)
 			return 1;
 	}
 	else
-		readVideoSequence(xnect, videoFilePath);
+		readVideoSeq(xnect, videoFilePath);
 
 
 	xnect.save_joint_positions(".");
 	xnect.save_raw_joint_positions(".");
-	
 		
 	return 0;
 }
