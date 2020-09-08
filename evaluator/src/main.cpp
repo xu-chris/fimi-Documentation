@@ -6,7 +6,7 @@
 #define WEB_CAM 0
 
 std::string images_to_load = "../../data/images";
-std::string videoFilePath = "../../data/videos/pepper_front_1.mp4"
+std::string videoFilePath = "../../data/videos/pepper_front_1.mp4";
 
 void drawBones(cv::Mat &img, XNECT &xnect, int person)
 {
@@ -54,14 +54,14 @@ void drawPeople(cv::Mat &img, XNECT &xnect)
 	     }
 
 }
-bool readVideoSequence(XNECT &xnect, std::filePath = "", int camera = 0)
+bool readVideoSequence(XNECT &xnect, std::string filePath = "", int camera = 0)
 {
 	cv::VideoCapture cap;
 
 	if (filePath != "") {
-        cap.open(filePath)
+		cap.open(filePath);
 	} else {
-        !cap.open(camera)
+		!cap.open(camera);
 	}
 
 	if (!cap.isOpened())
@@ -152,7 +152,7 @@ int main()
 			return 1;
 	}
 	else
-        readVideoSequence(xnect, videoFilePath)
+		readVideoSequence(xnect, videoFilePath);
 
 
 	xnect.save_joint_positions(".");
