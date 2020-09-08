@@ -479,3 +479,4 @@ MigrationBackup/
 .ionide/
 
 # End of https://www.toptal.com/developers/gitignore/api/clion+all,c++,visualstudio
+!evaluator/extern/**/lib
