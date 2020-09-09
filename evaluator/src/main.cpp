@@ -101,7 +101,7 @@ void processImage(cv::Mat &frame, XNECT &xnect, bool showImage = true, std::stri
     writeFPS(frame, fps);
 
     if (showImage) {
-        cv::namedWindow(windowName, cv::WINDOW_NORMAL);
+        cv::namedWindow(windowName);
         imshow(windowName, frame);
     }
 }
