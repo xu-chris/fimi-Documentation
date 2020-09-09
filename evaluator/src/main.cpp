@@ -59,6 +59,11 @@ void drawPeople(cv::Mat &img, XNECT &xnect)
 
 }
 
+void writeTextOnImage(cv::Mat &frame, std::string text, cv::Point position) {
+	cv::putText(frame, text, cv::Point(position.x + 1, position.y + 1), cv::FONT_HERSHEY_PLAIN, 1, cv::Scalar(0, 0, 0), 1);
+	cv::putText(frame, text, cv::Point(position.x, position.y), cv::FONT_HERSHEY_PLAIN, 1, cv::Scalar(255, 255, 255), 1);
+}
+
 void writeFPS(cv::Mat &frame, double time)
 {
 	cv::Point position = cv::Point(10, 20);
@@ -75,15 +80,13 @@ void writeCameraFPS(cv::Mat &frame, double time)
     writeTextOnImage(frame, fpsText, position);
 }
 
-void writeTextOnImage(cv::Mat &frame, std::string text, cv::Point position) {
-    cv::putText(frame, text, cv::Point(position.x + 1, position.y + 1), cv::FONT_HERSHEY_PLAIN, 1, cv::Scalar(0, 0, 0), 1);
-    cv::putText(frame, text, cv::Point(position.x, position.y), cv::FONT_HERSHEY_PLAIN, 1, cv::Scalar(255, 255, 255), 1);
-}
-
 void processImage(cv::Mat &frame, XNECT &xnect, bool showImage = true, std::string windowName = "main", bool sendToUnity = true) {
+
+	int frame_width = frame.cols;
+	int frame_height = frame.rows;
     int64 start = cv::getTickCount();
 
-    if (frame.empty()) break;
+    if (frame.empty()) return;
 
     xnect.processImg(frame);
 
@@ -95,7 +98,6 @@ void processImage(cv::Mat &frame, XNECT &xnect, bool showImage = true, std::stri
     int64 end = cv::getTickCount();
     double fps = cv::getTickFrequency() / (end - start);
 
-    writeCameraFPS(frame, cap.get(cv::CAP_PROP_FPS));
     writeFPS(frame, fps);
 
     if (showImage) {
@@ -197,7 +199,7 @@ void readVideoSeq(XNECT &xnect, std::string videoFilePath)
         cap >> frame;
 
         processImage(frame, xnect);
-
+		writeCameraFPS(frame, cap.get(cv::CAP_PROP_FPS));
 		video.write(frame);
 
         // Press  ESC on keyboard to exit
@@ -205,10 +207,6 @@ void readVideoSeq(XNECT &xnect, std::string videoFilePath)
         if(c == 27)
             break;
     }
-
-	cap.release();
-	video.release();
-	cv::destroyAllWindows();
 
     return;
 }
