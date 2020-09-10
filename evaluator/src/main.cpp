@@ -10,22 +10,24 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
+#include <chrono> 
 
-#define RUN_SIMULATION_SERVER 0
+#define SHOW_WINDOW 1
+#define REPEAT_VIDEO 0
+Mode mode = Mode::SIMULATION;
 
 std::string images_to_load = "../../data/images";
 std::string videoFilePath = "../../data/videos/pepper_front_1.mp4";
-std::string recordingsFilePath = "recordings/";
-Mode mode = LIVE;
+std::string recordingsFilePath = "./";
 
 std::string currentDateTimeString() {
     time_t now = time(0);
     tm *ltm = localtime(&now);
-    return std::to_string((1900 + ltm->tm_year)) + (1 + ltm->tm_mon) + (ltm->tm_mday) + "-" + (1 + ltm->tm_hour) + (1 + ltm->tm_min) + (1 + ltm->tm_sec);
+    return std::to_string((1900 + ltm->tm_year)) + std::to_string(1 + ltm->tm_mon) + std::to_string(ltm->tm_mday) + "-" + std::to_string(1 + ltm->tm_hour) + std::to_string(1 + ltm->tm_min) + std::to_string(1 + ltm->tm_sec);
 }
 
-void storeArrayToFile(DelayPerData data[], std::string fileName = currentDateTimeString() + ".mock") {
-    ofstream recordingFile (recordingsFilePath + fileNames);
+void storeVectorToFile(std::vector<DelayPerData> data, std::string fileName = currentDateTimeString() + ".mock") {
+    fstream recordingFile(recordingsFilePath + fileName, ios::out);
 
     if (!recordingFile.is_open()) {
         std::cerr << "Unable to create recording file. Missing write permissions?";
@@ -33,29 +35,27 @@ void storeArrayToFile(DelayPerData data[], std::string fileName = currentDateTim
     }
 
     for (int i = 0; i < data.size(); i++) {
-        recordingFile << data[i].toString();
+        recordingFile << data[i].toString() + "\n";
     }
 
     recordingFile.close();
 }
 
-DelayPerData[] readFromFile(std::string fileNameWithPath) {
-    ifstream file (fileNameWithPath);
+std::vector<DelayPerData> readFromFile(std::string fileNameWithPath) {
+    fstream file (fileNameWithPath, ios::in);
 
-    if (!file.isOpened()) {
+    if (!file.is_open()) {
         std::cerr << "Cannot read file. Check if it exist or record a session first.";
-        return;
     }
 
-    DelayPerData data[];
+	std::vector<DelayPerData> data;
 
-    for (int line = 0; line < file.size(); line++) {
-        std::string lineString = file[line];
-        DelayPerData singleData;
-        singleData.fromString(lineString);
-        data[] = singleData;
+	std::string line;
+	while (std::getline(file, line)) {
+        DelayPerData singleData(line);
+        data.push_back(singleData);
     }
-    file.close()
+	file.close();
     return data;
 }
 
@@ -230,6 +230,10 @@ void readVideoSeq(XNECT &xnect, std::string videoFilePath)
         cv::Mat frame;
         cap >> frame;
 
+		if (frame.empty()) {
+			break;
+		}
+
         processImage(frame, xnect, SHOW_WINDOW);
 		writeCameraFPS(frame, cap.get(cv::CAP_PROP_FPS));
 		video.write(frame);
@@ -253,35 +257,44 @@ void recordSimulation(XNECT &xnect, std::string videoFilePath) {
     cv::Mat frame;
     cap >> frame;
 
-    time_t start, end;
-
-    DelayPerData data[];
-
+    std::vector<DelayPerData> data;
+	int frameIterator = 0;
     while(1) {
-
-        time(start);
+		std::cout << "Processing frame " + std::to_string(frameIterator) + "     \r";
+		auto start = std::chrono::high_resolution_clock::now();
 
         cv::Mat frame;
         cap >> frame;
 
-        processImage(frame, xnect, false);
-        time(end);
-        const std::string& data = xnect.getUnityData();
-        double delay = end - start;
-        data[] = DelayPerData(delay, data);
+		if (frame.empty()) {
+			break;
+		}
+
+        processImage(frame, xnect, true);
+        const std::string& dataString = xnect.getUnityData();
+		auto stop = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+		DelayPerData newData(duration.count(), dataString);
+        data.push_back(newData);
 
         // Press  ESC on keyboard to exit
         char c = (char) cv::waitKey(25);
         if(c == 27)
             break;
+
+		frameIterator++;
     }
 
-    storeArrayToFile(data, "test.mock");
+	// When everything done, release the video capture object
+	cap.release();
+	cv::destroyAllWindows();
+
+    storeVectorToFile(data, "test.mock");
 }
 
 void playSimulation(std::string recordingFileNameWithPath) {
 
-    DelayPerData data[] = readFromFile(recordingFileNameWithPath);
+    std::vector<DelayPerData> data = readFromFile(recordingFileNameWithPath);
 
     Common::CWebSocketServer m_WSTransceiver;
     std::cout << "INFO: Attempting to started websocket server on 8080." << std::endl;
@@ -291,8 +304,8 @@ void playSimulation(std::string recordingFileNameWithPath) {
     while(1) {
         for (int i = 0; i < data.size(); i++) {
             DelayPerData singleData = data[i];
-
-            sleep(singleData.delay);
+			std::cout << "Sending data after " + std::to_string(singleData.delay) + "ms\n";
+            _sleep(singleData.delay);
             m_WSTransceiver.SendData(singleData.data);
         }
 
@@ -306,29 +319,32 @@ void playSimulation(std::string recordingFileNameWithPath) {
 int main()
 {
 	switch(mode) {
-	    case Mode::LIVE:
-            XNECT xnect;
-            if (playLive(xnect) == false) {
-                return 1;
-            }
-            xnect.save_joint_positions(".");
-            xnect.save_raw_joint_positions(".");
-            break;
+	case Mode::LIVE: {
+			XNECT xnect;
+			if (playLive(xnect) == false) {
+				return 1;
+			}
+			xnect.save_joint_positions(".");
+			xnect.save_raw_joint_positions(".");
+			break;
+		}
 	    case Mode::SIMULATION:
 	        playSimulation(recordingsFilePath + "test.mock");
 	        break;
-	    case Mode::VIDEOINPUT:
-            XNECT xnect;
-            while(REPEAT_VIDEO &&) {
-                readVideoSeq(xnect, videoFilePath);
-            }
-            xnect.save_joint_positions(".");
-            xnect.save_raw_joint_positions(".");
-            break;
-	    case Mode::SIMULATION_RECORDING:
-            XNECT xnect;
-	        recordSimulation(xnect, videoFilePath);
-	        break;
+		case Mode::VIDEOINPUT: {
+			XNECT xnect;
+			do {
+				readVideoSeq(xnect, videoFilePath);
+			} while (REPEAT_VIDEO);
+			xnect.save_joint_positions(".");
+			xnect.save_raw_joint_positions(".");
+			break;
+		}
+		case Mode::SIMULATION_RECORDING: {
+			XNECT xnect;
+			recordSimulation(xnect, videoFilePath);
+			break;
+		}
 	}
 
 	return 0;

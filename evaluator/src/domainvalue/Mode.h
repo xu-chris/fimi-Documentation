@@ -9,7 +9,7 @@ enum class Mode {
     LIVE,
     SIMULATION,
     SIMULATION_RECORDING,
-    VIDEOINPUT;
+    VIDEOINPUT
 };
 
 #endif //POSE_ESTIMATOR_MODE_H
