@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 83a46bd16b64c9c4386ae0f1b3812dbf
+timeCreated: 1483889980
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - m_WoodMatRef: {fileID: 2100000, guid: 14fbc6673ab1d114c9914c3338c23500, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

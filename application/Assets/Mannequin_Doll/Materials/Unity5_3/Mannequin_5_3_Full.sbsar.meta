@@ -1,0 +1,209 @@
+fileFormatVersion: 2
+guid: 2b16ab19a8704f04b844c8ec91370530
+ScriptedImporter:
+  fileIDToRecycleName:
+    2100000: Mannequin_Main_Texture
+    2800000: Mannequin_Main_Texture - diffuse
+    2800002: Mannequin_Main_Texture - normal
+    2800004: Mannequin_Main_Texture - metallic
+    11400000: sbsar
+    11400002: graph0
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {instanceID: 0}
+  version: 25
+  projectContext: -1
+  mGraphInstanceData:
+  - graphLabel: Mannequin_Main_Texture
+    prototypeName: Mannequin_Main_Texture
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 0
+    preset: " <sbspreset pkgurl=\"pkg://Mannequin_Main_Texture\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"4097354168\" type=\"8\" value=\"9,9\" />\n
+      \ <presetinput identifier=\"AO\" uid=\"2231220889\" type=\"0\" value=\"0.581\"
+      />\n  <presetinput identifier=\"Wood_Grain_Intensity\" uid=\"2247040111\" type=\"0\"
+      value=\"0.16\" />\n  <presetinput identifier=\"Wood_Grain_Blend\" uid=\"2247040225\"
+      type=\"0\" value=\"0.266\" />\n  <presetinput identifier=\"Roughness\" uid=\"2247040620\"
+      type=\"0\" value=\"0.726\" />\n </sbspreset>\n"
+    shaderName: Standard
+    materialProperties:
+      shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+      shaderKeywords: _MAINTEX _METALLICGLOSSMAP _NORMALMAP
+      lightmapFlags: 4
+      texEnvs:
+      - name: _BumpMap
+        texture: {instanceID: 0}
+        scale: {x: 1, y: 1}
+        offset: {x: 0, y: 0}
+      - name: _DetailAlbedoMap
+        texture: {instanceID: 0}
+        scale: {x: 1, y: 1}
+        offset: {x: 0, y: 0}
+      - name: _DetailMask
+        texture: {instanceID: 0}
+        scale: {x: 1, y: 1}
+        offset: {x: 0, y: 0}
+      - name: _DetailNormalMap
+        texture: {instanceID: 0}
+        scale: {x: 1, y: 1}
+        offset: {x: 0, y: 0}
+      - name: _EmissionMap
+        texture: {instanceID: 0}
+        scale: {x: 1, y: 1}
+        offset: {x: 0, y: 0}
+      - name: _MainTex
+        texture: {instanceID: 0}
+        scale: {x: 1, y: 1}
+        offset: {x: 0, y: 0}
+      - name: _MetallicGlossMap
+        texture: {instanceID: 0}
+        scale: {x: 1, y: 1}
+        offset: {x: 0, y: 0}
+      - name: _OcclusionMap
+        texture: {instanceID: 0}
+        scale: {x: 1, y: 1}
+        offset: {x: 0, y: 0}
+      - name: _ParallaxMap
+        texture: {instanceID: 0}
+        scale: {x: 1, y: 1}
+        offset: {x: 0, y: 0}
+      floats:
+      - name: _BumpScale
+        float: 1
+      - name: _Cutoff
+        float: 0.5
+      - name: _DetailNormalMapScale
+        float: 1
+      - name: _DstBlend
+        float: 0
+      - name: _GlossMapScale
+        float: 1
+      - name: _Glossiness
+        float: 0.079
+      - name: _GlossyReflections
+        float: 1
+      - name: _Metallic
+        float: 0
+      - name: _Mode
+        float: 0
+      - name: _OcclusionStrength
+        float: 1
+      - name: _Parallax
+        float: 0.02
+      - name: _SmoothnessTextureChannel
+        float: 0
+      - name: _SpecularHighlights
+        float: 1
+      - name: _SrcBlend
+        float: 1
+      - name: _UVSec
+        float: 0
+      - name: _ZWrite
+        float: 1
+      colors:
+      - name: _Color
+        color: {r: 1, g: 1, b: 1, a: 1}
+      - name: _EmissionColor
+        color: {r: 0, g: 0, b: 0, a: 1}
+    outputDescList:
+    - outputName: diffuse
+      identifier: diffuse
+      usageName: diffuse
+      channelStr: diffuse
+      label: Diffuse
+      usage: 0
+      bImage: 1
+      bNumerical: 0
+      bLinear: 0
+    - outputName: normal
+      identifier: normal
+      usageName: normal
+      channelStr: normal
+      label: Normal
+      usage: 7
+      bImage: 1
+      bNumerical: 0
+      bLinear: 1
+    - outputName: metallic
+      identifier: Metallic
+      usageName: metallic
+      channelStr: metallic
+      label: Metallic
+      usage: 34
+      bImage: 1
+      bNumerical: 0
+      bLinear: 1
+    - outputName: roughness
+      identifier: Roughness
+      usageName: roughness
+      channelStr: roughness
+      label: Roughness
+      usage: 15
+      bImage: 1
+      bNumerical: 0
+      bLinear: 1
+    texturePackingList:
+    - targetName: diffuse
+      components:
+      - sourceName: source
+        from: 0
+        to: 3
+    - targetName: normal
+      components:
+      - sourceName: source
+        from: 0
+        to: 3
+    - targetName: metallic
+      components:
+      - sourceName: roughness
+        from: 0
+        to: 3
+    - targetName: roughness
+      components:
+      - sourceName: roughness
+        from: 0
+        to: 3
+    textureParameters:
+    - textureName: Mannequin_Main_Texture - diffuse
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Mannequin_Main_Texture - normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Mannequin_Main_Texture - metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Mannequin_Main_Texture - roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList: []
+    inputTextureMap: []
+    targetSettingList:
+    - label: Default
+      bOverride: 0
+      bLockRatio: 1
+      textureWidth: 512
+      textureHeight: 512
+      textureFormatMode: 0
+      normalCompressed: 0
+      bGenerateOnLoad: 1
+    - label: Default
+      bOverride: 0
+      bLockRatio: 1
+      textureWidth: 512
+      textureHeight: 512
+      textureFormatMode: 0
+      normalCompressed: 0
+      bGenerateOnLoad: 0
+    material: {instanceID: 0}
+    generatedTextures:
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
