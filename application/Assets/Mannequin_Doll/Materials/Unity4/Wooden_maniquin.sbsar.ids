@@ -1,0 +1,60 @@
+graph(s) count: 4
+guid: 91af89831ac8fdd41a48b1c54fffa155
+material name: Wooden_mannequin
+material oldFileId: -15288720
+material newFileId: 
+output(s) count: 3
+output keyword: _MainTex
+output guid: 91af89831ac8fdd41a48b1c54fffa155
+output oldFileId: 977588134
+output keyword: _BumpMap
+output guid: 91af89831ac8fdd41a48b1c54fffa155
+output oldFileId: -579666999
+output keyword: _ParallaxMap
+output guid: 91af89831ac8fdd41a48b1c54fffa155
+output oldFileId: -717273706
+guid: 91af89831ac8fdd41a48b1c54fffa155
+material name: Wooden_mannequin 1
+material oldFileId: -1269671609
+material newFileId: 
+output(s) count: 4
+output keyword: _MainTex
+output guid: 91af89831ac8fdd41a48b1c54fffa155
+output oldFileId: -1983774992
+output keyword: _BumpMap
+output guid: 91af89831ac8fdd41a48b1c54fffa155
+output oldFileId: 645478719
+output keyword: _ParallaxMap
+output guid: 91af89831ac8fdd41a48b1c54fffa155
+output oldFileId: 1036397832
+output keyword: _SpecGlossMap
+output guid: 91af89831ac8fdd41a48b1c54fffa155
+output oldFileId: -899766123
+guid: 91af89831ac8fdd41a48b1c54fffa155
+material name: Wooden_mannequin 2
+material oldFileId: -1205491273
+material newFileId: 
+output(s) count: 3
+output keyword: _MainTex
+output guid: 91af89831ac8fdd41a48b1c54fffa155
+output oldFileId: -1886764663
+output keyword: _BumpMap
+output guid: 91af89831ac8fdd41a48b1c54fffa155
+output oldFileId: 2074066165
+output keyword: _ParallaxMap
+output guid: 91af89831ac8fdd41a48b1c54fffa155
+output oldFileId: 1323315631
+guid: 91af89831ac8fdd41a48b1c54fffa155
+material name: Wooden_mannequin 3
+material oldFileId: -386308843
+material newFileId: 
+output(s) count: 3
+output keyword: _MainTex
+output guid: 91af89831ac8fdd41a48b1c54fffa155
+output oldFileId: -149705207
+output keyword: _BumpMap
+output guid: 91af89831ac8fdd41a48b1c54fffa155
+output oldFileId: -1469235272
+output keyword: _ParallaxMap
+output guid: 91af89831ac8fdd41a48b1c54fffa155
+output oldFileId: -169436753
