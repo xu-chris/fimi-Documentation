@@ -4,11 +4,60 @@
 #include "xnect.hpp"
 #include <sys/timeb.h>
 #include <time.h>
+#include "domainvalue/Mode.h"
+#include "CWebSocketServer.hpp"
+#include "domainobject/DelayPerData.h"
+#include <iostream>
+#include <fstream>
+#include <stdlib.h>
 
-#define WEB_CAM 0
+#define RUN_SIMULATION_SERVER 0
 
 std::string images_to_load = "../../data/images";
 std::string videoFilePath = "../../data/videos/pepper_front_1.mp4";
+std::string recordingsFilePath = "recordings/";
+Mode mode = LIVE;
+
+std::string currentDateTimeString() {
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    return std::to_string((1900 + ltm->tm_year)) + (1 + ltm->tm_mon) + (ltm->tm_mday) + "-" + (1 + ltm->tm_hour) + (1 + ltm->tm_min) + (1 + ltm->tm_sec);
+}
+
+void storeArrayToFile(DelayPerData data[], std::string fileName = currentDateTimeString() + ".mock") {
+    ofstream recordingFile (recordingsFilePath + fileNames);
+
+    if (!recordingFile.is_open()) {
+        std::cerr << "Unable to create recording file. Missing write permissions?";
+        return;
+    }
+
+    for (int i = 0; i < data.size(); i++) {
+        recordingFile << data[i].toString();
+    }
+
+    recordingFile.close();
+}
+
+DelayPerData[] readFromFile(std::string fileNameWithPath) {
+    ifstream file (fileNameWithPath);
+
+    if (!file.isOpened()) {
+        std::cerr << "Cannot read file. Check if it exist or record a session first.";
+        return;
+    }
+
+    DelayPerData data[];
+
+    for (int line = 0; line < file.size(); line++) {
+        std::string lineString = file[line];
+        DelayPerData singleData;
+        singleData.fromString(lineString);
+        data[] = singleData;
+    }
+    file.close()
+    return data;
+}
 
 void drawBones(cv::Mat &img, XNECT &xnect, int person)
 {
@@ -132,7 +181,7 @@ bool playLive(XNECT &xnect)
 		cv::Mat frame;
 		cap >> frame;
 
-		processImage(frame, xnect);
+		processImage(frame, xnect, SHOW_WINDOW);
 
 		char ch = cv::waitKey(1);
 
@@ -158,24 +207,6 @@ bool playLive(XNECT &xnect)
 	return true;
 }
 
-void readImageSeq(XNECT &xnect)
-{
-	vector<cv::String> fn;
-	cv::glob(images_to_load + "/*.jpg", fn, false);
-
-	vector<cv::Mat> images;
-	size_t count = fn.size();
-
-	for (int i = 0; i < count; i++)
-	{
-		cv::Mat currentImage = imread(fn[i]);
-
-        processImage(currentImage, xnect);
-
-		cv::waitKey(1);
-	}
-}
-
 void readVideoSeq(XNECT &xnect, std::string videoFilePath)
 {
     cv::VideoCapture cap(videoFilePath);
@@ -191,14 +222,15 @@ void readVideoSeq(XNECT &xnect, std::string videoFilePath)
 	int frame_width = frame.cols;
     int frame_height = frame.rows;
 
-    cv::VideoWriter video("out.avi",CV_FOURCC('M','J','P','G'),10, cv::Size(frame_width,frame_height));
+    std::string fileName = currentDateTimeString() + "-pose_estimation_recording.avi";
+    cv::VideoWriter video(recordingsFilePath + fileName,CV_FOURCC('M','J','P','G'),10, cv::Size(frame_width,frame_height));
 
     while(1) {
 
         cv::Mat frame;
         cap >> frame;
 
-        processImage(frame, xnect);
+        processImage(frame, xnect, SHOW_WINDOW);
 		writeCameraFPS(frame, cap.get(cv::CAP_PROP_FPS));
 		video.write(frame);
 
@@ -207,27 +239,98 @@ void readVideoSeq(XNECT &xnect, std::string videoFilePath)
         if(c == 27)
             break;
     }
+}
 
-    return;
+void recordSimulation(XNECT &xnect, std::string videoFilePath) {
+    cv::VideoCapture cap(videoFilePath);
+
+    if (!cap.isOpened()) {
+        std::cout << "Error opening video file with path " << videoFilePath << ". Probably the file is missing?";
+        return;
+    }
+
+    // Default resolution of the frame is obtained.The default resolution is system dependent.
+    cv::Mat frame;
+    cap >> frame;
+
+    time_t start, end;
+
+    DelayPerData data[];
+
+    while(1) {
+
+        time(start);
+
+        cv::Mat frame;
+        cap >> frame;
+
+        processImage(frame, xnect, false);
+        time(end);
+        const std::string& data = xnect.getUnityData();
+        double delay = end - start;
+        data[] = DelayPerData(delay, data);
+
+        // Press  ESC on keyboard to exit
+        char c = (char) cv::waitKey(25);
+        if(c == 27)
+            break;
+    }
+
+    storeArrayToFile(data, "test.mock");
+}
+
+void playSimulation(std::string recordingFileNameWithPath) {
+
+    DelayPerData data[] = readFromFile(recordingFileNameWithPath);
+
+    Common::CWebSocketServer m_WSTransceiver;
+    std::cout << "INFO: Attempting to started websocket server on 8080." << std::endl;
+    m_WSTransceiver.Initialize();
+    m_WSTransceiver.StartServer("8080", "..");
+
+    while(1) {
+        for (int i = 0; i < data.size(); i++) {
+            DelayPerData singleData = data[i];
+
+            sleep(singleData.delay);
+            m_WSTransceiver.SendData(singleData.data);
+        }
+
+        // Press  ESC on keyboard to exit
+        char c = (char) cv::waitKey(25);
+        if(c == 27)
+            break;
+    }
 }
 
 int main()
 {
-	XNECT xnect;
-
-
-	if (WEB_CAM)
-	{
-		if (playLive(xnect) == false)
-			return 1;
+	switch(mode) {
+	    case Mode::LIVE:
+            XNECT xnect;
+            if (playLive(xnect) == false) {
+                return 1;
+            }
+            xnect.save_joint_positions(".");
+            xnect.save_raw_joint_positions(".");
+            break;
+	    case Mode::SIMULATION:
+	        playSimulation(recordingsFilePath + "test.mock");
+	        break;
+	    case Mode::VIDEOINPUT:
+            XNECT xnect;
+            while(REPEAT_VIDEO &&) {
+                readVideoSeq(xnect, videoFilePath);
+            }
+            xnect.save_joint_positions(".");
+            xnect.save_raw_joint_positions(".");
+            break;
+	    case Mode::SIMULATION_RECORDING:
+            XNECT xnect;
+	        recordSimulation(xnect, videoFilePath);
+	        break;
 	}
-	else
-		readVideoSeq(xnect, videoFilePath);
 
-
-	xnect.save_joint_positions(".");
-	xnect.save_raw_joint_positions(".");
-		
 	return 0;
 }
 
