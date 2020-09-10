@@ -21,8 +21,6 @@ abstract public class runLive
     abstract public void Update(string Line);
     public void recenter()
     {
-        if (m_isVRMode)
-            GvrViewer.Instance.Recenter();
     }
 
     protected void drawEllipsoid(Vector3 Start, Vector3 End, GameObject Bone,float shift)

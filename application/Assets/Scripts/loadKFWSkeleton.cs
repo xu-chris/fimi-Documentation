@@ -230,18 +230,9 @@ public class loadKFWSkeleton : MonoBehaviour
                     Plane.transform.position = new Vector3(OrigPos[0], LowestY - PlaneFootBuffer, OrigPos[2]);
 
                 GameObject FollowerCamera = GameObject.Find("FollowerCamera");
-                if (m_isVRMode)
-                {
-                    // Align VR head pose with character
-                    FollowerCamera.transform.position = Joints[6];
-                    FollowerCamera.transform.rotation = GvrViewer.Controller.Head.transform.rotation;
-                }
-                else
-                {
-                    // Move camera with checkerboard plane
-                    OrigPos = FollowerCamera.transform.position;
-                    FollowerCamera.transform.position = new Vector3(OrigPos[0], Plane.transform.position.y + 1, OrigPos[2]);
-                }
+                // Move camera with checkerboard plane
+                OrigPos = FollowerCamera.transform.position;
+                FollowerCamera.transform.position = new Vector3(OrigPos[0], Plane.transform.position.y + 1, OrigPos[2]);
             }
 
             //0-root_rx, 1-spine_3_rx
@@ -337,16 +328,8 @@ public class loadKFWSkeleton : MonoBehaviour
 
                 // Move camera with checkerboard plane
                 GameObject FollowerCamera = GameObject.Find("FollowerCamera");
-                if (m_isVRMode)
-                {
-                    FollowerCamera.transform.position = Joints[3];
-                    FollowerCamera.transform.rotation = GvrViewer.Controller.Head.transform.rotation;
-                }
-                else
-                {
-                    OrigPos = FollowerCamera.transform.position;
-                    FollowerCamera.transform.position = new Vector3(OrigPos[0], Plane.transform.position.y + 1, OrigPos[2]);
-                }
+                OrigPos = FollowerCamera.transform.position;
+                FollowerCamera.transform.position = new Vector3(OrigPos[0], Plane.transform.position.y + 1, OrigPos[2]);
             }
 
             //0-SpineBase, 1-SpineMid
