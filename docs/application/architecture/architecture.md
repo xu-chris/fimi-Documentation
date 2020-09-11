@@ -91,7 +91,4 @@ The mock player takes this file, interprets it line by line and sends the given 
 
 The result looks like the following video:
 
-<video controls>
-  <source src="3dpose.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
+[3dpose.mp4](3dpose.mp4 ':include :type=video controls')

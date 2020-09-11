@@ -15,6 +15,8 @@ My movement is therefore a squat with lateral arm abductions which you can see i
 
 ![Squat Arm Abduction - Frontal and sagital view](squat-arm-abduction.png)
 
+[exercise_3d.mp4](exercise_3d.mp4 ':include :type=video controls')
+
 ## Ruleset
 The ruleset for this movement is summarized as the following:
 Frontal aspects

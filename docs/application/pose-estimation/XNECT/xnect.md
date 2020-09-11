@@ -2,12 +2,9 @@
 
 !> Status: Draft
 
-[XNECT](http://gvv.mpi-inf.mpg.de/projects/XNect/)
+MPII website: [XNECT](http://gvv.mpi-inf.mpg.de/projects/XNect/)
 
-<video controls>
-  <source src="first_result_pepper.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
+[first_result_pepper.mp4](first_result_pepper.mp4 ':include :type=video controls')
 
 XNECT is a custom made 3D pose estimation model which tries to fit the estimated 2D pose to a 3D skeleton. For this it uses some frames beforehand to scale the skeleton correctly and use this info to fit the following pose estimations onto the skeleton.
 
