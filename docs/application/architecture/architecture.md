@@ -44,6 +44,8 @@ sequenceDiagram
             WebSocketServer-->> UI: Send Message
             UI->>UI: Fit Skeleton
             UI->>UI: Apply poses to skeleton
+            UI->>UI: Evaluate poses
+            Note right of UI: Missing part
         and Displaying webcam video with pose
             PoseEstimation->>OpenCV: Open window with image
         end
