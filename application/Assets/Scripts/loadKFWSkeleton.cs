@@ -106,7 +106,7 @@ public class loadKFWSkeleton : MonoBehaviour
                 else
                 {
                     Debug.Log("Wood texture not assigned, will draw red.");
-                    m_JointSpheres[i].GetComponent<Renderer>().material.color = Color.red;
+                    m_JointSpheres[i].GetComponent<Renderer>().material.color = Color.white;
                 }
 
                 // Size of spheres
@@ -125,7 +125,7 @@ public class loadKFWSkeleton : MonoBehaviour
                 else
                 {
                     Debug.Log("Wood texture not assigned, will draw red.");
-                    m_Bones[i].GetComponent<Renderer>().material.color = Color.red;
+                    m_Bones[i].GetComponent<Renderer>().material.color = Color.white;
                 }
             }
         }
@@ -154,7 +154,7 @@ public class loadKFWSkeleton : MonoBehaviour
                 else
                 {
                     Debug.Log("Wood texture not assigned, will draw red.");
-                    m_JointSpheres[i].GetComponent<Renderer>().material.color = Color.red;
+                    m_JointSpheres[i].GetComponent<Renderer>().material.color = Color.white;
                 }
 
                 // Size of spheres
@@ -175,7 +175,7 @@ public class loadKFWSkeleton : MonoBehaviour
                 else
                 {
                     Debug.Log("Wood texture not assigned, will draw red.");
-                    m_Bones[i].GetComponent<Renderer>().material.color = Color.red;
+                    m_Bones[i].GetComponent<Renderer>().material.color = Color.white;
                 }
             }
         }

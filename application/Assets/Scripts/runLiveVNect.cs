@@ -7,7 +7,8 @@ public class runLiveVNect : runLive
     private List<int> m_ValidJointIdx;
     private Vector3 originalBallPos;
     private GameObject m_Ball;
- 
+    private Color skeletonColor = Color.black;
+
     override public void Start()
     {
         m_isMoveFloor = true;
@@ -39,7 +40,6 @@ public class runLiveVNect : runLive
 
             LFoot[p] = GameObject.Find(m_Feet[p].name + "/Mannequin_Amature/Foot_L");
             RFoot[p] = GameObject.Find(m_Feet[p].name + "/Mannequin_Amature/Foot_R");
-
         }
         GameObject.Find("feet").SetActive(false);
         m_JointSpheres = new GameObject[JSize, m_totalNumPeople];
@@ -48,18 +48,7 @@ public class runLiveVNect : runLive
             for (int i = 0; i < JSize; ++i)
         {
             m_JointSpheres[i,p] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            m_WoodMatRef = Resources.Load("wood_Texture", typeof(Material)) as Material; // loads from Assests/Resources directory
-            if (m_WoodMatRef != null)
-            {
-                m_JointSpheres[i, p].GetComponent<Renderer>().material = m_WoodMatRef;
-                //m_JointSpheres[i].GetComponent<Renderer>().material.color = new Color(252.0f / 255.0f, 114.0f / 255.0f, 114.0f / 255.0f);
-                m_JointSpheres[i, p].GetComponent<Renderer>().material.color = new Color(252.0f / 255.0f, 164.0f / 255.0f, 63.0f / 255.0f);
-            }
-            else
-            {
-                Debug.Log("Wood texture not assigned, will draw red.");
-                m_JointSpheres[i, p].GetComponent<Renderer>().material.color = Color.red;
-            }
+            m_JointSpheres[i, p].GetComponent<Renderer>().material.color = skeletonColor;
 
             // Size of spheres
             float SphereRadius = 0.05f;
@@ -73,16 +62,7 @@ public class runLiveVNect : runLive
             for (int i = 0; i < nBones; ++i)
             {
                 m_Bones[i, p] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                if (m_WoodMatRef != null)
-                {
-                    m_Bones[i,p].GetComponent<Renderer>().material = m_WoodMatRef;
-                    m_Bones[i,p].GetComponent<Renderer>().material.color = new Color(252.0f / 255.0f, 164.0f / 255.0f, 63.0f / 255.0f);
-                }
-                else
-                {
-                    Debug.Log("Wood texture not assigned, will draw red.");
-                    m_Bones[i,p].GetComponent<Renderer>().material.color = Color.red;
-                }
+                m_Bones[i,p].GetComponent<Renderer>().material.color = skeletonColor;
             }
     }
     
@@ -216,19 +196,15 @@ public class runLiveVNect : runLive
 
             m_Feet[p].SetActive(true);
 
-            Color xbotColor = new Color(float.Parse(Tokens[3 * p * num_joints + 0 + ParseOffset]),
-                                        float.Parse(Tokens[3 * p * num_joints + 1 + ParseOffset]),
-                                        float.Parse(Tokens[3 * p * num_joints + 2 + ParseOffset]), 1.0f);
-
             for (int i = 0; i < m_JointSpheres.GetLength(0); ++i)
             {
                 m_JointSpheres[i, p].SetActive(true);
-                m_JointSpheres[i, p].GetComponent<Renderer>().material.color = xbotColor * .5f;
+                m_JointSpheres[i, p].GetComponent<Renderer>().material.color = skeletonColor * .5f;
 
                 if (i < num_bones)
                 {
                     m_Bones[i, p].SetActive(true);
-                    m_Bones[i, p].GetComponent<Renderer>().material.color = xbotColor;
+                    m_Bones[i, p].GetComponent<Renderer>().material.color = skeletonColor;
                 }
 
                 Joints[i].x = float.Parse(Tokens[3 * p * num_joints + 3 * (i + 1) + 0 + ParseOffset]) * 0.001f; // Mirror for ease of viewing (-1), no mirror (1)
