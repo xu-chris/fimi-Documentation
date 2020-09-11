@@ -319,7 +319,7 @@ void playSimulation(std::string recordingFileNameWithPath) {
 int main()
 {
 	switch(mode) {
-	case Mode::LIVE: {
+		case Mode::LIVE: {
 			XNECT xnect;
 			if (playLive(xnect) == false) {
 				return 1;
