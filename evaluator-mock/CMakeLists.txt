@@ -1,62 +1,44 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.9)
+cmake_minimum_required (VERSION 3.5)
+project(WebsocketServer)
 
-SET(PROJECT_NAME pose_estimator_mock)
-PROJECT(${PROJECT_NAME})
-set(CMAKE_BUILD_TYPE Release)
+# Set the C++ standard to C++11
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-include(CheckCXXCompilerFlag)
-CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
-CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-if(COMPILER_SUPPORTS_CXX11)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-elseif(COMPILER_SUPPORTS_CXX0X)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+# Enable all compiler warnings
+if (MSVC)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 else()
-    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 endif()
 
-FIND_PACKAGE(Threads)
+# Under MinGW, statically link against the standard libraries
+if (MINGW)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+endif()
 
-IF(POLICY CMP0020)
-  CMAKE_POLICY(SET CMP0020 OLD)
+# Have a separate binary directory
+IF(MSVC)
+	# Yet another MSVC thingy http://stackoverflow.com/questions/3457013/visual-studio-2008-creates-a-additional-bin-debug-folder-although-i-have-no-pre
+	SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+ELSE()
+	SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
 ENDIF()
-IF(POLICY CMP0043)
-  CMAKE_POLICY(SET CMP0043 OLD)
-ENDIF()
-INCLUDE(${CMAKE_SOURCE_DIR}/cmake/BuildConfig.cmake)
 
-# Find necessay extern packages
-INCLUDE(${CMAKE_SOURCE_DIR}/cmake/FindPackages.cmake)
-
-# Optional packages only if they are installed or requested for
-INCLUDE(${CMAKE_SOURCE_DIR}/cmake/FindOptionalPackages.cmake)
-
-# Include external libs as system to avoid getting their warnings
-INCLUDE_DIRECTORIES(SYSTEM ${EXTERN_INCS})
-# Then include other directories
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src)
-
-ADD_SUBDIRECTORY(src)
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 
-SET(ALL_FILES ${ALL_CPP_FILES} ${ALL_HPP_FILES})
-# Source group for Visual Studio
-FOREACH(f ${ALL_FILES})
-  FILE(RELATIVE_PATH SRCGR ${CMAKE_CURRENT_SOURCE_DIR} ${f})
+# Force WebSocket++ to use 100% C++11 mode, so that it doesn't try to look for Boost
+# (Note that under MinGW, Boost.Thread is still required, due to a bug in MinGW that prevents the C++11 version from being used)
+add_definitions(-D_WEBSOCKETPP_CPP11_STRICT_)
 
-  # Extract the folder, ie remove the filename part
-  STRING(REGEX REPLACE "(.*)(/[^/]*)$" "\\1" SRCGR ${SRCGR})
+# Add the third-party headers directory to the search path
+include_directories(SYSTEM "${PROJECT_SOURCE_DIR}/external")
 
-  # Source_group expects \\ (double antislash), not / (slash)
-  STRING(REPLACE / \\ SRCGR ${SRCGR})
-  # MESSAGE(${f})
-  # MESSAGE(${SRCGR})
-  SOURCE_GROUP("${SRCGR}" FILES ${f})
-ENDFOREACH()
+# Compile jsoncpp from source
+add_library(jsoncpp STATIC ${PROJECT_SOURCE_DIR}/external/jsoncpp.cpp)
 
-add_executable(${PROJECT_NAME} ${ALL_CPP_FILES} ${ALL_HPP_FILES})
-
-MESSAGE(STATUS "All external libs: ${EXTERN_LIBS}")
-TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${EXTERN_LIBS})
-list(APPEND CUDA_NVCC_FLAGS -Xcompiler;-some flag)
+# Build the server executable
+add_executable(server src/server.cpp src/WebsocketServer.cpp)
+target_link_libraries (server jsoncpp)

@@ -1,3 +1,6 @@
 [submodule "evaluator/extern/xnect"]
 	path = evaluator/extern/xnect
 	url = https://creichel@github.com/creichel/xnect.git
+[submodule "evaluator-mock/extern/websocketpp"]
+	path = evaluator-mock/extern/websocketpp
+	url = https://github.com/zaphoyd/websocketpp
