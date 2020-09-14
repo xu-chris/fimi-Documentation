@@ -1,48 +1,38 @@
 ﻿using UnityEngine;
-using System.IO;
-using System.Collections.Generic;
 
-abstract public class runLive
+public abstract class RunLive
 {
+    protected GameObject[] LFoot;
+    protected GameObject[,] m_Bones;
+    protected GameObject[] m_Feet;
     public GameObject[,] m_JointSpheres;
-    public GameObject[,] m_Bones;
-    public Material m_WoodMatRef;
-    public int m_totalNumPeople = 10;
-
-    public bool m_isVRMode = false;
-    public bool m_isMoveFloor = false;
-
-    public GameObject[] LFoot;
-    public GameObject[] RFoot;
-    public GameObject[] m_Feet;
+    protected int m_totalNumPeople = 10;
+    protected GameObject[] RFoot;
 
 
-    abstract public void Start();
-    abstract public void Update(string Line);
-    public void recenter()
-    {
-    }
+    public abstract void Start();
+    public abstract void Update(string line);
 
-    protected void drawEllipsoid(Vector3 Start, Vector3 End, GameObject Bone,float shift)
+    protected static void DrawEllipsoid(Vector3 start, Vector3 end, GameObject bone, float shift)
     {
         // Go to unit sphere
-        Bone.transform.position = Vector3.zero;
-        Bone.transform.rotation = Quaternion.identity;
-        Bone.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        bone.transform.position = Vector3.zero;
+        bone.transform.rotation = Quaternion.identity;
+        bone.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-        Vector3 BoneVec = End - Start;
+        var boneVec = end - start;
 
         // Set z-axis of sphere to align with bone
-        float zScale = BoneVec.magnitude * 0.95f;
-        float xyScale = zScale * 0.28f;
-        Bone.transform.localScale = new Vector3(xyScale, xyScale, zScale);
+        var zScale = boneVec.magnitude * 0.95f;
+        var xyScale = zScale * 0.28f;
+        bone.transform.localScale = new Vector3(xyScale, xyScale, zScale);
+
+        // Reducing noise 
+        if (!(boneVec.magnitude > 0.00001)) return;
 
         // Rotate z-axis to align with bone vector
-        if (BoneVec.magnitude > 0.00001)
-        {
-            Bone.transform.rotation = Quaternion.LookRotation(BoneVec.normalized);
-            // Position at middle
-            Bone.transform.position = (Start + End) / 2.0f - new Vector3(0,shift,0);
-        }
+        bone.transform.rotation = Quaternion.LookRotation(boneVec.normalized);
+        // Position at middle
+        bone.transform.position = (start + end) / 2.0f - new Vector3(0, shift, 0);
     }
 }
