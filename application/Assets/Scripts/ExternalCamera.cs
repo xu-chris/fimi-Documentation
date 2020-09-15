@@ -35,12 +35,6 @@ public class ExternalCamera : MonoBehaviour
         Init();
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        //LateUpdate();
-    }
-
     /*
      * Camera logic on LateUpdate to only update after all character movement logic has been handled. 
      */
@@ -135,8 +129,6 @@ public class ExternalCamera : MonoBehaviour
         _currentDistance = Mathf.Lerp(_currentDistance, _desiredDistance, Time.deltaTime * zoomDampening);
 
         // calculate position based on the new currentDistance 
-        //position = target.position - (rotation * Vector3.forward * currentDistance + targetOffset);
-        //transform.position = position;
     }
 
     private void OnEnable()

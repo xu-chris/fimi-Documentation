@@ -1,114 +1,164 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Xml.Schema;
+using JetBrains.Annotations;
+using UnityEngine;
 using WebSocketSharp;
 
 public class WebSocketClient : MonoBehaviour
 {
-    public string m_Message;
     private readonly bool enableLogging = false;
     private readonly string webSocketUrl = "ws://localhost:8080/";
 
-    private RunLive m_AnyMethod;
+    private SkeletonOrchestrator _skeletonOrchestrator;
 
-    private bool m_isRotateCamera;
-    private bool m_isWSConnected;
-    private Vector3 m_Offset;
-    private Vector3 m_ParentCamPos;
+    private bool _isWsConnected;
+    private Vector3 _offset;
+    private Vector3 _parentCamPos;
 
-    private Quaternion m_ParentCamRot;
-    private Vector3 m_ParentCamScale;
-    private WebSocket m_ws;
+    private string _message;
+
+    private Quaternion _parentCamRot;
+    private Vector3 _parentCamScale;
+    private WebSocket _webSocket;
+    private Person[] _detectedPersons;
+    private float _lowestY = 999.0f;
 
     public void Start()
     {
         Application.runInBackground = true;
 
         ConnectToWebSocketServer();
+        StartCoroutine(CheckAndReconnect());
 
-        m_AnyMethod = new RunLiveXNect();
+        _skeletonOrchestrator = new SkeletonOrchestrator();
 
-        m_ParentCamRot = transform.rotation;
-        m_ParentCamPos = transform.position;
-        m_ParentCamScale = transform.localScale;
+        _parentCamRot = transform.rotation;
+        _parentCamPos = transform.position;
+        _parentCamScale = transform.localScale;
 
-        m_AnyMethod.Start();
+        _skeletonOrchestrator.Start();
     }
 
     public void Update()
     {
-        if (m_isRotateCamera && m_AnyMethod.m_JointSpheres.GetLength(0) > 0)
-        {
-            m_Offset = transform.position - m_AnyMethod.m_JointSpheres[0, 0].transform.position;
-            m_Offset = Quaternion.AngleAxis(100.0f * Time.deltaTime, Vector3.up) * m_Offset;
-
-            transform.position = m_AnyMethod.m_JointSpheres[0, 0].transform.position + m_Offset;
-            transform.LookAt(m_AnyMethod.m_JointSpheres[0, 0].transform.position);
-
-            m_isRotateCamera = false;
-        }
-
-        m_AnyMethod?.Update(m_Message);
+        _skeletonOrchestrator?.Update(DecodeMessageData(_message), _lowestY);
     }
 
     private void LateUpdate()
     {
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetKey(KeyCode.C))
         {
-            m_isRotateCamera = !m_isRotateCamera;
-            Debug.Log(m_isRotateCamera ? "Rotating camera." : "Stopping camera rotation.");
+            Debug.Log("Before cam: " + transform.position);
+            Debug.Log("Before parent cam: " + _parentCamPos);
+            transform.position = _parentCamPos;
+            transform.rotation = _parentCamRot;
+            transform.localScale = _parentCamScale;
+            Debug.Log("After: " + transform.position);
+
+            Debug.Log("Reset camera to original position.");
         }
-
-        if (!Input.GetKey(KeyCode.C)) return;
-
-        Debug.Log("Before cam: " + transform.position);
-        Debug.Log("Before parent cam: " + m_ParentCamPos);
-        transform.position = m_ParentCamPos;
-        transform.rotation = m_ParentCamRot;
-        transform.localScale = m_ParentCamScale;
-        Debug.Log("After: " + transform.position);
-
-        Debug.Log("Reset camera to original position.");
     }
 
     public void OnApplicationQuit()
     {
-        if (m_ws != null && m_ws.ReadyState == WebSocketState.OPEN)
-            m_ws.Close();
+        StopCoroutine(CheckAndReconnect());
+        
+        if (_webSocket != null && _webSocket.ReadyState == WebSocketState.OPEN)
+            _webSocket.Close();
+    }
+    
+    private IEnumerator CheckAndReconnect()
+    {
+        while (true)
+        {
+            if (_isWsConnected)
+                yield break;
+            Debug.Log("Not connected to server. Will reconnect now.");
+            yield return new WaitForSeconds(1);
+            ConnectToWebSocketServer();
+        }
     }
 
     private void ConnectToWebSocketServer()
     {
-        if (m_isWSConnected)
+        if (_isWsConnected)
             return;
 
-        m_Message = "No data.";
-
-        using (m_ws = new WebSocket(webSocketUrl))
+        using (_webSocket = new WebSocket(webSocketUrl))
         {
             if (enableLogging)
             {
-                m_ws.Log.Level = LogLevel.TRACE;
-                m_ws.Log.File = "./ws_log.txt";
+                _webSocket.Log.Level = LogLevel.TRACE;
+                _webSocket.Log.File = "./ws_log.txt";
             }
 
-            m_ws.OnOpen += (sender, e) =>
+            _webSocket.OnOpen += (sender, e) =>
             {
-                m_ws.Send("Hello server.");
+                _webSocket.Send("Hello server.");
                 Debug.Log("Connection opened.");
-                m_isWSConnected = true;
+                _isWsConnected = true;
             };
-            m_ws.OnMessage += (sender, e) =>
+            _webSocket.OnMessage += (sender, e) =>
             {
-                m_Message = e.Data;
-                Debug.Log(m_Message);
+                _message = e.Data;
             };
-            m_ws.OnClose += (sender, e) =>
+            _webSocket.OnClose += (sender, e) =>
             {
-                m_ws.Connect(); // Reopen connection
-                m_isWSConnected = false;
+                _webSocket.Connect(); // Reopen connection
+                _isWsConnected = false;
             };
-            m_ws.OnError += (sender, e) => { m_isWSConnected = false; };
+            _webSocket.OnError += (sender, e) => { _isWsConnected = false; };
 
-            m_ws.Connect();
+            _webSocket.Connect();
         }
+    }
+    
+    [CanBeNull]
+    private Person[] DecodeMessageData(string message)
+    {
+        Debug.Log(message);
+
+        if (string.IsNullOrEmpty(message))
+            return null;
+
+        // Parse message
+        const int parseOffset = 0; // No offset for real-time system
+        var tokens = message.Split(',');
+        Debug.Log("Detected " + (tokens.Length - parseOffset) / 3 + " joints.");
+        
+
+        var maxNumberOfJoints = 22;
+
+        if ((tokens.Length - parseOffset) / 3 % maxNumberOfJoints != 0)
+        {
+            Debug.Log("Number of tokens cannot be parsed. Inconsistency between number of tokens and 3D vectors detected.");
+            return null;
+        }
+
+        var currentNumPeople = (tokens.Length - parseOffset) / 3 / maxNumberOfJoints;
+        Debug.Log("Number of detected people " + currentNumPeople);
+
+        var newDetection = new Person[currentNumPeople];
+
+        for (var p = 0; p < currentNumPeople; ++p)
+        {
+            newDetection[p].Joints = new Vector3[maxNumberOfJoints];
+            
+            for (var i = 0; i < maxNumberOfJoints - 1; ++i)
+            {
+                var tokenIndex = 3 * p * maxNumberOfJoints + 3 * (i) + 3;
+                
+                newDetection[p].Joints[i].x = float.Parse(tokens[tokenIndex + 0]) * 0.001f; // Can be flipped here for mirroring
+                newDetection[p].Joints[i].y = float.Parse(tokens[tokenIndex + 1]) * 0.001f;
+                newDetection[p].Joints[i].z = -float.Parse(tokens[tokenIndex + 2]) * 0.001f;
+
+                if (newDetection[p].Joints[i].y < _lowestY)
+                    _lowestY = newDetection[p].Joints[i].y;
+            }    
+        }
+
+        return newDetection;
     }
 }
