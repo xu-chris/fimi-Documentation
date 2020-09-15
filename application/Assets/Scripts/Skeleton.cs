@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class Skeleton
 {
-
     // Skeleton design
     private static readonly Color SkeletonColor = Color.black;
     private static readonly float SphereRadius = 0.05f;
-    
+
     // Definition
-    private static readonly Dictionary<int, Joint> Joints = new Dictionary<int, Joint>(){
-        {0, new Joint(0, "Spine_1_RX", SkeletonColor, SphereRadius)}, 
+    private static readonly Dictionary<int, Joint> Joints = new Dictionary<int, Joint>
+    {
+        {0, new Joint(0, "Spine_1_RX", SkeletonColor, SphereRadius)},
         {1, new Joint(1, "Spine_2_RX", SkeletonColor, SphereRadius)},
         {2, new Joint(2, "Spine_3_RX", SkeletonColor, SphereRadius)},
         {3, new Joint(3, "Neck_1_RX", SkeletonColor, SphereRadius)},
         {4, new Joint(4, "Head_EE_RY", SkeletonColor, SphereRadius)},
-        
+
         // Left
         {5, new Joint(5, "Left_Shoulder_RX", SkeletonColor, SphereRadius)},
         {6, new Joint(6, "Left_Elbow_RX", SkeletonColor, SphereRadius)},
@@ -25,7 +25,7 @@ public class Skeleton
         {10, new Joint(10, "Left_Knee_RX", SkeletonColor, SphereRadius)},
         {11, new Joint(11, "Left_Ankle_RX", SkeletonColor, SphereRadius)},
         {12, new Joint(12, "Left_Foot_EE", SkeletonColor, SphereRadius)},
-        
+
         // Right
         {13, new Joint(13, "Right_Shoulder_RX", SkeletonColor, SphereRadius)},
         {14, new Joint(14, "Right_Elbow_RX", SkeletonColor, SphereRadius)},
@@ -37,23 +37,23 @@ public class Skeleton
         {20, new Joint(20, "Right_Foot_EE", SkeletonColor, SphereRadius)}
     };
 
-    private static readonly Dictionary<int, Bone> Bones = new Dictionary<int, Bone>()
+    private static readonly Dictionary<int, Bone> Bones = new Dictionary<int, Bone>
     {
         {0, new Bone("Lower_Body", 0, 1, SkeletonColor)},
         {1, new Bone("Upper_Body", 1, 2, SkeletonColor)},
         {2, new Bone("Neck", 2, 3, SkeletonColor)},
         {3, new Bone("Head", 3, 4, SkeletonColor)},
-        
+
         // Left
         {4, new Bone("Left_Shoulder", 2, 5, SkeletonColor)},
-        {5, new Bone("Left_Elbow",5 ,6, SkeletonColor )},
-        {6, new Bone("Left_Forearm",6 ,7, SkeletonColor )},
-        {7, new Bone("Left_Hand",7 ,8, SkeletonColor )},
+        {5, new Bone("Left_Elbow", 5, 6, SkeletonColor)},
+        {6, new Bone("Left_Forearm", 6, 7, SkeletonColor)},
+        {7, new Bone("Left_Hand", 7, 8, SkeletonColor)},
         {8, new Bone("Left_Hip", 0, 9, SkeletonColor)},
         {9, new Bone("Left_Thigh", 9, 10, SkeletonColor)},
         {10, new Bone("Left_Lower_Leg", 10, 11, SkeletonColor)},
         {11, new Bone("Left_Foot", 11, 12, SkeletonColor)},
-        
+
         // Right
         {12, new Bone("Right_Shoulder", 2, 13, SkeletonColor)},
         {13, new Bone("Right_Elbow", 13, 14, SkeletonColor)},
@@ -65,9 +65,10 @@ public class Skeleton
         {19, new Bone("Right_Foot", 19, 20, SkeletonColor)}
     };
 
+    private GameObject _feet;
+
     private GameObject _lFoot;
     private GameObject _rFoot;
-    private GameObject _feet;
 
     public Skeleton()
     {
@@ -86,15 +87,9 @@ public class Skeleton
     public void SetIsVisible(bool visibility)
     {
         _feet.SetActive(visibility);
-        for (var i = 0; i < Joints.Count; ++i)
-        {
-            Joints[i].SetIsVisible(visibility);
-        }
+        for (var i = 0; i < Joints.Count; ++i) Joints[i].SetIsVisible(visibility);
 
-        for (var i = 0; i < Bones.Count; i++)
-        {
-            Bones[i].SetIsVisible(visibility);
-        }
+        for (var i = 0; i < Bones.Count; i++) Bones[i].SetIsVisible(visibility);
     }
 
     public void SetSkeleton(Vector3[] joints, GameObject plane, float lowestY)

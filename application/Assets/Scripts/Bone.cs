@@ -1,33 +1,32 @@
-using System;
 using UnityEngine;
 
 public struct Bone
 {
-    public String name;
+    public string name;
     public int jointA;
     public int jointB;
 
     public GameObject gameObject;
 
-    public Bone(String name, int jointA, int jointB)
+    public Bone(string name, int jointA, int jointB)
     {
         this.name = name;
         this.jointA = jointA;
         this.jointB = jointB;
-        this.gameObject = CreateGameObject(name, Color.black);
-    }
-    
-    public Bone(String name, int jointA, int jointB, Color color)
-    {
-        this.name = name;
-        this.jointA = jointA;
-        this.jointB = jointB;
-        this.gameObject = CreateGameObject(name, color);
+        gameObject = CreateGameObject(name, Color.black);
     }
 
-    private static GameObject CreateGameObject(String name, Color color)
+    public Bone(string name, int jointA, int jointB, Color color)
     {
-        GameObject newGameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        this.name = name;
+        this.jointA = jointA;
+        this.jointB = jointB;
+        gameObject = CreateGameObject(name, color);
+    }
+
+    private static GameObject CreateGameObject(string name, Color color)
+    {
+        var newGameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         newGameObject.name = name;
         newGameObject.GetComponent<Renderer>().material.color = color;
 
@@ -45,7 +44,7 @@ public struct Bone
         gameObject.transform.position = Vector3.zero;
         gameObject.transform.rotation = Quaternion.identity;
         gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        
+
         var boneVec = end - start;
 
         // Set z-axis of sphere to align with bone
@@ -61,7 +60,7 @@ public struct Bone
         // Position at middle
         gameObject.transform.position = (start + end) / 2.0f - new Vector3(0, shift, 0);
     }
-    
+
     public void SetIsVisible(bool visible)
     {
         gameObject.SetActive(visible);

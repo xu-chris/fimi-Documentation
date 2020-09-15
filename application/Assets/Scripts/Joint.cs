@@ -1,24 +1,23 @@
-using System;
 using UnityEngine;
 
 public struct Joint
 {
     public int ID;
-    public String name;
+    public string name;
 
     public GameObject gameObject;
 
-    public Joint(int id, String name, Color color, float sphereRadius)
+    public Joint(int id, string name, Color color, float sphereRadius)
     {
-        this.ID = id;
+        ID = id;
         this.name = name;
 
-        this.gameObject = createGameObject(name, color, sphereRadius);
+        gameObject = createGameObject(name, color, sphereRadius);
     }
 
-    static GameObject createGameObject(String name, Color color, float sphereRadius)
+    private static GameObject createGameObject(string name, Color color, float sphereRadius)
     {
-        GameObject newGameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        var newGameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         newGameObject.name = name;
         newGameObject.GetComponent<Renderer>().material.color = color;
         newGameObject.transform.localScale = new Vector3(sphereRadius, sphereRadius, sphereRadius);

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Schema;
+﻿using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
 using WebSocketSharp;
@@ -10,20 +7,20 @@ public class WebSocketClient : MonoBehaviour
 {
     private readonly bool enableLogging = false;
     private readonly string webSocketUrl = "ws://localhost:8080/";
-
-    private SkeletonOrchestrator _skeletonOrchestrator;
+    private Person[] _detectedPersons;
 
     private bool _isWsConnected;
+    private float _lowestY = 999.0f;
+
+    private string _message;
     private Vector3 _offset;
     private Vector3 _parentCamPos;
 
-    private string _message;
-
     private Quaternion _parentCamRot;
     private Vector3 _parentCamScale;
+
+    private SkeletonOrchestrator _skeletonOrchestrator;
     private WebSocket _webSocket;
-    private Person[] _detectedPersons;
-    private float _lowestY = 999.0f;
 
     public void Start()
     {
@@ -64,11 +61,11 @@ public class WebSocketClient : MonoBehaviour
     public void OnApplicationQuit()
     {
         StopCoroutine(CheckAndReconnect());
-        
+
         if (_webSocket != null && _webSocket.ReadyState == WebSocketState.OPEN)
             _webSocket.Close();
     }
-    
+
     private IEnumerator CheckAndReconnect()
     {
         while (true)
@@ -100,10 +97,7 @@ public class WebSocketClient : MonoBehaviour
                 Debug.Log("Connection opened.");
                 _isWsConnected = true;
             };
-            _webSocket.OnMessage += (sender, e) =>
-            {
-                _message = e.Data;
-            };
+            _webSocket.OnMessage += (sender, e) => { _message = e.Data; };
             _webSocket.OnClose += (sender, e) =>
             {
                 _webSocket.Connect(); // Reopen connection
@@ -114,7 +108,7 @@ public class WebSocketClient : MonoBehaviour
             _webSocket.Connect();
         }
     }
-    
+
     [CanBeNull]
     private Person[] DecodeMessageData(string message)
     {
@@ -127,13 +121,14 @@ public class WebSocketClient : MonoBehaviour
         const int parseOffset = 0; // No offset for real-time system
         var tokens = message.Split(',');
         Debug.Log("Detected " + (tokens.Length - parseOffset) / 3 + " joints.");
-        
+
 
         var maxNumberOfJoints = 22;
 
         if ((tokens.Length - parseOffset) / 3 % maxNumberOfJoints != 0)
         {
-            Debug.Log("Number of tokens cannot be parsed. Inconsistency between number of tokens and 3D vectors detected.");
+            Debug.Log(
+                "Number of tokens cannot be parsed. Inconsistency between number of tokens and 3D vectors detected.");
             return null;
         }
 
@@ -145,18 +140,19 @@ public class WebSocketClient : MonoBehaviour
         for (var p = 0; p < currentNumPeople; ++p)
         {
             newDetection[p].Joints = new Vector3[maxNumberOfJoints];
-            
+
             for (var i = 0; i < maxNumberOfJoints - 1; ++i)
             {
-                var tokenIndex = 3 * p * maxNumberOfJoints + 3 * (i) + 3;
-                
-                newDetection[p].Joints[i].x = float.Parse(tokens[tokenIndex + 0]) * 0.001f; // Can be flipped here for mirroring
+                var tokenIndex = 3 * p * maxNumberOfJoints + 3 * i + 3;
+
+                newDetection[p].Joints[i].x =
+                    float.Parse(tokens[tokenIndex + 0]) * 0.001f; // Can be flipped here for mirroring
                 newDetection[p].Joints[i].y = float.Parse(tokens[tokenIndex + 1]) * 0.001f;
                 newDetection[p].Joints[i].z = -float.Parse(tokens[tokenIndex + 2]) * 0.001f;
 
                 if (newDetection[p].Joints[i].y < _lowestY)
                     _lowestY = newDetection[p].Joints[i].y;
-            }    
+            }
         }
 
         return newDetection;
