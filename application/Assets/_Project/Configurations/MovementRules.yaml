@@ -1,0 +1,6 @@
+exercises:
+  squat-arm-raise:
+    rules:
+      - type: angle
+        ideal: 90
+        variance: 5
