@@ -14,7 +14,7 @@ public:
     double delay;
     const std::string delimiter = " ";
 
-    DelayPerData(double delay, std::string data) : delay(delay), data(std::move(data)) {};
+    DelayPerData(double delay, std::string data) : data(std::move(data)), delay(delay) {};
 	DelayPerData(std::string input) {
 		int position = 0;
 		position = input.find(delimiter, position);
