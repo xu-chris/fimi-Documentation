@@ -1,36 +1,41 @@
 using UnityEngine;
 
-public struct Joint
+namespace _Project.Scripts
 {
-    public int ID;
-    public string name;
-
-    public GameObject gameObject;
-
-    public Joint(int id, string name, Color color, float sphereRadius)
+    public struct Joint
     {
-        ID = id;
-        this.name = name;
+        private int _id;
+        private string _name;
 
-        gameObject = createGameObject(name, color, sphereRadius);
-    }
+        private GameObject _gameObject;
 
-    private static GameObject createGameObject(string name, Color color, float sphereRadius)
-    {
-        var newGameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        newGameObject.name = name;
-        newGameObject.GetComponent<Renderer>().material.color = color;
-        newGameObject.transform.localScale = new Vector3(sphereRadius, sphereRadius, sphereRadius);
-        return newGameObject;
-    }
+        public Joint(int id, string name, Color color, float sphereRadius, GameObject parentObject)
+        {
+            _id = id;
+            this._name = name;
 
-    public void SetJointPosition(Vector3 jointPosition)
-    {
-        gameObject.transform.position = jointPosition;
-    }
+            _gameObject = CreateGameObject(parentObject, name, color, sphereRadius);
+        }
 
-    public void SetIsVisible(bool visible)
-    {
-        gameObject.SetActive(visible);
+        private static GameObject CreateGameObject(GameObject parentObject, string name, Color color,
+            float sphereRadius)
+        {
+            var newGameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            newGameObject.name = name;
+            newGameObject.transform.parent = parentObject.transform;
+            newGameObject.GetComponent<Renderer>().material.color = color;
+            newGameObject.transform.localScale = new Vector3(sphereRadius, sphereRadius, sphereRadius);
+            return newGameObject;
+        }
+
+        /**
+     * Moves the joint to the dedicated position.
+     * Because moving might be because it was detected, it will set to activated as well.
+     */
+        public void SetJointPosition(Vector3 jointPosition)
+        {
+            _gameObject.transform.position = jointPosition;
+            _gameObject.SetActive(true);
+        }
     }
 }

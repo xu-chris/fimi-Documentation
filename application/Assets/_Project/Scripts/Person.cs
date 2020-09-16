@@ -1,6 +1,10 @@
 using UnityEngine;
 
-public struct Person
+namespace _Project.Scripts
 {
-    public Vector3[] Joints;
+    public struct Person
+    {
+        public int ID;
+        public Vector3[] Joints;
+    }
 }

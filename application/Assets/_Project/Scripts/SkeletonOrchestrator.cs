@@ -1,37 +1,58 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class SkeletonOrchestrator
+namespace _Project.Scripts
 {
-    private GameObject _plane;
-    private Skeleton[] _skeletons;
-    private List<int> _validJointIdx;
-    private readonly int maxNumberOfPeople = 10;
-
-    public void Start()
+    public class SkeletonOrchestrator
     {
-        _plane = GameObject.Find("CheckerboardPlane");
-        InitializeAllSkeletons();
-    }
+        private readonly GameObject _plane;
+        private Skeleton[] _skeletons;
+        private List<int> _validJointIdx;
+        private const int _maxNumberOfPeople = 10;
 
-    public void Update(Person[] detectedPersons, float lowestY)
-    {
-        if (detectedPersons == null)
-            return;
-
-        for (var p = 0; p < detectedPersons.Length; ++p)
+        public SkeletonOrchestrator()
         {
-            _skeletons[p].SetSkeleton(detectedPersons[p].Joints, _plane, lowestY);
-            _skeletons[p].SetIsVisible(true);
+            _plane = GameObject.Find("CheckerboardPlane");
+            InitializeAllSkeletons();
         }
 
-        for (var p = detectedPersons.Length; p < maxNumberOfPeople; ++p) _skeletons[p].SetIsVisible(false);
-    }
+        public void Update(Person[] detectedPersons, float lowestY)
+        {
+            if (detectedPersons == null)
+                return;
 
-    private void InitializeAllSkeletons()
-    {
-        _skeletons = new Skeleton[maxNumberOfPeople];
+            for (var p = 0; p < _maxNumberOfPeople; p++)
+            {
+                // Init skeleton if not given.
+                if (_skeletons[p] == null)
+                {
+                    _skeletons[p] = new Skeleton(p);
+                    Debug.LogError("Initialized a new skeleton which should be already there 🤔. p: " + p);
+                }
 
-        for (var p = 0; p < maxNumberOfPeople; ++p) _skeletons[p] = new Skeleton();
+                // Set and activate only skeletons that are detected.
+                if (p >= 0 && detectedPersons.Length > p && p == detectedPersons[p].ID)
+                {
+                    _skeletons[p].SetSkeleton(detectedPersons[p].Joints, _plane, lowestY);
+                    _skeletons[p].SetIsVisible(true);
+                    Debug.Log("Set skeleton " + p + " and set it to visible.");
+                }
+                else
+                {
+                    _skeletons[p].SetIsVisible(false);
+                    Debug.Log("Set skeleton " + p + " to invisible (not active).");
+                }
+            }
+        }
+
+        private void InitializeAllSkeletons()
+        {
+            _skeletons = new Skeleton[_maxNumberOfPeople];
+            for (var p = 0; p < _maxNumberOfPeople; p++)
+            {
+                _skeletons[p] = new Skeleton(p);
+                _skeletons[p].SetIsVisible(false);
+            }
+        }
     }
 }

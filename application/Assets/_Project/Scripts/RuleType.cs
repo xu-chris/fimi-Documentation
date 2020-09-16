@@ -1,6 +1,7 @@
-using UnityEngine;
-
-public enum RuleType
+namespace _Project.Scripts
 {
-    Angle,
+    public enum RuleType
+    {
+        Angle,
+    }
 }
