@@ -1,5 +1,6 @@
+maxNumberOfPeople: 2
 exercises:
-  squat-arm-raise:
+  squatArmRaise:
     rules:
       - type: angle
         ideal: 90
