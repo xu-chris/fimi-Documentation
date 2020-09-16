@@ -12,7 +12,7 @@ namespace _Project.Scripts
         private static readonly Color SkeletonColor = Color.black;
         private static readonly float SphereRadius = 0.05f;
 
-        private GameObject _gameObject;
+        private readonly GameObject _gameObject;
 
         // Definition
         private readonly Dictionary<int, Joint> _joints;
@@ -89,9 +89,6 @@ namespace _Project.Scripts
         public void SetIsVisible(bool visibility)
         {
             _gameObject.SetActive(visibility);
-            // for (var i = 0; i < _joints.Count; ++i) _joints[i].SetIsVisible(visibility);
-            //
-            // for (var i = 0; i < _bones.Count; i++) _bones[i].SetIsVisible(visibility);
         }
 
         public void SetSkeleton(Vector3[] joints, GameObject plane, float lowestY)

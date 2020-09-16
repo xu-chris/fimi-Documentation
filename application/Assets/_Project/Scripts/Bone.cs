@@ -59,7 +59,6 @@ namespace _Project.Scripts
             _gameObject.transform.rotation = Quaternion.LookRotation(boneVec.normalized);
             // Position at middle
             _gameObject.transform.position = (start + end) / 2.0f - new Vector3(0, shift, 0);
-            _gameObject.SetActive(true);
         }
     }
 }

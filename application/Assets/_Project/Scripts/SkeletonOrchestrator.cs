@@ -35,12 +35,10 @@ namespace _Project.Scripts
                 {
                     _skeletons[p].SetSkeleton(detectedPersons[p].Joints, _plane, lowestY);
                     _skeletons[p].SetIsVisible(true);
-                    Debug.Log("Set skeleton " + p + " and set it to visible.");
                 }
                 else
                 {
                     _skeletons[p].SetIsVisible(false);
-                    Debug.Log("Set skeleton " + p + " to invisible (not active).");
                 }
             }
         }

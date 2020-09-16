@@ -35,7 +35,6 @@ namespace _Project.Scripts
         public void SetJointPosition(Vector3 jointPosition)
         {
             _gameObject.transform.position = jointPosition;
-            _gameObject.SetActive(true);
         }
     }
 }
