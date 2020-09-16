@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using WebSocketSharp;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.Periphery.Clients
 {
     public class WebSocketClient : MonoBehaviour
     {
@@ -28,7 +28,7 @@ namespace _Project.Scripts
         public void Start()
         {
             Application.runInBackground = true;
-        
+    
             StartCheckAndReconnectLifeCycle();
 
             _skeletonOrchestrator = new SkeletonOrchestrator();
@@ -67,8 +67,8 @@ namespace _Project.Scripts
         }
 
         /**
-     * Method to limit number of coroutines for reconnecting cycle to just one.
-     */
+ * Method to limit number of coroutines for reconnecting cycle to just one.
+ */
         private void StartCheckAndReconnectLifeCycle()
         {
             if (!_reconnecting)

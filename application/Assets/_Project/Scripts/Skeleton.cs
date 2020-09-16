@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Project.Scripts.DomainValues;
 using UnityEngine;
 
 namespace _Project.Scripts
@@ -7,7 +8,7 @@ namespace _Project.Scripts
     {
         // Parameters
         private int _id;
-    
+
         // Skeleton design
         private static readonly Color SkeletonColor = Color.black;
         private static readonly float SphereRadius = 0.05f;
@@ -15,74 +16,72 @@ namespace _Project.Scripts
         private readonly GameObject _gameObject;
 
         // Definition
-        private readonly Dictionary<int, Joint> _joints;
+        private readonly List<Joint> _joints;
 
-        private readonly Dictionary<int, Bone> _bones;
+        private readonly List<Bone> _bones;
 
-        public Skeleton(int id)
+        public Skeleton(int id, bool withGameObjects = true)
         {
             this._id = id;
-            
+        
             _gameObject = new GameObject
             {
                 name = "Skeleton_" + id
             };
 
-            _bones = new Dictionary<int, Bone>
-            {
-                {0, new Bone(BoneType.LowerBody, 0, 1, SkeletonColor, _gameObject)},
-                {1, new Bone(BoneType.UpperBody, 1, 2, SkeletonColor, _gameObject)},
-                {2, new Bone(BoneType.Neck, 2, 3, SkeletonColor, _gameObject)},
-                {3, new Bone(BoneType.Head, 3, 4, SkeletonColor, _gameObject)},
+            _bones = new List<Bone> {
+                new Bone(BoneType.LowerBody, 0, 1, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.UpperBody, 1, 2, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.Neck, 2, 3, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.Head, 3, 4, SkeletonColor, _gameObject, withGameObjects),
 
                 // Left
-                {4, new Bone(BoneType.LeftShoulder, 2, 5, SkeletonColor, _gameObject)},
-                {5, new Bone(BoneType.LeftElbow, 5, 6, SkeletonColor, _gameObject)},
-                {6, new Bone(BoneType.LeftForearm, 6, 7, SkeletonColor, _gameObject)},
-                {7, new Bone(BoneType.LeftHand, 7, 8, SkeletonColor, _gameObject)},
-                {8, new Bone(BoneType.LeftHip, 0, 9, SkeletonColor, _gameObject)},
-                {9, new Bone(BoneType.LeftThigh, 9, 10, SkeletonColor, _gameObject)},
-                {10, new Bone(BoneType.LeftLowerLeg, 10, 11, SkeletonColor, _gameObject)},
-                {11, new Bone(BoneType.LeftFoot, 11, 12, SkeletonColor, _gameObject)},
+                new Bone(BoneType.LeftShoulder, 2, 5, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.LeftElbow, 5, 6, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.LeftForearm, 6, 7, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.LeftHand, 7, 8, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.LeftHip, 0, 9, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.LeftThigh, 9, 10, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.LeftLowerLeg, 10, 11, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.LeftFoot, 11, 12, SkeletonColor, _gameObject, withGameObjects),
 
                 // Right
-                {12, new Bone(BoneType.RightShoulder, 2, 13, SkeletonColor, _gameObject)},
-                {13, new Bone(BoneType.RightElbow, 13, 14, SkeletonColor, _gameObject)},
-                {14, new Bone(BoneType.RightForearm, 14, 15, SkeletonColor, _gameObject)},
-                {15, new Bone(BoneType.RightHand, 15, 16, SkeletonColor, _gameObject)},
-                {16, new Bone(BoneType.RightHip, 0, 17, SkeletonColor, _gameObject)},
-                {17, new Bone(BoneType.RightThigh, 17, 18, SkeletonColor, _gameObject)},
-                {18, new Bone(BoneType.RightLowerLeg, 18, 19, SkeletonColor, _gameObject)},
-                {19, new Bone(BoneType.RightFoot, 19, 20, SkeletonColor, _gameObject)}
+                new Bone(BoneType.RightShoulder, 2, 13, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.RightElbow, 13, 14, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.RightForearm, 14, 15, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.RightHand, 15, 16, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.RightHip, 0, 17, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.RightThigh, 17, 18, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.RightLowerLeg, 18, 19, SkeletonColor, _gameObject, withGameObjects),
+                new Bone(BoneType.RightFoot, 19, 20, SkeletonColor, _gameObject, withGameObjects)
             };
-        
-            _joints = new Dictionary<int, Joint>
-            {
-                {0, new Joint(0, "Spine_1_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {1, new Joint(1, "Spine_2_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {2, new Joint(2, "Spine_3_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {3, new Joint(3, "Neck_1_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {4, new Joint(4, "Head_EE_RY", SkeletonColor, SphereRadius, _gameObject)},
+    
+            _joints = new List<Joint> {
+                new Joint(0, JointType.Spine1Rx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(1, JointType.Spine2Rx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(2, JointType.Spine3Rx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(3, JointType.Neck1Rx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(4, JointType.HeadEeRy, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
 
                 // Left
-                {5, new Joint(5, "Left_Shoulder_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {6, new Joint(6, "Left_Elbow_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {7, new Joint(7, "Left_Hand_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {8, new Joint(8, "Left_Hand_EE_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {9, new Joint(9, "Left_Hip_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {10, new Joint(10, "Left_Knee_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {11, new Joint(11, "Left_Ankle_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {12, new Joint(12, "Left_Foot_EE", SkeletonColor, SphereRadius, _gameObject)},
+                new Joint(5, JointType.LeftShoulderRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(6, JointType.LeftElbowRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(7, JointType.LeftHandRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(8, JointType.LeftHandEeRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(9, JointType.LeftHipRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(10, JointType.LeftKneeRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(11, JointType.LeftAnkleRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(12, JointType.LeftFootEe, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
 
                 // Right
-                {13, new Joint(13, "Right_Shoulder_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {14, new Joint(14, "Right_Elbow_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {15, new Joint(15, "Right_Hand_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {16, new Joint(16, "Right_Hand_EE_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {17, new Joint(17, "Right_Hip_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {18, new Joint(18, "Right_Knee_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {19, new Joint(19, "Right_Ankle_RX", SkeletonColor, SphereRadius, _gameObject)},
-                {20, new Joint(20, "Right_Foot_EE", SkeletonColor, SphereRadius, _gameObject)}
+                new Joint(13, JointType.RightShoulderRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(14, JointType.RightElbowRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(15, JointType.RightHandRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(16, JointType.RightHandEeRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(17, JointType.RightHipRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(18, JointType.RightKneeRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(19, JointType.RightAnkleRx, SkeletonColor, SphereRadius, _gameObject, withGameObjects),
+                new Joint(20, JointType.RightFootEe, SkeletonColor, SphereRadius, _gameObject, withGameObjects)
             };
         }
 
@@ -99,6 +98,12 @@ namespace _Project.Scripts
 
             UpdateJoints(joints, differenceWithPlaneAndFeet);
             UpdateBones(joints, differenceWithPlaneAndFeet);
+            
+            CheckAngleBetweenBones(BoneType.LeftLowerLeg, BoneType.LeftThigh, 90, 5);
+            CheckAngleBetweenBones(BoneType.RightLowerLeg, BoneType.RightThigh, 90, 5);
+            
+            CheckAngleBetweenBones(BoneType.LeftForearm, BoneType.LeftElbow, 0, 5);
+            CheckAngleBetweenBones(BoneType.RightForearm, BoneType.RightElbow, 0, 5);
         }
 
         private void UpdateJoints(Vector3[] joints, float differenceWithPlaneAndFeet)
@@ -114,9 +119,36 @@ namespace _Project.Scripts
         {
             for (var i = 0; i < _bones.Count; i++)
             {
-                var bone = _bones[i];
-                bone.SetBoneSizeAndPosition(joints[bone.JointA], joints[bone.JointB], differenceWithPlaneAndFeet);
+                var startJoint = joints[_bones[i].JointIndexA];
+                var endJoint = joints[_bones[i].JointIndexB];
+                _bones[i] = _bones[i].SetBoneSizeAndPosition(startJoint, endJoint, differenceWithPlaneAndFeet);
             }
+        }
+
+        private void CheckAngleBetweenBones(BoneType boneTypeA, BoneType boneTypeB, float expectedAngle, float tolerance)
+        {
+            // Fetching bones
+            var boneA = _bones.Find(item => item.BoneType.Equals(boneTypeA));
+            var boneB = _bones.Find(item => item.BoneType.Equals(boneTypeB));
+
+            // Color bones accordingly
+            if (IsBonesInDegreeRange(expectedAngle, tolerance, boneA, boneB))
+            {
+                boneA.Colorize(Color.green);
+                boneB.Colorize(Color.green);
+            }
+            else
+            {
+                boneA.Colorize(Color.red);
+                boneB.Colorize(Color.red);
+            }
+        }
+
+        public static bool IsBonesInDegreeRange(float expectedAngle, float tolerance, Bone boneA, Bone boneB)
+        {
+            var calculatedAngle = Vector3.Angle(boneA.BoneVector, boneB.BoneVector);
+            Debug.Log("Calculated angle: " + calculatedAngle + ", expected angle is between " + (expectedAngle - tolerance) + " and " + (expectedAngle + tolerance));
+            return !(calculatedAngle > expectedAngle + tolerance) && !(calculatedAngle < expectedAngle - tolerance);
         }
     }
 }
