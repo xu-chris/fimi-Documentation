@@ -151,3 +151,6 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 # End of https://www.toptal.com/developers/gitignore/api/rider
+
+!Library/CurrentLayout.dwlt
+!Library/CurrentLayout-default.dwlt
