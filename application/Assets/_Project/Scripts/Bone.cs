@@ -4,23 +4,23 @@ using UnityEngine.Assertions;
 
 namespace _Project.Scripts
 {
-    public struct Bone
+    public class Bone
     {
-        internal readonly BoneType BoneType;
-        public readonly int JointIndexA;
-        public readonly int JointIndexB;
-        public Vector3 BoneVector;
+        internal readonly BoneType boneType;
+        public readonly int jointIndexA;
+        public readonly int jointIndexB;
+        public Vector3 boneVector;
 
-        private readonly GameObject _gameObject;
+        private readonly GameObject gameObject;
 
         public Bone(BoneType boneType, int jointIndexA, int jointIndexB, Color color, GameObject parentObject, bool createGameObject = true)
         {
-            this.BoneType = boneType;
-            this.JointIndexA = jointIndexA;
-            this.JointIndexB = jointIndexB;
-            _gameObject = createGameObject ? InitGameObject(parentObject, boneType, color) : new GameObject();
+            this.boneType = boneType;
+            this.jointIndexA = jointIndexA;
+            this.jointIndexB = jointIndexB;
+            gameObject = createGameObject ? InitGameObject(parentObject, boneType, color) : new GameObject();
             
-            BoneVector = Vector3.zero;
+            boneVector = Vector3.zero;
         }
 
         private static GameObject InitGameObject(GameObject parentObject, BoneType name, Color color)
@@ -35,37 +35,35 @@ namespace _Project.Scripts
 
         public void Colorize(Color color)
         {
-            _gameObject.GetComponent<Renderer>().material.color = color;
+            gameObject.GetComponent<Renderer>().material.color = color;
         }
 
         /**
          * Translates, rotates and scales the bone based on the given start and end points plus shift.
          */
-        public Bone SetBoneSizeAndPosition(Vector3 start, Vector3 end, float shift)
+        public void SetBoneSizeAndPosition(Vector3 start, Vector3 end, float shift)
         {
             // Go to unit sphere
-            _gameObject.transform.position = Vector3.zero;
-            _gameObject.transform.rotation = Quaternion.identity;
-            _gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            gameObject.transform.position = Vector3.zero;
+            gameObject.transform.rotation = Quaternion.identity;
+            gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-            BoneVector = end - start;
+            boneVector = end - start;
 
             // Set z-axis of sphere to align with bone
-            var zScale = BoneVector.magnitude * 0.95f;
+            var zScale = boneVector.magnitude * 0.95f;
             var xyScale = zScale * 0.28f;
-            _gameObject.transform.localScale = new Vector3(xyScale, xyScale, zScale);
+            gameObject.transform.localScale = new Vector3(xyScale, xyScale, zScale);
 
             // Reducing noise 
-            if (!(BoneVector.magnitude > 0.00001)) return this;
+            if (!(boneVector.magnitude > 0.00001)) return;
 
             // Rotate z-axis to align with bone vector
-            _gameObject.transform.rotation = Quaternion.LookRotation(BoneVector.normalized);
+            gameObject.transform.rotation = Quaternion.LookRotation(boneVector.normalized);
             // Position at middle
-            _gameObject.transform.position = (start + end) / 2.0f - new Vector3(0, shift, 0);
+            gameObject.transform.position = (start + end) / 2.0f - new Vector3(0, shift, 0);
             
-            Assert.AreEqual(BoneVector, end - start);
-
-            return this;
+            Assert.AreEqual(boneVector, end - start);
         }
     }
 }

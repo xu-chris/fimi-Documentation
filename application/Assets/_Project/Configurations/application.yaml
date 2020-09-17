@@ -1,7 +1,0 @@
-maxNumberOfPeople: 2
-exercises:
-  squatArmRaise:
-    rules:
-      - type: angle
-        ideal: 90
-        variance: 5

@@ -1,4 +1,5 @@
 using _Project.Scripts;
+using _Project.Scripts.DomainObjects;
 using _Project.Scripts.DomainValues;
 using NUnit.Framework;
 using UnityEngine;
@@ -7,8 +8,7 @@ namespace Tests
 {
     public class SkeletonTest
     {
-        
-        Skeleton _skeleton = new Skeleton(0, true);
+        private Skeleton skeleton = new Skeleton(0, true);
         
         [Test]
         public void ShouldReturnTrueWhenInsideOfRuleBoundary()
@@ -16,8 +16,8 @@ namespace Tests
             // GIVEN
             var angle = 90;
             var tolerance = 10;
-            var boneA = new Bone(BoneType.Head, 1, 2, Color.black, new GameObject(), false);
-            var boneB = new Bone(BoneType.Head, 1, 2, Color.black, new GameObject(), false);
+            var boneA = new Bone(BoneType.HEAD, 1, 2, Color.black, new GameObject(), false);
+            var boneB = new Bone(BoneType.HEAD, 1, 2, Color.black, new GameObject(), false);
 
             var boneAStartVector = new Vector3(0, 0, 0);
             var boneAEndVector = new  Vector3(0, 0, 1);
@@ -29,7 +29,7 @@ namespace Tests
             boneB.SetBoneSizeAndPosition(boneBStartVector, boneBEndVector, 0);
             
             // WHEN
-            var result = Skeleton.IsBonesInDegreeRange(angle, tolerance, boneA, boneB);
+            var result = Skeleton.IsBonesInDegreeRange(angle, tolerance, tolerance, boneA, boneB);
             
             // THEN
             Assert.IsTrue(result);
@@ -41,8 +41,8 @@ namespace Tests
             // GIVEN
             var angle = 10;
             var tolerance = 00;
-            var boneA = new Bone(BoneType.Head, 1, 2, Color.black, new GameObject(), false);
-            var boneB = new Bone(BoneType.Head, 1, 2, Color.black, new GameObject(), false);
+            var boneA = new Bone(BoneType.HEAD, 1, 2, Color.black, new GameObject(), false);
+            var boneB = new Bone(BoneType.HEAD, 1, 2, Color.black, new GameObject(), false);
 
             var boneAStartVector = new Vector3(0, 0, 0);
             var boneAEndVector = new  Vector3(0, 0, 1);
@@ -54,7 +54,7 @@ namespace Tests
             boneB.SetBoneSizeAndPosition(boneBStartVector, boneBEndVector, 0);
             
             // WHEN
-            var result = Skeleton.IsBonesInDegreeRange(angle, tolerance, boneA, boneB);
+            var result = Skeleton.IsBonesInDegreeRange(angle, tolerance, tolerance, boneA, boneB);
             
             // THEN
             Assert.IsFalse(result);

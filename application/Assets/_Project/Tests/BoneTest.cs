@@ -1,4 +1,5 @@
 ﻿using _Project.Scripts;
+using _Project.Scripts.DomainObjects;
 using _Project.Scripts.DomainValues;
 using NUnit.Framework;
 using UnityEngine;
@@ -16,11 +17,11 @@ namespace Tests
             var end = new Vector3(0, 0, 1);
             var expectedResult = end - start;
             
-            var bone = new Bone(BoneType.RightHand, 15, 16, Color.black, new GameObject(), false);
+            var bone = new Bone(BoneType.RIGHT_HAND, 15, 16, Color.black, new GameObject(), false);
             
             // WHEN
             bone.SetBoneSizeAndPosition(start, end, 0.0f);
-            var result = bone.BoneVector;
+            var result = bone.boneVector;
             
             // THEN
             Assert.AreEqual(result, expectedResult);

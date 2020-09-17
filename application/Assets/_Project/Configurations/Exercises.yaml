@@ -1,0 +1,37 @@
+exercises:
+  - type: squatArmRaise
+    rules:
+      - type: angleThreshold
+        bones:
+          - LeftLowerLeg
+          - LeftThigh
+        angleDefinition:
+          expected: 90
+          lowerTolerance: 5
+          higherTolerance: 10
+          threshold: 100
+      - type: angleThreshold
+        bones:
+          - RightLowerLeg
+          - RightThigh
+        angleDefinition:
+          expected: 90
+          lowerTolerance: 5
+          higherTolerance: 10
+          threshold: 100
+      - type: angle
+        bones:
+          - LeftElbow
+          - LeftForearm
+        angleDefinition:
+          expected: 0
+          lowerTolerance: 10
+          higherTolerance: 10
+      - type: angle
+        bones:
+          - RightElbow
+          - RightForearm
+        angleDefinition:
+          expected: 0
+          lowerTolerance: 10
+          higherTolerance: 10

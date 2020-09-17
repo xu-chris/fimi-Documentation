@@ -1,4 +1,7 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using _Project.Scripts.DomainObjects;
+using _Project.Scripts.DomainObjects.Configurations;
 using JetBrains.Annotations;
 using UnityEngine;
 using WebSocketSharp;
@@ -7,63 +10,40 @@ namespace _Project.Scripts.Periphery.Clients
 {
     public class WebSocketClient : MonoBehaviour
     {
-        private readonly bool enableLogging = false;
-        private readonly string webSocketUrl = "ws://localhost:8080/";
-        private Person[] _detectedPersons;
+        private bool enableLogging = false;
+        public WebSocketConfiguration webSocketConfiguration;
+        public Person[] detectedPersons;
 
-        private bool _isWsConnected;
-        private float _lowestY = 999.0f;
+        private bool isWsConnected;
 
-        private string _message;
-        private Vector3 _offset;
-        private Vector3 _parentCamPos;
+        private string message;
+        private WebSocket webSocket;
+        private bool reconnecting = false;
 
-        private Quaternion _parentCamRot;
-        private Vector3 _parentCamScale;
-
-        private SkeletonOrchestrator _skeletonOrchestrator;
-        private WebSocket _webSocket;
-        private bool _reconnecting = false;
+        internal float lowestY = 999.0f;
 
         public void Start()
         {
             Application.runInBackground = true;
-    
             StartCheckAndReconnectLifeCycle();
-
-            _skeletonOrchestrator = new SkeletonOrchestrator();
-
-            _parentCamRot = transform.rotation;
-            _parentCamPos = transform.position;
-            _parentCamScale = transform.localScale;
         }
 
         public void Update()
         {
-            _skeletonOrchestrator?.Update(DecodeMessageData(_message), _lowestY);
-        }
-
-        private void LateUpdate()
-        {
-            if (Input.GetKey(KeyCode.C))
-            {
-                Debug.Log("Before cam: " + transform.position);
-                Debug.Log("Before parent cam: " + _parentCamPos);
-                transform.position = _parentCamPos;
-                transform.rotation = _parentCamRot;
-                transform.localScale = _parentCamScale;
-                Debug.Log("After: " + transform.position);
-
-                Debug.Log("Reset camera to original position.");
-            }
+            detectedPersons = DecodeMessageData(message);
         }
 
         public void OnApplicationQuit()
         {
             StopCoroutine(CheckAndReconnect());
 
-            if (_webSocket != null && _webSocket.ReadyState == WebSocketState.OPEN)
-                _webSocket.Close();
+            if (webSocket != null && webSocket.ReadyState == WebSocketState.OPEN)
+                webSocket.Close();
+        }
+
+        public IEnumerable<Person> GetDecodedMessage()
+        {
+            return DecodeMessageData(message);
         }
 
         /**
@@ -71,63 +51,63 @@ namespace _Project.Scripts.Periphery.Clients
  */
         private void StartCheckAndReconnectLifeCycle()
         {
-            if (!_reconnecting)
+            if (!reconnecting)
             {
                 StartCoroutine(CheckAndReconnect());
-                _reconnecting = true;
+                reconnecting = true;
             }
         }
 
         private IEnumerator CheckAndReconnect()
         {
-            while (!_isWsConnected)
+            while (!isWsConnected)
             {
                 Debug.Log("Not connected to server. Will try to connect now.");
                 yield return new WaitForSeconds(1);
-                if (_webSocket == null)
+                if (webSocket == null)
                 {
                     ConnectToWebSocketServer();
                 }
                 else
                 {
-                    _webSocket.Connect();
+                    webSocket.Connect();
                 }
             }
-            _reconnecting = false;
+            reconnecting = false;
         }
 
         private void ConnectToWebSocketServer()
         {
-            if (_isWsConnected)
+            if (isWsConnected)
                 return;
 
-            using (_webSocket = new WebSocket(webSocketUrl))
+            using (webSocket = new WebSocket(webSocketConfiguration.url))
             {
                 if (enableLogging)
                 {
-                    _webSocket.Log.Level = LogLevel.TRACE;
-                    _webSocket.Log.File = "./ws_log.txt";
+                    webSocket.Log.Level = LogLevel.TRACE;
+                    webSocket.Log.File = "./ws_log.txt";
                 }
 
-                _webSocket.OnOpen += (sender, e) =>
+                webSocket.OnOpen += (sender, e) =>
                 {
-                    _webSocket.Send("Hello server.");
+                    webSocket.Send("Hello server.");
                     Debug.Log("Connection opened.");
-                    _isWsConnected = true;
+                    isWsConnected = true;
                 };
-                _webSocket.OnMessage += (sender, e) => { _message = e.Data; };
-                _webSocket.OnClose += (sender, e) =>
+                webSocket.OnMessage += (sender, e) => { message = e.Data; };
+                webSocket.OnClose += (sender, e) =>
                 {
-                    _isWsConnected = false;
+                    isWsConnected = false;
                     StartCheckAndReconnectLifeCycle();
                 };
-                _webSocket.OnError += (sender, e) =>
+                webSocket.OnError += (sender, e) =>
                 {
-                    _isWsConnected = false;
+                    isWsConnected = false;
                     StartCheckAndReconnectLifeCycle();
                 };
 
-                _webSocket.Connect();
+                webSocket.Connect();
             }
         }
 
@@ -157,19 +137,19 @@ namespace _Project.Scripts.Periphery.Clients
 
             for (var p = 0; p < currentNumPeople; ++p)
             {
-                newDetection[p].Joints = new Vector3[maxNumberOfJoints];
-                newDetection[p].ID = p;
+                newDetection[p].joints = new Vector3[maxNumberOfJoints];
+                newDetection[p].id = p;
                 for (var i = 0; i < maxNumberOfJoints - 1; ++i)
                 {
                     var tokenIndex = 3 * p * maxNumberOfJoints + 3 * i + 3;
 
-                    newDetection[p].Joints[i].x =
+                    newDetection[p].joints[i].x =
                         float.Parse(tokens[tokenIndex + 0]) * 0.001f; // Can be flipped here for mirroring
-                    newDetection[p].Joints[i].y = float.Parse(tokens[tokenIndex + 1]) * 0.001f;
-                    newDetection[p].Joints[i].z = -float.Parse(tokens[tokenIndex + 2]) * 0.001f;
+                    newDetection[p].joints[i].y = float.Parse(tokens[tokenIndex + 1]) * 0.001f;
+                    newDetection[p].joints[i].z = -float.Parse(tokens[tokenIndex + 2]) * 0.001f;
 
-                    if (newDetection[p].Joints[i].y < _lowestY)
-                        _lowestY = newDetection[p].Joints[i].y;
+                    if (newDetection[p].joints[i].y < lowestY)
+                        lowestY = newDetection[p].joints[i].y;
                 }
             }
 

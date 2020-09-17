@@ -3,19 +3,19 @@ using UnityEngine;
 
 namespace _Project.Scripts
 {
-    public struct Joint
+    public class Joint
     {
-        private int _id;
-        private JointType _jointType;
+        private int jointIndex;
+        private JointType jointType;
 
-        private readonly GameObject _gameObject;
+        private readonly GameObject gameObject;
 
-        public Joint(int id, JointType jointType, Color color, float sphereRadius, GameObject parentObject, bool createGameObject = true)
+        public Joint(int jointIndex, JointType jointType, Color color, float sphereRadius, GameObject parentObject, bool createGameObject = true)
         {
-            _id = id;
-            this._jointType = jointType;
+            this.jointIndex = jointIndex;
+            this.jointType = jointType;
 
-            _gameObject = createGameObject ? CreateGameObject(parentObject, jointType, color, sphereRadius) : new GameObject();
+            gameObject = createGameObject ? CreateGameObject(parentObject, jointType, color, sphereRadius) : new GameObject();
         }
 
         private static GameObject CreateGameObject(GameObject parentObject, JointType jointType, Color color,
@@ -35,7 +35,7 @@ namespace _Project.Scripts
  */
         public void SetJointPosition(Vector3 jointPosition)
         {
-            _gameObject.transform.position = jointPosition;
+            gameObject.transform.position = jointPosition;
         }
     }
 }

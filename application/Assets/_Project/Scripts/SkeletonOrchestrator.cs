@@ -1,18 +1,24 @@
 ﻿using System.Collections.Generic;
+using _Project.Scripts.DomainObjects;
+using _Project.Scripts.DomainObjects.Configurations;
+using _Project.Scripts.DomainValues;
 using UnityEngine;
 
 namespace _Project.Scripts
 {
     public class SkeletonOrchestrator
     {
-        private readonly GameObject _plane;
-        private Skeleton[] _skeletons;
-        private List<int> _validJointIdx;
-        private const int _maxNumberOfPeople = 10;
+        private readonly GameObject plane;
+        private Skeleton[] skeletons;
+        private List<int> validJointIdx;
+        private readonly int maxNumberOfPeople;
 
-        public SkeletonOrchestrator()
+        private Exercise currentExercise;
+
+        public SkeletonOrchestrator(int maxNumberOfPeople, GameObject plane)
         {
-            _plane = GameObject.Find("CheckerboardPlane");
+            this.maxNumberOfPeople = maxNumberOfPeople;
+            this.plane = plane;
             InitializeAllSkeletons();
         }
 
@@ -21,35 +27,41 @@ namespace _Project.Scripts
             if (detectedPersons == null)
                 return;
 
-            for (var p = 0; p < _maxNumberOfPeople; p++)
+            for (var p = 0; p < maxNumberOfPeople; p++)
             {
                 // Init skeleton if not given.
-                if (_skeletons[p] == null)
+                if (skeletons[p] == null)
                 {
-                    _skeletons[p] = new Skeleton(p);
+                    skeletons[p] = new Skeleton(p);
                     Debug.LogError("Initialized a new skeleton which should be already there 🤔. p: " + p);
                 }
 
                 // Set and activate only skeletons that are detected.
-                if (p >= 0 && detectedPersons.Length > p && p == detectedPersons[p].ID)
+                if (p >= 0 && detectedPersons.Length > p && p == detectedPersons[p].id)
                 {
-                    _skeletons[p].SetSkeleton(detectedPersons[p].Joints, _plane, lowestY);
-                    _skeletons[p].SetIsVisible(true);
+                    skeletons[p].SetSkeleton(detectedPersons[p].joints, plane, lowestY);
+                    skeletons[p].SetIsVisible(true);
+                    skeletons[p].CheckRules(currentExercise.rules);
                 }
                 else
                 {
-                    _skeletons[p].SetIsVisible(false);
+                    skeletons[p].SetIsVisible(false);
                 }
             }
         }
 
+        public void SetCurrentExercise(Exercise exercise)
+        {
+            currentExercise = exercise;
+        }
+
         private void InitializeAllSkeletons()
         {
-            _skeletons = new Skeleton[_maxNumberOfPeople];
-            for (var p = 0; p < _maxNumberOfPeople; p++)
+            skeletons = new Skeleton[maxNumberOfPeople];
+            for (var p = 0; p < maxNumberOfPeople; p++)
             {
-                _skeletons[p] = new Skeleton(p);
-                _skeletons[p].SetIsVisible(false);
+                skeletons[p] = new Skeleton(p);
+                skeletons[p].SetIsVisible(false);
             }
         }
     }
