@@ -7,7 +7,9 @@ namespace _Project.Scripts.DomainObjects
     public class Exercise
     {
         public string type;
-        public List<Rule> rules;
+        public int repetitions;
+        public string duration;
+        public List<ExerciseAspect> rules;
 
         ExerciseType ExerciseType()
         {

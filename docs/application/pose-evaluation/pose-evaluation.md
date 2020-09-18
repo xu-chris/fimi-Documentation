@@ -1,6 +1,1 @@
 # Pose evaluation
-
-## Related works
-
-
-

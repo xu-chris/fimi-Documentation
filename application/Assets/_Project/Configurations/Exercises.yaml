@@ -1,37 +1,41 @@
 exercises:
   - type: squatArmRaise
     rules:
-      - type: angleThreshold
+      - rule:
+          !rangeOfMotionRule
+          lowerThreshold: 0
+          upperThreshold: 95
         bones:
           - LeftLowerLeg
           - LeftThigh
-        angleDefinition:
-          expected: 90
-          lowerTolerance: 5
-          higherTolerance: 10
-          threshold: 100
-      - type: angleThreshold
+      - rule:
+          !rangeOfMotionRule
+          lowerThreshold: 0
+          upperThreshold: 95
         bones:
           - RightLowerLeg
           - RightThigh
-        angleDefinition:
-          expected: 90
-          lowerTolerance: 5
-          higherTolerance: 10
-          threshold: 100
-      - type: angle
+      - rule:
+          !angleRule
+          expectedAngle: 0
+          lowerTolerance: 10
+          upperTolerance: 10
         bones:
           - LeftElbow
           - LeftForearm
-        angleDefinition:
-          expected: 0
+      - rule:
+          !angleRule
+          expectedAngle: 0
           lowerTolerance: 10
-          higherTolerance: 10
-      - type: angle
+          upperTolerance: 10
         bones:
           - RightElbow
           - RightForearm
-        angleDefinition:
-          expected: 0
-          lowerTolerance: 10
-          higherTolerance: 10
+
+trainings:
+  - name: "Mobilize your body"
+    exercises:
+      - type: squatArmRaise
+        repetitions: 10
+      - type: squatArmRaise
+        duration: 10m

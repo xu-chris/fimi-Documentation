@@ -4,6 +4,7 @@
 * [**Introduction**](README.md)
     * [Motivation](introduction/motivation.md)
     * [Similar Approaches](introduction/similar-approaches.md)
+    * [Definition: Training](introduction/training-definition.md)
     * Exercises
         * [Squat Arm Raise](introduction/exercises/squat-arm-raise.md)
 ----
@@ -17,6 +18,13 @@
             * [Rule based](application/pose-evaluation/rule-based.md)
             * [Datasets](application/pose-evaluation/datasets.md)
     * [User Interface & Interaction](application/ui/ui.md)
+        * Welcome / Training selection
+        * [Pre-Training](application/ui/pre-training.md)
+        * [In-Training](application/ui/in-training.md)
+            * [Pre-Exercise](application/ui/pre-exercise.md)
+            * [In-Exercise](application/ui/in-exercise.md)
+            * [Post-Exercise](application/ui/post-exercise.md)
+        * [Post-Training](application/ui/post-training.md)
 ----
 * [**Hardware**](hardware/hardware.md)
     * [Camera](hardware/camera/camera.md)
