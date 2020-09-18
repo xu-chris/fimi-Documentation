@@ -1,0 +1,2 @@
+# Pre-Training
+Defined as state in which the user has selected a training but has not started it yet. This can be used to show the user a list of exercises performed and to educate the user about movements performed and important rules.

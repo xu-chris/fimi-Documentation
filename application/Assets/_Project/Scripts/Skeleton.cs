@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Project.Scripts.DomainObjects;
 using _Project.Scripts.DomainObjects.Configurations;
+using _Project.Scripts.DomainObjects.Rules;
 using _Project.Scripts.DomainValues;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SocialPlatforms;
 using YamlDotNet.Serialization.NamingConventions;
 using Joint = _Project.Scripts.Joint;
 
@@ -102,19 +105,22 @@ namespace _Project.Scripts
             UpdateBones(jointEstimation);
         }
 
-        public void CheckRules(List<Rule> rules)
+        public void CheckRules(List<ExerciseAspect> rules)
         {
             foreach (var rule in rules)
             {
-                switch (rule.type.ToRuleType())
-                {
-                    case RuleType.ANGLE:
-                        CheckAngleBetweenBones(rule.bones[0].ToBoneType(), rule.bones[1].ToBoneType(), rule.angleDefinition);
-                        break;
-                    case RuleType.ANGLE_THRESHOLD:
-                        CheckAngleBetweenBonesIsNotOverThreshold(rule.bones[0].ToBoneType(), rule.bones[1].ToBoneType(), rule.angleDefinition);
-                        break;
-                }
+                // switch (rule.type.ToRuleType())
+                // {
+                //     case RuleType.ANGLE:
+                //         CheckAngleBetweenBones(rule.bones[0].ToBoneType(), rule.bones[1].ToBoneType(), rule.angleRule);
+                //         break;
+                //     case RuleType.RANGE_OF_MOTION:
+                //         CheckAngleBetweenBonesIsNotOverThreshold(rule.bones[0].ToBoneType(), rule.bones[1].ToBoneType(), rule.angleRule);
+                //         break;
+                // }
+                var bonesConsideredForGivenRule = rule.BoneTypes().Select(GetBone).ToList();
+                var isInvalidated = rule.rule.IsInvalidated(bonesConsideredForGivenRule);
+                ColorBonesBasedOnRuleOutput(bonesConsideredForGivenRule, isInvalidated, rule.rule.type);
             }
         }
 
@@ -137,58 +143,38 @@ namespace _Project.Scripts
             }
         }
 
-        private void CheckAngleBetweenBones(BoneType boneTypeA, BoneType boneTypeB, AngleDefinition angleDefinition)
+        private void ColorBonesBasedOnRuleOutput(List<Bone> bones, bool isInvalided, RuleType ruleType)
         {
-            // Fetching bones
-            var boneA = GetBone(boneTypeA);
-            var boneB = GetBone(boneTypeB);
-
-            // Color bones accordingly
-            if (IsBonesInDegreeRange(angleDefinition.expected, angleDefinition.lowerTolerance, angleDefinition.higherTolerance, boneA, boneB))
+            switch (ruleType)
             {
-                boneA.Colorize(Color.green);
-                boneB.Colorize(Color.green);
-            }
-            else
-            {
-                boneA.Colorize(Color.red);
-                boneB.Colorize(Color.red);
+                case RuleType.ANGLE:
+                    GreenRedColoring(bones, isInvalided);
+                    break;
+                case RuleType.RANGE_OF_MOTION:
+                    RedNeutralColoring(bones, isInvalided);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(ruleType), ruleType, null);
             }
         }
 
-        private void CheckAngleBetweenBonesIsNotOverThreshold(BoneType boneTypeA, BoneType boneTypeB,
-            AngleDefinition angleDefinition)
+        private static void RedNeutralColoring(List<Bone> bones, bool colorRed)
         {
-            CheckAngleBetweenBonesIsNotOverThreshold(boneTypeA, boneTypeB, angleDefinition.expected, angleDefinition.threshold, angleDefinition.lowerTolerance, angleDefinition.higherTolerance);
+            var color = colorRed ? Color.red : skeletonColor;
+            ColorizeAllBones(bones, color);
         }
 
-        private void CheckAngleBetweenBonesIsNotOverThreshold(BoneType boneTypeA, BoneType boneTypeB,
-            float expectedAngle, float threshold, float lowerTolerance = 0f, float higherTolerance = 0f)
+        private static void GreenRedColoring(List<Bone> bones, bool colorToRed)
         {
-            Assert.IsTrue(
-                (threshold > expectedAngle && higherTolerance + expectedAngle <= threshold) ||
-                (threshold < expectedAngle && expectedAngle - lowerTolerance >= threshold)
-            );
+            var color = colorToRed ? Color.red : Color.green;
+            ColorizeAllBones(bones, color);
+        }
 
-            // Fetching bones
-            var boneA = GetBone(boneTypeA);
-            var boneB = GetBone(boneTypeB);
-
-            // Color bones accordingly
-            if (IsBonesInDegreeRange(expectedAngle, lowerTolerance, higherTolerance, boneA, boneB))
+        private static void ColorizeAllBones(List<Bone> bones, Color color)
+        {
+            foreach (var bone in bones)
             {
-                boneA.Colorize(Color.green);
-                boneB.Colorize(Color.green);
-            }
-            else if (!IsBonesInAngleThreshold(threshold, boneA, boneB, expectedAngle))
-            {
-                boneA.Colorize(Color.red);
-                boneB.Colorize(Color.red);
-            }
-            else
-            {
-                boneA.Colorize(skeletonColor);
-                boneB.Colorize(skeletonColor);
+                bone.Colorize(color);
             }
         }
 
