@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using _Project.Scripts.DomainObjects;
@@ -105,22 +104,40 @@ namespace _Project.Scripts
             UpdateBones(jointEstimation);
         }
 
-        public void CheckRules(List<ExerciseAspect> rules)
+        public void CheckRules(List<Rule> rules)
         {
             foreach (var rule in rules)
             {
-                // switch (rule.type.ToRuleType())
-                // {
-                //     case RuleType.ANGLE:
-                //         CheckAngleBetweenBones(rule.bones[0].ToBoneType(), rule.bones[1].ToBoneType(), rule.angleRule);
-                //         break;
-                //     case RuleType.RANGE_OF_MOTION:
-                //         CheckAngleBetweenBonesIsNotOverThreshold(rule.bones[0].ToBoneType(), rule.bones[1].ToBoneType(), rule.angleRule);
-                //         break;
-                // }
-                var bonesConsideredForGivenRule = rule.bones.ToBoneTypes().Select(GetBone).ToList();
-                var isInvalidated = rule.rule.IsInvalidated(bonesConsideredForGivenRule);
-                ColorBonesBasedOnRuleOutput(bonesConsideredForGivenRule, isInvalidated, rule.rule.type);
+                List<Bone> bonesConsideredForGivenRule;
+                bool isInvalided;
+                switch (rule)
+                {
+                    case AngleRule angleRule:
+                        bonesConsideredForGivenRule = angleRule.bones.ToBoneTypes().Select(GetBone).ToList();
+                        isInvalided = rule.IsInvalidated(bonesConsideredForGivenRule);
+                        GreenRedColoring(bonesConsideredForGivenRule, isInvalided);
+                        break;
+                    case RangeOfMotionRule rangeOfMotionRule:
+                        bonesConsideredForGivenRule = rangeOfMotionRule.bones.ToBoneTypes().Select(GetBone).ToList();
+                        isInvalided = rule.IsInvalidated(bonesConsideredForGivenRule);
+                        RedNeutralColoring(bonesConsideredForGivenRule, isInvalided);
+                        break;
+                    case SymmetryRule symmetryRule:
+                        // TODO: Implement
+                        break;
+                    case LinearityRule linearityRule:
+                        // TODO: Implement
+                        break;
+                    case HorizontallyRule horizontallyRule:
+                        // TODO: Implement
+                        break;
+                    case VerticallyRule verticallyRule:
+                        // TODO: Implement
+                        break;
+                    case SpeedRule speedRule:
+                        // TODO: Implement
+                        break;
+                }
             }
         }
 
@@ -140,21 +157,6 @@ namespace _Project.Scripts
                 var startJoint = jointEstimation[bone.jointIndexA];
                 var endJoint = jointEstimation[bone.jointIndexB];
                 bone.SetBoneSizeAndPosition(startJoint, endJoint);
-            }
-        }
-
-        private void ColorBonesBasedOnRuleOutput(List<Bone> bones, bool isInvalided, RuleType ruleType)
-        {
-            switch (ruleType)
-            {
-                case RuleType.ANGLE:
-                    GreenRedColoring(bones, isInvalided);
-                    break;
-                case RuleType.RANGE_OF_MOTION:
-                    RedNeutralColoring(bones, isInvalided);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(ruleType), ruleType, null);
             }
         }
 

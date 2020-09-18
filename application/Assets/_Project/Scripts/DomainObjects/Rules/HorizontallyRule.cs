@@ -5,6 +5,7 @@ namespace _Project.Scripts.DomainObjects.Rules
 {
     public class HorizontallyRule : Rule
     {
+        public List<string> bones;
         public override RuleType type => RuleType.HORIZONTALLY_RULE;
         public override bool IsInvalidated(List<Bone> bones)
         {

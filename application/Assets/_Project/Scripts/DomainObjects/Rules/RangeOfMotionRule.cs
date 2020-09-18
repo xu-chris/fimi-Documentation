@@ -9,6 +9,7 @@ namespace _Project.Scripts.DomainObjects.Rules
 {
     public class RangeOfMotionRule : Rule
     {
+        public List<string> bones;
         public float lowerThreshold;
         public float upperThreshold;
         public override RuleType type => RuleType.RANGE_OF_MOTION;

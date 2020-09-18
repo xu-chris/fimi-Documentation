@@ -5,6 +5,7 @@ namespace _Project.Scripts.DomainObjects.Rules
 {
     public class LinearityRule : Rule
     {
+        public List<string> bones;
         public override RuleType type => RuleType.LINEARITY_RULE;
         public override bool IsInvalidated(List<Bone> bones)
         {

@@ -1,38 +1,33 @@
 exercises:
   - type: squatArmRaise
     rules:
-      - rule:
-          !rangeOfMotionRule
-          lowerThreshold: 0
-          upperThreshold: 95
+      - !rangeOfMotionRule
+        lowerThreshold: 0
+        upperThreshold: 95
         bones:
           - LeftLowerLeg
           - LeftThigh
-      - rule:
-          !rangeOfMotionRule
-          lowerThreshold: 0
-          upperThreshold: 95
+      - !rangeOfMotionRule
+        lowerThreshold: 0
+        upperThreshold: 95
         bones:
           - RightLowerLeg
           - RightThigh
-      - rule:
-          !angleRule
-          expectedAngle: 0
-          lowerTolerance: 10
-          upperTolerance: 10
+      - !angleRule
+        expectedAngle: 0
+        lowerTolerance: 10
+        upperTolerance: 10
         bones:
           - LeftElbow
           - LeftForearm
-      - rule:
-          !angleRule
-          expectedAngle: 0
-          lowerTolerance: 10
-          upperTolerance: 10
+      - !angleRule
+        expectedAngle: 0
+        lowerTolerance: 10
+        upperTolerance: 10
         bones:
           - RightElbow
           - RightForearm
-      - rule:
-          !horizontallyRule
+      - !horizontallyRule
         bones:
           - LeftHand
           - LeftForearm
@@ -40,32 +35,30 @@ exercises:
           - RightHand
           - RightForearm
           - RightElbow
-      - rule: 
-          !verticallyRule
+      - !verticallyRule
         bones:
           - LowerBody
           - UpperBody
           - Neck
           - Head
-      - rule:
-          !symmetryRule
-          leftBones:
-            - LeftShoulder
-            - LeftElbow
-            - LeftForearm
-            - LeftHand
-            - LeftThigh
-            - LeftLowerLeg
-            - LeftFoot
-          rightBones:
-            - RightShoulder
-            - RightElbow
-            - RightForearm
-            - RightHand
-            - RightThigh
-            - RightLowerLeg
-            - RightFoot
-          centerBone: UpperBody
+      - !symmetryRule
+        leftBones:
+          - LeftShoulder
+          - LeftElbow
+          - LeftForearm
+          - LeftHand
+          - LeftThigh
+          - LeftLowerLeg
+          - LeftFoot
+        rightBones:
+          - RightShoulder
+          - RightElbow
+          - RightForearm
+          - RightHand
+          - RightThigh
+          - RightLowerLeg
+          - RightFoot
+        centerBone: UpperBody
 
 trainings:
   - name: "Mobilize your body"

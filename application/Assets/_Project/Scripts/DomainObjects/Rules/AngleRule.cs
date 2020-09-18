@@ -9,6 +9,7 @@ namespace _Project.Scripts.DomainObjects.Rules
 {
     public class AngleRule : Rule
     {
+        public List<string> bones;
         public float expectedAngle;
         public float lowerTolerance;
         public float upperTolerance;

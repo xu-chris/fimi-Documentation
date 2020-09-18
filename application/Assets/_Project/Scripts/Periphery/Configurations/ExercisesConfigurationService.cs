@@ -26,10 +26,10 @@ namespace _Project.Scripts.Periphery.Configurations
                 .WithTagMapping("!rangeOfMotionRule", typeof(RangeOfMotionRule))
                 .WithTagMapping("!angleRule", typeof(AngleRule))
                 .WithTagMapping("!symmetryRule", typeof(SymmetryRule))
-                .WithTagMapping("!linearityRule", typeof(SymmetryRule))
-                .WithTagMapping("!horizontallyRule", typeof(SymmetryRule))
-                .WithTagMapping("!verticallyRule", typeof(SymmetryRule))
-                .WithTagMapping("!speedRule", typeof(SymmetryRule))
+                .WithTagMapping("!linearityRule", typeof(LinearityRule))
+                .WithTagMapping("!horizontallyRule", typeof(HorizontallyRule))
+                .WithTagMapping("!verticallyRule", typeof(VerticallyRule))
+                .WithTagMapping("!speedRule", typeof(SpeedRule))
                 .Build();
             
             return deserializer.Deserialize<ExercisesConfiguration>(document);
