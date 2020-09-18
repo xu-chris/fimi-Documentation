@@ -9,10 +9,5 @@ namespace _Project.Scripts.DomainObjects
     {
         public List<string> bones;
         public Rule rule;
-
-        public List<BoneType> BoneTypes()
-        {
-            return bones.Select(boneType => boneType.ToBoneType()).ToList();
-        }
     }
 }

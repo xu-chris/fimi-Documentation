@@ -31,6 +31,41 @@ exercises:
         bones:
           - RightElbow
           - RightForearm
+      - rule:
+          !horizontallyRule
+        bones:
+          - LeftHand
+          - LeftForearm
+          - LeftElbow
+          - RightHand
+          - RightForearm
+          - RightElbow
+      - rule: 
+          !verticallyRule
+        bones:
+          - LowerBody
+          - UpperBody
+          - Neck
+          - Head
+      - rule:
+          !symmetryRule
+          leftBones:
+            - LeftShoulder
+            - LeftElbow
+            - LeftForearm
+            - LeftHand
+            - LeftThigh
+            - LeftLowerLeg
+            - LeftFoot
+          rightBones:
+            - RightShoulder
+            - RightElbow
+            - RightForearm
+            - RightHand
+            - RightThigh
+            - RightLowerLeg
+            - RightFoot
+          centerBone: UpperBody
 
 trainings:
   - name: "Mobilize your body"

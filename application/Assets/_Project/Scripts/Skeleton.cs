@@ -118,7 +118,7 @@ namespace _Project.Scripts
                 //         CheckAngleBetweenBonesIsNotOverThreshold(rule.bones[0].ToBoneType(), rule.bones[1].ToBoneType(), rule.angleRule);
                 //         break;
                 // }
-                var bonesConsideredForGivenRule = rule.BoneTypes().Select(GetBone).ToList();
+                var bonesConsideredForGivenRule = rule.bones.ToBoneTypes().Select(GetBone).ToList();
                 var isInvalidated = rule.rule.IsInvalidated(bonesConsideredForGivenRule);
                 ColorBonesBasedOnRuleOutput(bonesConsideredForGivenRule, isInvalidated, rule.rule.type);
             }
