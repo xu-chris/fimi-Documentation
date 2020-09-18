@@ -6,7 +6,7 @@ namespace _Project.Scripts.DomainObjects.Rules
     public class SpeedRule : Rule
     {
         public override RuleType type => RuleType.SPEED_RULE;
-        public override bool IsInvalidated(List<Bone> bones)
+        public override bool IsInvalidated(List<Bone> boneObjects)
         {
             throw new System.NotImplementedException();
         }

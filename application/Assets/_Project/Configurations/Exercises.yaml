@@ -59,6 +59,11 @@ exercises:
           - RightLowerLeg
           - RightFoot
         centerBone: UpperBody
+      - !linearityRule
+        bones:
+          - LeftElbow
+          - LeftForearm
+        tolerance: 0.1
 
 trainings:
   - name: "Mobilize your body"

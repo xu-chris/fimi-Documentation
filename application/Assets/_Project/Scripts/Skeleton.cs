@@ -126,7 +126,12 @@ namespace _Project.Scripts
                         // TODO: Implement
                         break;
                     case LinearityRule linearityRule:
-                        // TODO: Implement
+                        bonesConsideredForGivenRule = linearityRule.bones.ToBoneTypes().Select(GetBone).ToList();
+                        isInvalided = rule.IsInvalidated(bonesConsideredForGivenRule);
+                        if (isInvalided)
+                        {
+                            Debug.Log("Bones " + linearityRule.bones + " are not parallel to each other.");   
+                        }
                         break;
                     case HorizontallyRule horizontallyRule:
                         // TODO: Implement

@@ -6,6 +6,6 @@ namespace _Project.Scripts.DomainObjects.Rules
     public interface IRule
     {
         RuleType type { get; }
-        bool IsInvalidated(List<Bone> bones);
+        bool IsInvalidated(List<Bone> boneObjects);
     }
 }

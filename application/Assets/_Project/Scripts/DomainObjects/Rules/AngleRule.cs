@@ -15,11 +15,11 @@ namespace _Project.Scripts.DomainObjects.Rules
         public float upperTolerance;
         public override RuleType type => RuleType.ANGLE;
 
-        public override bool IsInvalidated(List<Bone> bones)
+        public override bool IsInvalidated(List<Bone> boneObjects)
         {
-            Assert.IsTrue(bones.Count == 2, "You need to specify exactly two bones to check with this rule.");
+            Assert.IsTrue(boneObjects.Count == 2, "You need to specify exactly two bones to check with this rule.");
             
-            var calculatedAngle = Vector3.Angle(bones[0].boneVector, bones[1].boneVector);
+            var calculatedAngle = Vector3.Angle(boneObjects[0].boneVector, boneObjects[1].boneVector);
             return (calculatedAngle < expectedAngle - lowerTolerance) || (calculatedAngle > upperTolerance + expectedAngle);
         }
     }

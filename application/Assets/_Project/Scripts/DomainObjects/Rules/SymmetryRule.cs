@@ -11,7 +11,7 @@ namespace _Project.Scripts.DomainObjects.Rules
         public List<string> rightBones;
         public string centerBone;
 
-        public override bool IsInvalidated(List<Bone> bones)
+        public override bool IsInvalidated(List<Bone> boneObjects)
         {
             throw new System.NotImplementedException();
         }
