@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
 using _Project.Scripts.DomainObjects;
-using _Project.Scripts.DomainObjects.Configurations;
-using _Project.Scripts.DomainValues;
 using UnityEngine;
 
 namespace _Project.Scripts
 {
     public class SkeletonOrchestrator
     {
-        private Skeleton[] skeletons;
-        private List<int> validJointIdx;
         private readonly int maxNumberOfPeople;
 
         private Exercise currentExercise;
+        private Skeleton[] skeletons;
+        private List<int> validJointIdx;
 
         public SkeletonOrchestrator(int maxNumberOfPeople)
         {

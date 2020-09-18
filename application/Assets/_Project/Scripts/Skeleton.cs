@@ -1,43 +1,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using _Project.Scripts.DomainObjects;
-using _Project.Scripts.DomainObjects.Configurations;
 using _Project.Scripts.DomainObjects.Rules;
 using _Project.Scripts.DomainValues;
 using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.SocialPlatforms;
-using YamlDotNet.Serialization.NamingConventions;
-using Joint = _Project.Scripts.Joint;
 
 namespace _Project.Scripts
 {
     public class Skeleton
     {
-        // Parameters
-        private int id;
-
         // Skeleton design
         private static readonly Color skeletonColor = Color.black;
         private static readonly float sphereRadius = 0.05f;
+
+        private readonly List<Bone> bones;
 
         private readonly GameObject gameObject;
 
         // Definition
         private readonly List<Joint> joints;
 
-        private readonly List<Bone> bones;
+        // Parameters
+        private int id;
 
         public Skeleton(int id, bool withGameObjects = true)
         {
             this.id = id;
-        
+
             gameObject = new GameObject
             {
                 name = "Skeleton_" + id
             };
 
-            bones = new List<Bone> {
+            bones = new List<Bone>
+            {
                 new Bone(BoneType.LOWER_BODY, 0, 1, skeletonColor, gameObject, withGameObjects),
                 new Bone(BoneType.UPPER_BODY, 1, 2, skeletonColor, gameObject, withGameObjects),
                 new Bone(BoneType.NECK, 2, 3, skeletonColor, gameObject, withGameObjects),
@@ -63,8 +59,9 @@ namespace _Project.Scripts
                 new Bone(BoneType.RIGHT_LOWER_LEG, 18, 19, skeletonColor, gameObject, withGameObjects),
                 new Bone(BoneType.RIGHT_FOOT, 19, 20, skeletonColor, gameObject, withGameObjects)
             };
-    
-            joints = new List<Joint> {
+
+            joints = new List<Joint>
+            {
                 new Joint(0, JointType.SPINE1_RX, skeletonColor, sphereRadius, gameObject, withGameObjects),
                 new Joint(1, JointType.SPINE2_RX, skeletonColor, sphereRadius, gameObject, withGameObjects),
                 new Joint(2, JointType.SPINE3_RX, skeletonColor, sphereRadius, gameObject, withGameObjects),
@@ -128,10 +125,7 @@ namespace _Project.Scripts
                     case LinearityRule linearityRule:
                         bonesConsideredForGivenRule = linearityRule.bones.ToBoneTypes().Select(GetBone).ToList();
                         isInvalided = rule.IsInvalidated(bonesConsideredForGivenRule);
-                        if (isInvalided)
-                        {
-                            Debug.Log("Bones " + linearityRule.bones + " are not parallel to each other.");   
-                        }
+                        if (isInvalided) Debug.Log("Bones " + linearityRule.bones + " are not parallel to each other.");
                         break;
                     case HorizontallyRule horizontallyRule:
                         // TODO: Implement
@@ -148,10 +142,10 @@ namespace _Project.Scripts
 
         private void UpdateJoints(Vector3[] jointEstimation)
         {
-            for (var i = 0; i < this.joints.Count; i++)
+            for (var i = 0; i < joints.Count; i++)
             {
                 var vector = new Vector3(jointEstimation[i][0], jointEstimation[i][1], jointEstimation[i][2]);
-                this.joints[i].SetJointPosition(vector);
+                joints[i].SetJointPosition(vector);
             }
         }
 
@@ -179,17 +173,17 @@ namespace _Project.Scripts
 
         private static void ColorizeAllBones(List<Bone> bones, Color color)
         {
-            foreach (var bone in bones)
-            {
-                bone.Colorize(color);
-            }
+            foreach (var bone in bones) bone.Colorize(color);
         }
 
-        public static bool IsBonesInDegreeRange(float expectedAngle, float lowerTolerance, float higherTolerance, Bone boneA, Bone boneB)
+        public static bool IsBonesInDegreeRange(float expectedAngle, float lowerTolerance, float higherTolerance,
+            Bone boneA, Bone boneB)
         {
             var calculatedAngle = GetAngleBetweenBones(boneA, boneB);
-            Debug.Log("Calculated angle: " + calculatedAngle + ", expected angle is between " + (expectedAngle - lowerTolerance) + " and " + (expectedAngle + higherTolerance));
-            return !(calculatedAngle > expectedAngle + higherTolerance) && !(calculatedAngle < expectedAngle - lowerTolerance);
+            Debug.Log("Calculated angle: " + calculatedAngle + ", expected angle is between " +
+                      (expectedAngle - lowerTolerance) + " and " + (expectedAngle + higherTolerance));
+            return !(calculatedAngle > expectedAngle + higherTolerance) &&
+                   !(calculatedAngle < expectedAngle - lowerTolerance);
         }
 
         /**
@@ -202,14 +196,16 @@ namespace _Project.Scripts
         {
             var calculatedAngle = GetAngleBetweenBones(boneA, boneB);
             Debug.Log("Calculated angle: " + calculatedAngle + ", threshold is: " + threshold + " degree");
-            return expectedAngle < threshold ? (calculatedAngle <= threshold) : (calculatedAngle >= threshold);
+            return expectedAngle < threshold ? calculatedAngle <= threshold : calculatedAngle >= threshold;
         }
-        
-        /// <summary>Returns the angle between two bones.
-        /// Calculated by the inverse Cosinus of the dot product of both, divided by the vector magnitude of both bones.
-        /// The angle returned is the unsigned angle between the two vectors, so the smaller of possible angles between the vectors is used.
-        /// The result is never greater than 180 degrees.</summary>
-        /// 
+
+        /// <summary>
+        ///     Returns the angle between two bones.
+        ///     Calculated by the inverse Cosinus of the dot product of both, divided by the vector magnitude of both bones.
+        ///     The angle returned is the unsigned angle between the two vectors, so the smaller of possible angles between the
+        ///     vectors is used.
+        ///     The result is never greater than 180 degrees.
+        /// </summary>
         /// <param name="boneA">The first bone</param>
         /// <param name="boneB">The second bone</param>
         private static float GetAngleBetweenBones(Bone boneA, Bone boneB)

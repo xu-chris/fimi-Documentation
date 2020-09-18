@@ -5,17 +5,19 @@ namespace _Project.Scripts
 {
     public class Joint
     {
+        private readonly GameObject gameObject;
         private int jointIndex;
         private JointType jointType;
 
-        private readonly GameObject gameObject;
-
-        public Joint(int jointIndex, JointType jointType, Color color, float sphereRadius, GameObject parentObject, bool createGameObject = true)
+        public Joint(int jointIndex, JointType jointType, Color color, float sphereRadius, GameObject parentObject,
+            bool createGameObject = true)
         {
             this.jointIndex = jointIndex;
             this.jointType = jointType;
 
-            gameObject = createGameObject ? CreateGameObject(parentObject, jointType, color, sphereRadius) : new GameObject();
+            gameObject = createGameObject
+                ? CreateGameObject(parentObject, jointType, color, sphereRadius)
+                : new GameObject();
         }
 
         private static GameObject CreateGameObject(GameObject parentObject, JointType jointType, Color color,
