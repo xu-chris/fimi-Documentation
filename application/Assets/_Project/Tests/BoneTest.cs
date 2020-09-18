@@ -20,7 +20,7 @@ namespace Tests
             var bone = new Bone(BoneType.RIGHT_HAND, 15, 16, Color.black, new GameObject(), false);
             
             // WHEN
-            bone.SetBoneSizeAndPosition(start, end, 0.0f);
+            bone.SetBoneSizeAndPosition(start, end);
             var result = bone.boneVector;
             
             // THEN

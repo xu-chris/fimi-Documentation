@@ -41,7 +41,7 @@ namespace _Project.Scripts
         /**
          * Translates, rotates and scales the bone based on the given start and end points plus shift.
          */
-        public void SetBoneSizeAndPosition(Vector3 start, Vector3 end, float shift)
+        public void SetBoneSizeAndPosition(Vector3 start, Vector3 end)
         {
             // Go to unit sphere
             gameObject.transform.position = Vector3.zero;
@@ -61,7 +61,7 @@ namespace _Project.Scripts
             // Rotate z-axis to align with bone vector
             gameObject.transform.rotation = Quaternion.LookRotation(boneVector.normalized);
             // Position at middle
-            gameObject.transform.position = (start + end) / 2.0f - new Vector3(0, shift, 0);
+            gameObject.transform.position = (start + end) / 2.0f;
             
             Assert.AreEqual(boneVector, end - start);
         }

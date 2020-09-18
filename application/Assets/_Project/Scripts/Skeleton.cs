@@ -96,14 +96,10 @@ namespace _Project.Scripts
             gameObject.SetActive(visibility);
         }
 
-        public void SetSkeleton(Vector3[] jointEstimation, GameObject plane, float lowestY)
+        public void SetSkeleton(Vector3[] jointEstimation)
         {
-            var planeFootBuffer = 0.02f;
-            var moveAmount = plane.transform.position.y;
-            var differenceWithPlaneAndFeet = lowestY - moveAmount - planeFootBuffer;
-
-            UpdateJoints(jointEstimation, differenceWithPlaneAndFeet);
-            UpdateBones(jointEstimation, differenceWithPlaneAndFeet);
+            UpdateJoints(jointEstimation);
+            UpdateBones(jointEstimation);
         }
 
         public void CheckRules(List<Rule> rules)
@@ -122,22 +118,22 @@ namespace _Project.Scripts
             }
         }
 
-        private void UpdateJoints(Vector3[] jointEstimation, float differenceWithPlaneAndFeet)
+        private void UpdateJoints(Vector3[] jointEstimation)
         {
             for (var i = 0; i < this.joints.Count; i++)
             {
-                var vector = new Vector3(jointEstimation[i][0], jointEstimation[i][1] - differenceWithPlaneAndFeet, jointEstimation[i][2]);
+                var vector = new Vector3(jointEstimation[i][0], jointEstimation[i][1], jointEstimation[i][2]);
                 this.joints[i].SetJointPosition(vector);
             }
         }
 
-        private void UpdateBones(Vector3[] jointEstimation, float differenceWithPlaneAndFeet)
+        private void UpdateBones(Vector3[] jointEstimation)
         {
             foreach (var bone in bones)
             {
                 var startJoint = jointEstimation[bone.jointIndexA];
                 var endJoint = jointEstimation[bone.jointIndexB];
-                bone.SetBoneSizeAndPosition(startJoint, endJoint, differenceWithPlaneAndFeet);
+                bone.SetBoneSizeAndPosition(startJoint, endJoint);
             }
         }
 
