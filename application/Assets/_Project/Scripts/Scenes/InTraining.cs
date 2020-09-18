@@ -10,7 +10,6 @@ namespace _Project.Scripts.Scenes
     {
         public TextAsset inTrainingConfigurationFile;
         public TextAsset exercisesConfigurationFile;
-        public GameObject plane;
 
         private WebSocketClient webSocketClient;
         private SkeletonOrchestrator skeletonOrchestrator;
@@ -36,7 +35,7 @@ namespace _Project.Scripts.Scenes
 
             webSocketClient = gameObject.AddComponent<WebSocketClient>();
             webSocketClient.webSocketConfiguration = inTrainingConfiguration.webSocket;
-            skeletonOrchestrator = new SkeletonOrchestrator(inTrainingConfiguration.maxNumberOfPeople, plane);
+            skeletonOrchestrator = new SkeletonOrchestrator(inTrainingConfiguration.maxNumberOfPeople);
             skeletonOrchestrator.SetCurrentExercise(exercisesConfiguration.exercises[0]);
 
             parentCamRot = transform.rotation;
@@ -48,7 +47,7 @@ namespace _Project.Scripts.Scenes
         {
             var detectedPersons = webSocketClient.detectedPersons;
             var lowestY = webSocketClient.lowestY;
-            skeletonOrchestrator?.Update(detectedPersons, lowestY);
+            skeletonOrchestrator?.Update(detectedPersons);
         }
 
         private void LateUpdate()

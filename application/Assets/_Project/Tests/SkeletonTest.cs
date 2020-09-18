@@ -25,8 +25,8 @@ namespace Tests
             var boneBStartVector = new Vector3(0, 0, 0);
             var boneBEndVector = new Vector3(0, 1, 0);
             
-            boneA.SetBoneSizeAndPosition(boneAStartVector, boneAEndVector, 0);
-            boneB.SetBoneSizeAndPosition(boneBStartVector, boneBEndVector, 0);
+            boneA.SetBoneSizeAndPosition(boneAStartVector, boneAEndVector);
+            boneB.SetBoneSizeAndPosition(boneBStartVector, boneBEndVector);
             
             // WHEN
             var result = Skeleton.IsBonesInDegreeRange(angle, tolerance, tolerance, boneA, boneB);
@@ -50,8 +50,8 @@ namespace Tests
             var boneBStartVector = new Vector3(0, 0, 0);
             var boneBEndVector = new Vector3(0, 1, 0);
             
-            boneA.SetBoneSizeAndPosition(boneAStartVector, boneAEndVector, 0);
-            boneB.SetBoneSizeAndPosition(boneBStartVector, boneBEndVector, 0);
+            boneA.SetBoneSizeAndPosition(boneAStartVector, boneAEndVector);
+            boneB.SetBoneSizeAndPosition(boneBStartVector, boneBEndVector);
             
             // WHEN
             var result = Skeleton.IsBonesInDegreeRange(angle, tolerance, tolerance, boneA, boneB);
