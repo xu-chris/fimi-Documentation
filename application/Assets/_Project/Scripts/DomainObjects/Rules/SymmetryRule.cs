@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using _Project.Scripts.DomainValues;
 
 namespace _Project.Scripts.DomainObjects.Rules
 {
@@ -9,7 +8,6 @@ namespace _Project.Scripts.DomainObjects.Rules
         public string centerBone;
         public List<string> leftBones;
         public List<string> rightBones;
-        public override RuleType type => RuleType.SYMMETRY_RULE;
 
         public override bool IsInvalidated(List<Bone> boneObjects)
         {

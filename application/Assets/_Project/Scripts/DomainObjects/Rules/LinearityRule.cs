@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using _Project.Scripts.DomainValues;
 using UnityEngine;
 
 namespace _Project.Scripts.DomainObjects.Rules
@@ -8,7 +7,6 @@ namespace _Project.Scripts.DomainObjects.Rules
     {
         public List<string> bones;
         public float tolerance;
-        public override RuleType type => RuleType.LINEARITY_RULE;
 
         public override bool IsInvalidated(List<Bone> boneObjects)
         {

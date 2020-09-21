@@ -21,12 +21,9 @@ namespace _Project.Scripts
         private readonly List<Joint> joints;
 
         // Parameters
-        private int id;
 
         public Skeleton(int id, bool withGameObjects = true)
         {
-            this.id = id;
-
             gameObject = new GameObject
             {
                 name = "Skeleton_" + id

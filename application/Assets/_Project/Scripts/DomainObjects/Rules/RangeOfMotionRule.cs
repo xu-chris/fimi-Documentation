@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using _Project.Scripts.DomainValues;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -12,7 +11,6 @@ namespace _Project.Scripts.DomainObjects.Rules
         public List<string> bones;
         public float lowerThreshold;
         public float upperThreshold;
-        public override RuleType type => RuleType.RANGE_OF_MOTION;
 
         public override bool IsInvalidated(List<Bone> boneObjects)
         {

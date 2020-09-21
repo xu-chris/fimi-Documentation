@@ -6,12 +6,6 @@ namespace _Project.Scripts.DomainObjects
 {
     internal static class StringExtension
     {
-        public static RuleType ToRuleType(this string str)
-        {
-            Enum.TryParse(str.ToUpperCaseWithUnderScore(), out RuleType value);
-            return value;
-        }
-
         public static ExerciseType ToExerciseType(this string str)
         {
             Enum.TryParse(str.ToUpperCaseWithUnderScore(), out ExerciseType value);

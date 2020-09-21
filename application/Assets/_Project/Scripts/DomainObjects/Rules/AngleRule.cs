@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using _Project.Scripts.DomainValues;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -13,7 +12,6 @@ namespace _Project.Scripts.DomainObjects.Rules
         public float expectedAngle;
         public float lowerTolerance;
         public float upperTolerance;
-        public override RuleType type => RuleType.ANGLE;
 
         public override bool IsInvalidated(List<Bone> boneObjects)
         {
