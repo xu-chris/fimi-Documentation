@@ -10,7 +10,7 @@ namespace _Project.Scripts.Periphery.Clients
 {
     public class WebSocketClient : MonoBehaviour
     {
-        public Person[] detectedPersons;
+        public Person[] detectedPersons = new Person[]{};
         private readonly bool enableLogging = false;
 
         private bool isWsConnected;

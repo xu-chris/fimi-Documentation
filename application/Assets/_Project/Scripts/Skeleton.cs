@@ -10,7 +10,7 @@ namespace _Project.Scripts
     public class Skeleton
     {
         // Skeleton design
-        private static readonly Color skeletonColor = Color.black;
+        protected static readonly Color skeletonColor = Color.black;
         private static readonly float sphereRadius = 0.05f;
 
         private readonly List<Bone> bones;
@@ -19,8 +19,6 @@ namespace _Project.Scripts
 
         // Definition
         private readonly List<Joint> joints;
-
-        // Parameters
 
         public Skeleton(int id, bool withGameObjects = true)
         {
@@ -98,45 +96,6 @@ namespace _Project.Scripts
             UpdateBones(jointEstimation);
         }
 
-        public void CheckRules(List<Rule> rules)
-        {
-            foreach (var rule in rules)
-            {
-                List<Bone> bonesConsideredForGivenRule;
-                bool isInvalided;
-                switch (rule)
-                {
-                    case AngleRule angleRule:
-                        bonesConsideredForGivenRule = angleRule.bones.ToBoneTypes().Select(GetBone).ToList();
-                        isInvalided = rule.IsInvalidated(bonesConsideredForGivenRule);
-                        GreenRedColoring(bonesConsideredForGivenRule, isInvalided);
-                        break;
-                    case RangeOfMotionRule rangeOfMotionRule:
-                        bonesConsideredForGivenRule = rangeOfMotionRule.bones.ToBoneTypes().Select(GetBone).ToList();
-                        isInvalided = rule.IsInvalidated(bonesConsideredForGivenRule);
-                        RedNeutralColoring(bonesConsideredForGivenRule, isInvalided);
-                        break;
-                    case SymmetryRule symmetryRule:
-                        // TODO: Implement
-                        break;
-                    case LinearityRule linearityRule:
-                        bonesConsideredForGivenRule = linearityRule.bones.ToBoneTypes().Select(GetBone).ToList();
-                        isInvalided = rule.IsInvalidated(bonesConsideredForGivenRule);
-                        if (isInvalided) Debug.Log("Bones " + linearityRule.bones + " are not parallel to each other.");
-                        break;
-                    case HorizontallyRule horizontallyRule:
-                        // TODO: Implement
-                        break;
-                    case VerticallyRule verticallyRule:
-                        // TODO: Implement
-                        break;
-                    case SpeedRule speedRule:
-                        // TODO: Implement
-                        break;
-                }
-            }
-        }
-
         private void UpdateJoints(Vector3[] jointEstimation)
         {
             for (var i = 0; i < joints.Count; i++)
@@ -156,65 +115,11 @@ namespace _Project.Scripts
             }
         }
 
-        private static void RedNeutralColoring(List<Bone> bones, bool colorRed)
-        {
-            var color = colorRed ? Color.red : skeletonColor;
-            ColorizeAllBones(bones, color);
-        }
-
-        private static void GreenRedColoring(List<Bone> bones, bool colorToRed)
-        {
-            var color = colorToRed ? Color.red : Color.green;
-            ColorizeAllBones(bones, color);
-        }
-
-        private static void ColorizeAllBones(List<Bone> bones, Color color)
-        {
-            foreach (var bone in bones) bone.Colorize(color);
-        }
-
-        public static bool IsBonesInDegreeRange(float expectedAngle, float lowerTolerance, float higherTolerance,
-            Bone boneA, Bone boneB)
-        {
-            var calculatedAngle = GetAngleBetweenBones(boneA, boneB);
-            Debug.Log("Calculated angle: " + calculatedAngle + ", expected angle is between " +
-                      (expectedAngle - lowerTolerance) + " and " + (expectedAngle + higherTolerance));
-            return !(calculatedAngle > expectedAngle + higherTolerance) &&
-                   !(calculatedAngle < expectedAngle - lowerTolerance);
-        }
-
-        /**
-         * Checks if the angle is in given threshold.
-         * Returns true if
-         * - the threshold is lower than expectedAngle AND the calculated angle is higher than the threshold, OR
-         * - the threshold is higher than expectedAngle AND the calculated angle is lower than the threshold
-         */
-        private static bool IsBonesInAngleThreshold(float threshold, Bone boneA, Bone boneB, float expectedAngle)
-        {
-            var calculatedAngle = GetAngleBetweenBones(boneA, boneB);
-            Debug.Log("Calculated angle: " + calculatedAngle + ", threshold is: " + threshold + " degree");
-            return expectedAngle < threshold ? calculatedAngle <= threshold : calculatedAngle >= threshold;
-        }
-
-        /// <summary>
-        ///     Returns the angle between two bones.
-        ///     Calculated by the inverse Cosinus of the dot product of both, divided by the vector magnitude of both bones.
-        ///     The angle returned is the unsigned angle between the two vectors, so the smaller of possible angles between the
-        ///     vectors is used.
-        ///     The result is never greater than 180 degrees.
-        /// </summary>
-        /// <param name="boneA">The first bone</param>
-        /// <param name="boneB">The second bone</param>
-        private static float GetAngleBetweenBones(Bone boneA, Bone boneB)
-        {
-            return Vector3.Angle(boneA.boneVector, boneB.boneVector);
-        }
-
         /**
          * Returns the bone for a given BoneType.
          * @return Bone the bone.
          */
-        private Bone GetBone(BoneType boneType)
+        protected Bone GetBone(BoneType boneType)
         {
             return bones.Find(item => item.boneType.Equals(boneType));
         }

@@ -9,7 +9,7 @@ namespace _Project.Scripts
         private readonly int maxNumberOfPeople;
 
         private Exercise currentExercise;
-        private Skeleton[] skeletons;
+        private InTrainingSkeleton[] skeletons;
         private List<int> validJointIdx;
 
         public SkeletonOrchestrator(int maxNumberOfPeople)
@@ -28,7 +28,7 @@ namespace _Project.Scripts
                 // Init skeleton if not given.
                 if (skeletons[p] == null)
                 {
-                    skeletons[p] = new Skeleton(p);
+                    skeletons[p] = new InTrainingSkeleton(p);
                     Debug.LogError("Initialized a new skeleton which should be already there 🤔. p: " + p);
                 }
 
@@ -49,14 +49,18 @@ namespace _Project.Scripts
         public void SetCurrentExercise(Exercise exercise)
         {
             currentExercise = exercise;
+            foreach (var skeleton in skeletons)
+            {
+                skeleton.SetUpExerciseReport(exercise);
+            }
         }
 
         private void InitializeAllSkeletons()
         {
-            skeletons = new Skeleton[maxNumberOfPeople];
+            skeletons = new InTrainingSkeleton[maxNumberOfPeople];
             for (var p = 0; p < maxNumberOfPeople; p++)
             {
-                skeletons[p] = new Skeleton(p);
+                skeletons[p] = new InTrainingSkeleton(p);
                 skeletons[p].SetIsVisible(false);
             }
         }
