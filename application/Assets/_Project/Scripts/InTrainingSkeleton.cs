@@ -31,33 +31,37 @@ namespace _Project.Scripts
                 {
                     case AngleRule angleRule:
                         bonesConsideredForGivenRule = angleRule.bones.ToBoneTypes().Select(GetBone).ToList();
-                        isInvalided = rule.IsInvalidated(bonesConsideredForGivenRule);
+                        isInvalided = angleRule.IsInvalidated(bonesConsideredForGivenRule);
                         GreenRedColoring(bonesConsideredForGivenRule, isInvalided);
                         if (isInvalided) exerciseReport.Count(angleRule);
                         break;
                     case RangeOfMotionRule rangeOfMotionRule:
                         bonesConsideredForGivenRule = rangeOfMotionRule.bones.ToBoneTypes().Select(GetBone).ToList();
-                        isInvalided = rule.IsInvalidated(bonesConsideredForGivenRule);
+                        isInvalided = rangeOfMotionRule.IsInvalidated(bonesConsideredForGivenRule);
                         RedNeutralColoring(bonesConsideredForGivenRule, isInvalided);
                         if (isInvalided) exerciseReport.Count(rangeOfMotionRule);
                         break;
                     case SymmetryRule symmetryRule:
-                        // TODO: Implement
+                        var leftBones = symmetryRule.leftBones.ToBoneTypes().Select(GetBone).ToList();
+                        var rightBones = symmetryRule.rightBones.ToBoneTypes().Select(GetBone).ToList();
+                        var referenceBone = GetBone(symmetryRule.centerBone.ToBoneType());
+                        isInvalided = symmetryRule.IsInvalidated(leftBones, rightBones, referenceBone);
+                        if (isInvalided) exerciseReport.Count(symmetryRule);
                         break;
                     case LinearityRule linearityRule:
                         bonesConsideredForGivenRule = linearityRule.bones.ToBoneTypes().Select(GetBone).ToList();
-                        isInvalided = rule.IsInvalidated(bonesConsideredForGivenRule);
+                        isInvalided = linearityRule.IsInvalidated(bonesConsideredForGivenRule);
                         if (isInvalided) exerciseReport.Count(linearityRule);
-                        if (isInvalided) Debug.Log("Bones " + linearityRule.bones + " are not parallel to each other.");
                         break;
                     case HorizontallyRule horizontallyRule:
-                        // TODO: Implement
+                        bonesConsideredForGivenRule = horizontallyRule.bones.ToBoneTypes().Select(GetBone).ToList();
+                        isInvalided = horizontallyRule.IsInvalidated(bonesConsideredForGivenRule);
+                        if (isInvalided) exerciseReport.Count(horizontallyRule);
                         break;
                     case VerticallyRule verticallyRule:
                         bonesConsideredForGivenRule = verticallyRule.bones.ToBoneTypes().Select(GetBone).ToList();
-                        isInvalided = rule.IsInvalidated(bonesConsideredForGivenRule);
+                        isInvalided = verticallyRule.IsInvalidated(bonesConsideredForGivenRule);
                         if (isInvalided) exerciseReport.Count(verticallyRule);
-                        if (isInvalided) Debug.Log("Bones " + verticallyRule.bones + " are not vertically aligned to each other.");
                         break;
                     case SpeedRule speedRule:
                         // TODO: Implement
