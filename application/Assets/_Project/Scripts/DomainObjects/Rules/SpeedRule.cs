@@ -21,6 +21,7 @@ namespace _Project.Scripts.DomainObjects.Rules
             }
         }
         
+        public List<string> bones;
         public float lowerDistanceChangeThreshold;
         public float upperDistanceChangeThreshold;
 

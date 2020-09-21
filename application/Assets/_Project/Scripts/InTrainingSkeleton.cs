@@ -64,7 +64,9 @@ namespace _Project.Scripts
                         if (isInvalided) exerciseReport.Count(verticallyRule);
                         break;
                     case SpeedRule speedRule:
-                        // TODO: Implement
+                        bonesConsideredForGivenRule = speedRule.bones.ToBoneTypes().Select(GetBone).ToList();
+                        isInvalided = speedRule.IsInvalidated(bonesConsideredForGivenRule);
+                        if (isInvalided) exerciseReport.Count(speedRule);
                         break;
                 }
             }
