@@ -19,9 +19,9 @@ MonoBehaviour:
     width: 2560
     height: 1440
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Project
   m_RootView: {fileID: 3}
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -39,15 +39,15 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1114
+    x: 841.5
     y: 0
-    width: 1027.5
+    width: 780
     height: 881
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 16}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 17}
   m_Panes:
-  - {fileID: 16}
+  - {fileID: 17}
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &3
@@ -72,7 +72,7 @@ MonoBehaviour:
     y: 0
     width: 2560
     height: 1440
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
@@ -100,8 +100,8 @@ MonoBehaviour:
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
   m_LoadedToolbars:
-  - {fileID: 24}
-  m_MainToolbar: {fileID: 24}
+  - {fileID: 25}
+  m_MainToolbar: {fileID: 25}
   m_LastLoadedLayoutName: 
 --- !u!114 &5
 MonoBehaviour:
@@ -145,10 +145,10 @@ MonoBehaviour:
     y: 30
     width: 2560
     height: 1390
-  m_MinSize: {x: 781, y: 342}
-  m_MaxSize: {x: 16006, y: 8042}
+  m_MinSize: {x: 804, y: 492}
+  m_MaxSize: {x: 16004, y: 14042}
   vertical: 0
-  controlID: 112
+  controlID: 2672
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -168,12 +168,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2141.5
+    width: 1621.5
     height: 1390
-  m_MinSize: {x: 505, y: 342}
-  m_MaxSize: {x: 12005, y: 8042}
+  m_MinSize: {x: 503, y: 492}
+  m_MaxSize: {x: 12003, y: 14042}
   vertical: 1
-  controlID: 113
+  controlID: 2673
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -194,12 +194,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2141.5
+    width: 1621.5
     height: 881
-  m_MinSize: {x: 505, y: 221}
-  m_MaxSize: {x: 12005, y: 4021}
+  m_MinSize: {x: 503, y: 221}
+  m_MaxSize: {x: 12003, y: 4021}
   vertical: 0
-  controlID: 114
+  controlID: 130
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -217,13 +217,13 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 282
+    width: 212.5
     height: 881
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 17}
+  m_ActualView: {fileID: 18}
   m_Panes:
-  - {fileID: 17}
+  - {fileID: 18}
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &10
@@ -241,18 +241,18 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 282
+    x: 212.5
     y: 0
-    width: 832
+    width: 629
     height: 881
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 18}
+  m_ActualView: {fileID: 19}
   m_Panes:
-  - {fileID: 18}
   - {fileID: 19}
+  - {fileID: 20}
+  - {fileID: 16}
   - {fileID: 15}
-  - {fileID: 14}
   m_Selected: 0
   m_LastSelected: 3
 --- !u!114 &11
@@ -265,23 +265,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
     x: 0
     y: 881
-    width: 2141.5
+    width: 1621.5
     height: 509
-  m_MinSize: {x: 101, y: 121}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 231, y: 271}
+  m_MaxSize: {x: 10001, y: 10021}
   m_ActualView: {fileID: 21}
   m_Panes:
-  - {fileID: 20}
   - {fileID: 21}
-  m_Selected: 1
-  m_LastSelected: 0
+  - {fileID: 22}
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -292,25 +292,56 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: InspectorWindow
+  m_Name: ProjectSettingsWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 2141.5
+    x: 1621.5
     y: 0
-    width: 418.5
+    width: 938.5
     height: 1390
-  m_MinSize: {x: 276, y: 71}
+  m_MinSize: {x: 301, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 22}
+  m_ActualView: {fileID: 13}
   m_Panes:
-  - {fileID: 22}
   - {fileID: 23}
+  - {fileID: 24}
+  - {fileID: 14}
   - {fileID: 13}
-  m_Selected: 0
-  m_LastSelected: 2
+  m_Selected: 3
+  m_LastSelected: 0
 --- !u!114 &13
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 13854, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 300, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Project Settings
+    m_Image: {fileID: 866346219090771560, guid: 0000000000000000d000000000000000,
+      type: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 1621.5
+    y: 30
+    width: 937.5
+    height: 1369
+  m_ViewDataDictionary: {fileID: 0}
+  m_PosLeft: {x: 0, y: 0}
+  m_PosRight: {x: 0, y: 0}
+  m_Scope: 1
+  m_SplitterFlex: 0.2
+--- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -330,13 +361,13 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2213
+    x: 2142
     y: 30
-    width: 346
+    width: 417
     height: 1369
   m_ViewDataDictionary: {fileID: 0}
   m_Spl:
-    ID: 14897
+    ID: 177
     splitterInitialOffset: 0
     currentActiveSplitter: -1
     realSizes:
@@ -361,7 +392,7 @@ MonoBehaviour:
     oldSplitSize: 0
   m_TestTypeToolbarIndex: 1
   m_PlayModeTestListGUI:
-    m_Window: {fileID: 13}
+    m_Window: {fileID: 14}
     newResultList:
     - id: 1009
       uniqueId: '[fimi][suite]'
@@ -412,14 +443,14 @@ MonoBehaviour:
       availableCategories:
       - Uncategorized
   m_EditModeTestListGUI:
-    m_Window: {fileID: 13}
+    m_Window: {fileID: 14}
     newResultList:
     - id: 1000
       uniqueId: '[fimi][suite]'
       name: fimi
       fullName: fimi
       resultStatus: 1
-      duration: 0.1027765
+      duration: 0.4503358
       messages: 
       output: 
       stacktrace: 
@@ -430,18 +461,834 @@ MonoBehaviour:
       categories: []
       parentId: 
       parentUniqueId: 
-    m_ResultText: 'ShouldReturnTrueWhenInsideOfRuleBoundary (0.002s)
-
-      ---
-
-      Calculated
-      angle: 90, expected angle is between 80 and 100'
+    - id: 1011
+      uniqueId: '[Tests.dll][suite]'
+      name: Tests.dll
+      fullName: /Users/chris/Developer/FiMi-Fitness-Smart-Mirror/application/Library/ScriptAssemblies/Tests.dll
+      resultStatus: 1
+      duration: 0.3740956
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1000
+      parentUniqueId: '[fimi][suite]'
+    - id: 1012
+      uniqueId: Tests.dll/[Tests][suite]
+      name: Tests
+      fullName: Tests
+      resultStatus: 1
+      duration: 0.3464881
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1011
+      parentUniqueId: '[Tests.dll][suite]'
+    - id: 1001
+      uniqueId: Tests.dll/Tests/[Tests][Tests.BoneTest][suite]
+      name: BoneTest
+      fullName: Tests.BoneTest
+      resultStatus: 1
+      duration: 0.0138585
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1012
+      parentUniqueId: Tests.dll/[Tests][suite]
+    - id: 1002
+      uniqueId: Tests.dll/Tests/BoneTest/[Tests][Tests.BoneTest.ShouldUpdateBoneVectorAfterSettingSizeAndRotation]
+      name: ShouldUpdateBoneVectorAfterSettingSizeAndRotation
+      fullName: Tests.BoneTest.ShouldUpdateBoneVectorAfterSettingSizeAndRotation
+      resultStatus: 1
+      duration: 0.0093168
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.BoneTest][suite]
+    - id: 1013
+      uniqueId: Tests.dll/Tests/[DomainObjects][suite]
+      name: DomainObjects
+      fullName: Tests.DomainObjects
+      resultStatus: 1
+      duration: 0.3210304
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1012
+      parentUniqueId: Tests.dll/[Tests][suite]
+    - id: 1014
+      uniqueId: Tests.dll/Tests/DomainObjects/[Tests][Tests.DomainObjects.Rules][suite]
+      name: Rules
+      fullName: Tests.DomainObjects.Rules
+      resultStatus: 1
+      duration: 0.2951936
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/[DomainObjects][suite]
+    - id: 1006
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.AngleRuleTest][suite]
+      name: AngleRuleTest
+      fullName: Tests.DomainObjects.Rules.AngleRuleTest
+      resultStatus: 1
+      duration: 0.0601146
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1019
+      parentUniqueId: Tests.dll/Tests/DomainObjects/[Tests][Tests.DomainObjects.Rules][suite]
+    - id: 1009
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/AngleRuleTest/[Tests][Tests.DomainObjects.Rules.AngleRuleTest.ShouldReturnInvalidIfOutsideOfLowerTolerance]
+      name: ShouldReturnInvalidIfOutsideOfLowerTolerance
+      fullName: Tests.DomainObjects.Rules.AngleRuleTest.ShouldReturnInvalidIfOutsideOfLowerTolerance
+      resultStatus: 1
+      duration: 0.0204558
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.AngleRuleTest][suite]
+    - id: 1007
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/AngleRuleTest/[Tests][Tests.DomainObjects.Rules.AngleRuleTest.ShouldReturnInvalidIfOutsideOfTolerance]
+      name: ShouldReturnInvalidIfOutsideOfTolerance
+      fullName: Tests.DomainObjects.Rules.AngleRuleTest.ShouldReturnInvalidIfOutsideOfTolerance
+      resultStatus: 1
+      duration: 0.0006715
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.AngleRuleTest][suite]
+    - id: 1011
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/AngleRuleTest/[Tests][Tests.DomainObjects.Rules.AngleRuleTest.ShouldReturnInvalidIfOutsideOfUpperTolerance]
+      name: ShouldReturnInvalidIfOutsideOfUpperTolerance
+      fullName: Tests.DomainObjects.Rules.AngleRuleTest.ShouldReturnInvalidIfOutsideOfUpperTolerance
+      resultStatus: 1
+      duration: 0.0004206
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.AngleRuleTest][suite]
+    - id: 1007
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/AngleRuleTest/[Tests][Tests.DomainObjects.Rules.AngleRuleTest.ShouldReturnValidIfExactExpectedAngle]
+      name: ShouldReturnValidIfExactExpectedAngle
+      fullName: Tests.DomainObjects.Rules.AngleRuleTest.ShouldReturnValidIfExactExpectedAngle
+      resultStatus: 1
+      duration: 0.0006879
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.AngleRuleTest][suite]
+    - id: 1010
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/AngleRuleTest/[Tests][Tests.DomainObjects.Rules.AngleRuleTest.ShouldReturnValidIfInsideOfLowerTolerance]
+      name: ShouldReturnValidIfInsideOfLowerTolerance
+      fullName: Tests.DomainObjects.Rules.AngleRuleTest.ShouldReturnValidIfInsideOfLowerTolerance
+      resultStatus: 1
+      duration: 0.0004005
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.AngleRuleTest][suite]
+    - id: 1012
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/AngleRuleTest/[Tests][Tests.DomainObjects.Rules.AngleRuleTest.ShouldReturnValidIfInsideOfUpperTolerance]
+      name: ShouldReturnValidIfInsideOfUpperTolerance
+      fullName: Tests.DomainObjects.Rules.AngleRuleTest.ShouldReturnValidIfInsideOfUpperTolerance
+      resultStatus: 1
+      duration: 0.0004003
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.AngleRuleTest][suite]
+    - id: 1013
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest][suite]
+      name: HorizontallyRuleTest
+      fullName: Tests.DomainObjects.Rules.HorizontallyRuleTest
+      resultStatus: 1
+      duration: 0.0643115
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1045
+      parentUniqueId: Tests.dll/Tests/DomainObjects/[Tests][Tests.DomainObjects.Rules][suite]
+    - id: 1014
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/HorizontallyRuleTest/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnInvalidForPerpendicularVector]
+      name: ShouldReturnInvalidForPerpendicularVector
+      fullName: Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnInvalidForPerpendicularVector
+      resultStatus: 1
+      duration: 0.0014529
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest][suite]
+    - id: 1023
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/HorizontallyRuleTest/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnInvalidIfAChainOfBonesIsOutOfNegativeThreshold]
+      name: ShouldReturnInvalidIfAChainOfBonesIsOutOfNegativeThreshold
+      fullName: Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnInvalidIfAChainOfBonesIsOutOfNegativeThreshold
+      resultStatus: 1
+      duration: 0.0006541
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest][suite]
+    - id: 1022
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/HorizontallyRuleTest/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnInvalidIfOneBoneIsOutOfNegativeThreshold]
+      name: ShouldReturnInvalidIfOneBoneIsOutOfNegativeThreshold
+      fullName: Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnInvalidIfOneBoneIsOutOfNegativeThreshold
+      resultStatus: 1
+      duration: 0.0004301
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest][suite]
+    - id: 1019
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/HorizontallyRuleTest/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnInvalidIfOneBoneIsOverThreshold]
+      name: ShouldReturnInvalidIfOneBoneIsOverThreshold
+      fullName: Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnInvalidIfOneBoneIsOverThreshold
+      resultStatus: 1
+      duration: 0.0005391
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest][suite]
+    - id: 1017
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/HorizontallyRuleTest/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnValidForBackVector]
+      name: ShouldReturnValidForBackVector
+      fullName: Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnValidForBackVector
+      resultStatus: 1
+      duration: 0.0005097
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest][suite]
+    - id: 1018
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/HorizontallyRuleTest/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnValidForForwardVector]
+      name: ShouldReturnValidForForwardVector
+      fullName: Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnValidForForwardVector
+      resultStatus: 1
+      duration: 0.0005376
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest][suite]
+    - id: 1015
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/HorizontallyRuleTest/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnValidForLeftVector]
+      name: ShouldReturnValidForLeftVector
+      fullName: Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnValidForLeftVector
+      resultStatus: 1
+      duration: 0.0005009
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest][suite]
+    - id: 1016
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/HorizontallyRuleTest/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnValidForRightVector]
+      name: ShouldReturnValidForRightVector
+      fullName: Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnValidForRightVector
+      resultStatus: 1
+      duration: 0.0004353
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest][suite]
+    - id: 1021
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/HorizontallyRuleTest/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnValidIfOneBoneIsInNegativeThreshold]
+      name: ShouldReturnValidIfOneBoneIsInNegativeThreshold
+      fullName: Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnValidIfOneBoneIsInNegativeThreshold
+      resultStatus: 1
+      duration: 0.0005286
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest][suite]
+    - id: 1020
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/HorizontallyRuleTest/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnValidIfOneBoneIsInThreshold]
+      name: ShouldReturnValidIfOneBoneIsInThreshold
+      fullName: Tests.DomainObjects.Rules.HorizontallyRuleTest.ShouldReturnValidIfOneBoneIsInThreshold
+      resultStatus: 1
+      duration: 0.0004118
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.HorizontallyRuleTest][suite]
+    - id: 1013
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.LinearityRulesTest][suite]
+      name: LinearityRulesTest
+      fullName: Tests.DomainObjects.Rules.LinearityRulesTest
+      resultStatus: 1
+      duration: 0.0321754
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1035
+      parentUniqueId: Tests.dll/Tests/DomainObjects/[Tests][Tests.DomainObjects.Rules][suite]
+    - id: 1016
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/LinearityRulesTest/[Tests][Tests.DomainObjects.Rules.LinearityRulesTest.ShouldReturnInvalidIfOutsideOfTolerance]
+      name: ShouldReturnInvalidIfOutsideOfTolerance
+      fullName: Tests.DomainObjects.Rules.LinearityRulesTest.ShouldReturnInvalidIfOutsideOfTolerance
+      resultStatus: 1
+      duration: 0.0015128
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.LinearityRulesTest][suite]
+    - id: 1014
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/LinearityRulesTest/[Tests][Tests.DomainObjects.Rules.LinearityRulesTest.ShouldReturnInvalidIfPerpendicular]
+      name: ShouldReturnInvalidIfPerpendicular
+      fullName: Tests.DomainObjects.Rules.LinearityRulesTest.ShouldReturnInvalidIfPerpendicular
+      resultStatus: 1
+      duration: 0.0007043
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.LinearityRulesTest][suite]
+    - id: 1015
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/LinearityRulesTest/[Tests][Tests.DomainObjects.Rules.LinearityRulesTest.ShouldReturnValidIfExactLinear]
+      name: ShouldReturnValidIfExactLinear
+      fullName: Tests.DomainObjects.Rules.LinearityRulesTest.ShouldReturnValidIfExactLinear
+      resultStatus: 1
+      duration: 0.0005547
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.LinearityRulesTest][suite]
+    - id: 1017
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/LinearityRulesTest/[Tests][Tests.DomainObjects.Rules.LinearityRulesTest.ShouldReturnValidIfInsideOfTolerance]
+      name: ShouldReturnValidIfInsideOfTolerance
+      fullName: Tests.DomainObjects.Rules.LinearityRulesTest.ShouldReturnValidIfInsideOfTolerance
+      resultStatus: 1
+      duration: 0.0005355
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.LinearityRulesTest][suite]
+    - id: 1018
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/LinearityRulesTest/[Tests][Tests.DomainObjects.Rules.LinearityRulesTest.ShouldReturnValidWhenChainOfBonesIsSlightlyTurnedButInsideOfTolerance]
+      name: ShouldReturnValidWhenChainOfBonesIsSlightlyTurnedButInsideOfTolerance
+      fullName: Tests.DomainObjects.Rules.LinearityRulesTest.ShouldReturnValidWhenChainOfBonesIsSlightlyTurnedButInsideOfTolerance
+      resultStatus: 1
+      duration: 0.0005004
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.LinearityRulesTest][suite]
+    - id: 1013
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.RangeOfMotionRuleTest][suite]
+      name: RangeOfMotionRuleTest
+      fullName: Tests.DomainObjects.Rules.RangeOfMotionRuleTest
+      resultStatus: 1
+      duration: 0.026325
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1028
+      parentUniqueId: Tests.dll/Tests/DomainObjects/[Tests][Tests.DomainObjects.Rules][suite]
+    - id: 1016
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/RangeOfMotionRuleTest/[Tests][Tests.DomainObjects.Rules.RangeOfMotionRuleTest.ShouldReturnInvalidIfOutsideOfLowerThreshold]
+      name: ShouldReturnInvalidIfOutsideOfLowerThreshold
+      fullName: Tests.DomainObjects.Rules.RangeOfMotionRuleTest.ShouldReturnInvalidIfOutsideOfLowerThreshold
+      resultStatus: 1
+      duration: 0.0013507
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.RangeOfMotionRuleTest][suite]
+    - id: 1014
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/RangeOfMotionRuleTest/[Tests][Tests.DomainObjects.Rules.RangeOfMotionRuleTest.ShouldReturnInvalidIfOutsideOfThreshold]
+      name: ShouldReturnInvalidIfOutsideOfThreshold
+      fullName: Tests.DomainObjects.Rules.RangeOfMotionRuleTest.ShouldReturnInvalidIfOutsideOfThreshold
+      resultStatus: 1
+      duration: 0.0005833
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.RangeOfMotionRuleTest][suite]
+    - id: 1018
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/RangeOfMotionRuleTest/[Tests][Tests.DomainObjects.Rules.RangeOfMotionRuleTest.ShouldReturnInvalidIfOutsideOfUpperThreshold]
+      name: ShouldReturnInvalidIfOutsideOfUpperThreshold
+      fullName: Tests.DomainObjects.Rules.RangeOfMotionRuleTest.ShouldReturnInvalidIfOutsideOfUpperThreshold
+      resultStatus: 1
+      duration: 0.0006076
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.RangeOfMotionRuleTest][suite]
+    - id: 1017
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/RangeOfMotionRuleTest/[Tests][Tests.DomainObjects.Rules.RangeOfMotionRuleTest.ShouldReturnValidIfInsideOfLowerThreshold]
+      name: ShouldReturnValidIfInsideOfLowerThreshold
+      fullName: Tests.DomainObjects.Rules.RangeOfMotionRuleTest.ShouldReturnValidIfInsideOfLowerThreshold
+      resultStatus: 1
+      duration: 0.0006097
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.RangeOfMotionRuleTest][suite]
+    - id: 1015
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/RangeOfMotionRuleTest/[Tests][Tests.DomainObjects.Rules.RangeOfMotionRuleTest.ShouldReturnValidIfInsideOfThreshold]
+      name: ShouldReturnValidIfInsideOfThreshold
+      fullName: Tests.DomainObjects.Rules.RangeOfMotionRuleTest.ShouldReturnValidIfInsideOfThreshold
+      resultStatus: 1
+      duration: 0.0006424
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.RangeOfMotionRuleTest][suite]
+    - id: 1019
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/RangeOfMotionRuleTest/[Tests][Tests.DomainObjects.Rules.RangeOfMotionRuleTest.ShouldReturnValidIfInsideOfUpperThreshold]
+      name: ShouldReturnValidIfInsideOfUpperThreshold
+      fullName: Tests.DomainObjects.Rules.RangeOfMotionRuleTest.ShouldReturnValidIfInsideOfUpperThreshold
+      resultStatus: 1
+      duration: 0.0005156
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.RangeOfMotionRuleTest][suite]
+    - id: 1034
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.SpeedRuleTest][suite]
+      name: SpeedRuleTest
+      fullName: Tests.DomainObjects.Rules.SpeedRuleTest
+      resultStatus: 1
+      duration: 0.0314776
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1049
+      parentUniqueId: Tests.dll/Tests/DomainObjects/[Tests][Tests.DomainObjects.Rules][suite]
+    - id: 1036
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/SpeedRuleTest/[Tests][Tests.DomainObjects.Rules.SpeedRuleTest.ShouldReturnInvalidIfInGodSpeed]
+      name: ShouldReturnInvalidIfInGodSpeed
+      fullName: Tests.DomainObjects.Rules.SpeedRuleTest.ShouldReturnInvalidIfInGodSpeed
+      resultStatus: 1
+      duration: 0.0034053
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1034
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.SpeedRuleTest][suite]
+    - id: 1037
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/SpeedRuleTest/[Tests][Tests.DomainObjects.Rules.SpeedRuleTest.ShouldReturnInvalidIfNotMovingAtAll]
+      name: ShouldReturnInvalidIfNotMovingAtAll
+      fullName: Tests.DomainObjects.Rules.SpeedRuleTest.ShouldReturnInvalidIfNotMovingAtAll
+      resultStatus: 1
+      duration: 0.0004689
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1034
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.SpeedRuleTest][suite]
+    - id: 1035
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/SpeedRuleTest/[Tests][Tests.DomainObjects.Rules.SpeedRuleTest.ShouldReturnValidIfInGoodSpeed]
+      name: ShouldReturnValidIfInGoodSpeed
+      fullName: Tests.DomainObjects.Rules.SpeedRuleTest.ShouldReturnValidIfInGoodSpeed
+      resultStatus: 1
+      duration: 0.0004199
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1034
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.SpeedRuleTest][suite]
+    - id: 1034
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.SymmetryRuleTest][suite]
+      name: SymmetryRuleTest
+      fullName: Tests.DomainObjects.Rules.SymmetryRuleTest
+      resultStatus: 1
+      duration: 0.0188667
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1048
+      parentUniqueId: Tests.dll/Tests/DomainObjects/[Tests][Tests.DomainObjects.Rules][suite]
+    - id: 1036
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/SymmetryRuleTest/[Tests][Tests.DomainObjects.Rules.SymmetryRuleTest.ShouldReturnInvalidIfBothAreAsymmetrical]
+      name: ShouldReturnInvalidIfBothAreAsymmetrical
+      fullName: Tests.DomainObjects.Rules.SymmetryRuleTest.ShouldReturnInvalidIfBothAreAsymmetrical
+      resultStatus: 1
+      duration: 0.0032004
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1034
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.SymmetryRuleTest][suite]
+    - id: 1035
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/SymmetryRuleTest/[Tests][Tests.DomainObjects.Rules.SymmetryRuleTest.ShouldReturnValidIfBothAreSymmetrical]
+      name: ShouldReturnValidIfBothAreSymmetrical
+      fullName: Tests.DomainObjects.Rules.SymmetryRuleTest.ShouldReturnValidIfBothAreSymmetrical
+      resultStatus: 1
+      duration: 0.0009235
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1034
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.SymmetryRuleTest][suite]
+    - id: 1006
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.VerticallyRuleTest][suite]
+      name: VerticallyRuleTest
+      fullName: Tests.DomainObjects.Rules.VerticallyRuleTest
+      resultStatus: 1
+      duration: 0.031252
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1014
+      parentUniqueId: Tests.dll/Tests/DomainObjects/[Tests][Tests.DomainObjects.Rules][suite]
+    - id: 1007
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/VerticallyRuleTest/[Tests][Tests.DomainObjects.Rules.VerticallyRuleTest.ShouldCountNoDifferenceInYAsValid]
+      name: ShouldCountNoDifferenceInYAsValid
+      fullName: Tests.DomainObjects.Rules.VerticallyRuleTest.ShouldCountNoDifferenceInYAsValid
+      resultStatus: 1
+      duration: 0.0018103
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.VerticallyRuleTest][suite]
+    - id: 1009
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/VerticallyRuleTest/[Tests][Tests.DomainObjects.Rules.VerticallyRuleTest.ShouldReturnInvalidIfOneOfTwoBonesIsToLeft]
+      name: ShouldReturnInvalidIfOneOfTwoBonesIsToLeft
+      fullName: Tests.DomainObjects.Rules.VerticallyRuleTest.ShouldReturnInvalidIfOneOfTwoBonesIsToLeft
+      resultStatus: 1
+      duration: 0.0008067
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.VerticallyRuleTest][suite]
+    - id: 1008
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/VerticallyRuleTest/[Tests][Tests.DomainObjects.Rules.VerticallyRuleTest.ShouldReturnInvalidWhenBoneIsToLeft]
+      name: ShouldReturnInvalidWhenBoneIsToLeft
+      fullName: Tests.DomainObjects.Rules.VerticallyRuleTest.ShouldReturnInvalidWhenBoneIsToLeft
+      resultStatus: 1
+      duration: 0.0005496
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.VerticallyRuleTest][suite]
+    - id: 1010
+      uniqueId: Tests.dll/Tests/DomainObjects/Rules/VerticallyRuleTest/[Tests][Tests.DomainObjects.Rules.VerticallyRuleTest.ShouldReturnValidForUpVectors]
+      name: ShouldReturnValidForUpVectors
+      fullName: Tests.DomainObjects.Rules.VerticallyRuleTest.ShouldReturnValidForUpVectors
+      resultStatus: 1
+      duration: 0.000709
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/DomainObjects/Rules/[Tests][Tests.DomainObjects.Rules.VerticallyRuleTest][suite]
+    m_ResultText: Rules (0.295s)
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: ffc87aa8
-      m_LastClickedID: -1468348161
-      m_ExpandedIDs: de092183b971509ee557abf72389a6fe4ae3ec05956613418359db417ad2ff7effffff7f
+      m_SelectedIDs: d805730f
+      m_LastClickedID: 259196376
+      m_ExpandedIDs: de09218323637798b971509e31728cede557abf72389a6fe73990d054ae3ec05d805730fbe2ee91190ab0214c4a0262a575ba93d956613418359db41a6ff644f7ad2ff7effffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -467,7 +1314,7 @@ MonoBehaviour:
       selectedCategoryMask: 0
       availableCategories:
       - Uncategorized
---- !u!114 &14
+--- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -494,7 +1341,7 @@ MonoBehaviour:
     height: 860
   m_ViewDataDictionary: {fileID: 0}
   m_SplitPaneLeftWidth: 300
---- !u!114 &15
+--- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -520,7 +1367,7 @@ MonoBehaviour:
     width: 638
     height: 860
   m_ViewDataDictionary: {fileID: 0}
---- !u!114 &16
+--- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -541,9 +1388,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1114
+    x: 841.5
     y: 30
-    width: 1025.5
+    width: 778
     height: 860
   m_ViewDataDictionary: {fileID: 0}
   m_SerializedViewNames: []
@@ -552,7 +1399,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 1025.5, y: 641}
+  m_TargetSize: {x: 472, y: 839}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -561,16 +1408,16 @@ MonoBehaviour:
   m_VSyncEnabled: 0
   m_Gizmos: 0
   m_Stats: 0
-  m_SelectedSizes: 04000000000000000000000000000000000000000000000000000000000000000000000000000000
+  m_SelectedSizes: 07000000000000000000000000000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -256.375
-    m_HBaseRangeMax: 256.375
-    m_VBaseRangeMin: -160.25
-    m_VBaseRangeMax: 160.25
+    m_HBaseRangeMin: -118
+    m_HBaseRangeMax: 118
+    m_VBaseRangeMin: -209.75
+    m_VBaseRangeMax: 209.75
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -588,29 +1435,29 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1025.5
+      width: 778
       height: 839
     m_Scale: {x: 2, y: 2}
-    m_Translation: {x: 512.75, y: 419.5}
+    m_Translation: {x: 389, y: 419.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -256.375
+      x: -194.5
       y: -209.75
-      width: 512.75
+      width: 389
       height: 419.5
     m_MinimalGUI: 1
   m_defaultScale: 2
-  m_LastWindowPixelSize: {x: 2051, y: 1720}
+  m_LastWindowPixelSize: {x: 1556, y: 1720}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000100000100
   m_XRRenderMode: 0
   m_RenderTexture: {fileID: 0}
---- !u!114 &17
+--- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -633,15 +1480,15 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 30
-    width: 281
+    width: 211.5
     height: 860
   m_ViewDataDictionary: {fileID: 0}
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: 76350000
       m_LastClickedID: 0
-      m_ExpandedIDs: 48faffff2afbffff
+      m_ExpandedIDs: 9afdf9ffc6dafbff62ddfbffb0e7fbffa4e8fbfff4e8fbff40e9fbffe0e9fbff2ceafbff98ebfbffe8ebfbff90ecfbff26fdfbff6cfdfbffbafdfbfffcfdfbff54fefbff40a2ffff7ca2ffff36a3ffffbaa3ffff10a4ffffdaa4ffff8ea5fffff2a5ffff58a6ffffd2a6ffff2ca7ffff8ca7ffff40a8ffffaea8ffffb8a9ffff84aaffff02abffff7aabffffc0acffff6cb3ffff7eb5ffffd0b5ffff6eb6ffff0eb7ffff64b7ffffb6b7fffff8b7ffff4ab8ffffe4b8ffff3eb9ffff0ebaffff50beffffacbefffff8beffff98bfffffdabfffff2cc0ffff08c1ffff42c3ffffe0c4ffffe2c5ffff36c6ffff8ac6ffff32c7ffff90c7ffffecc7ffff40c8ffffa8c8ffff38c9ffff34caffffb8caffff0ccbffff5ecbffff0accffff64ccffffb8ccffff70ceffff3ad0fffff2d0ffff08d2ffffb6d2ffff64d3ffff12d4ffffc4d4ffff7cd5ffff2ad6ffffe2d6ffffb0d9ffff04daffff62daffff2adbffff90dbffffd4dbffff1cdcffff68dcffffbcdcffff06ddffff50ddffffa4ddfffff8ddffff42deffff96deffffeadeffff9cdfffff40e0ffff92e0fffff6e0ffff4ae1ffffdae1ffff34e2ffff88e2ffff40e3ffff10e6ffff28e7ffffeae8fffffce9ffffaceaffff5cebffffd2ebffff8aecffffdcecffff76edffffaaefffff5ef0ffff0cf1ffff6af1ffff18f2ffff6cf2ffff78f4ffffe0f5ffffe2f6fffff8f9ffff72faffff50fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -665,7 +1512,7 @@ MonoBehaviour:
       m_IsLocked: 0
     m_CurrentSortingName: TransformSorting
   m_WindowGUID: 9dfc013ec1340cf48885fa45be6e6dfd
---- !u!114 &18
+--- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -686,9 +1533,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 282
+    x: 212.5
     y: 30
-    width: 830
+    width: 627
     height: 860
   m_ViewDataDictionary: {fileID: 0}
   m_ShowContextualTools: 0
@@ -733,17 +1580,17 @@ MonoBehaviour:
       m_Size: {x: 1, y: 1}
     yGrid:
       m_Fade:
-        m_Target: 1
+        m_Target: 0
         speed: 2
-        m_Value: 1
+        m_Value: 0
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
     zGrid:
       m_Fade:
-        m_Target: 0
+        m_Target: 1
         speed: 2
-        m_Value: 0
+        m_Value: 1
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
@@ -751,17 +1598,17 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.019154796, y: 0.9590063, z: -0.27472776, w: -0.06685718}
+    m_Target: {x: 0, y: 1, z: 0, w: 0}
     speed: 2
-    m_Value: {x: -0.019154746, y: 0.9590038, z: -0.27472705, w: -0.066857}
+    m_Value: {x: 0, y: 1, z: 0, w: 0}
   m_Size:
-    m_Target: 2.2103648
+    m_Target: 3.4675412
     speed: 2
-    m_Value: 2.2103648
+    m_Value: 3.4675412
   m_Ortho:
-    m_Target: 0
+    m_Target: 1
     speed: 2
-    m_Value: 0
+    m_Value: 1
   m_CameraSettings:
     m_Speed: 1
     m_SpeedNormalized: 0.5
@@ -782,7 +1629,7 @@ MonoBehaviour:
   m_SceneVisActive: 1
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
---- !u!114 &19
+--- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1348,7 +2195,7 @@ MonoBehaviour:
         asm: UnityEditor}
       data:
         m_PaneScroll: {x: 0, y: 0}
---- !u!114 &20
+--- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1371,7 +2218,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 911
-    width: 2140.5
+    width: 1620.5
     height: 488
   m_ViewDataDictionary: {fileID: 0}
   m_SearchFilter:
@@ -1398,10 +2245,10 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 2a350000
-    m_LastClickedID: 13610
-    m_ExpandedIDs: 000000002a3500002c3500002e35000030350000323500003435000036350000383500003a3500003c3500003e35000040350000423500004435000046350000483500004a3500004c3500004e35000050350000523500005435000056350000583500005a3500005c35000000ca9a3b
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: 76350000
+    m_LastClickedID: 13686
+    m_ExpandedIDs: 0000000076350000783500007a3500007c3500007e35000080350000823500008435000086350000883500008a3500008c3500008e35000090350000923500009435000096350000983500009a3500009c3500009e350000a0350000a2350000a4350000a6350000a835000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1429,7 +2276,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002a3500002c3500002e35000030350000323500003435000036350000383500003a3500003c3500003e35000040350000423500004435000046350000483500004a3500004c3500004e35000050350000523500005435000056350000583500005a3500005c350000
+    m_ExpandedIDs: 0000000076350000783500007a3500007c3500007e35000080350000823500008435000086350000883500008a3500008c3500008e35000090350000923500009435000096350000983500009a3500009c3500009e350000a0350000a2350000a4350000a6350000a8350000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1454,10 +2301,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 92350000
-    m_LastClickedInstanceID: 13714
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: 14200000fa01000064220000e024000000000000ca3b0000
+    m_ExpandedInstanceIDs: 14200000fa01000064220000e024000000000000ca3b0000f8530000f2530000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1473,7 +2320,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 12}
+      m_ClientGUIView: {fileID: 0}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -1485,7 +2332,7 @@ MonoBehaviour:
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 267
---- !u!114 &21
+--- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1508,10 +2355,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 911
-    width: 2140.5
+    width: 1620.5
     height: 488
   m_ViewDataDictionary: {fileID: 0}
---- !u!114 &22
+--- !u!114 &23
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1532,9 +2379,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2141.5
+    x: 1621.5
     y: 30
-    width: 417.5
+    width: 937.5
     height: 1369
   m_ViewDataDictionary: {fileID: 0}
   m_ObjectsLockedBeforeSerialization: []
@@ -1550,7 +2397,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
---- !u!114 &23
+--- !u!114 &24
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1576,7 +2423,7 @@ MonoBehaviour:
     width: 572
     height: 1286
   m_ViewDataDictionary: {fileID: 0}
---- !u!114 &24
+--- !u!114 &25
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
