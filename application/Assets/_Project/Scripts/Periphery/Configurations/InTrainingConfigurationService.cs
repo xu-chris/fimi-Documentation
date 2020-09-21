@@ -1,7 +1,5 @@
 // The ConfigService is heavily inspired by YamlDotNet: https://dotnetfiddle.net/rrR2Bb
 
-using System.IO;
-using _Project.Scripts.DomainObjects;
 using _Project.Scripts.DomainObjects.Configurations;
 using UnityEngine;
 using YamlDotNet.Serialization;
@@ -23,7 +21,7 @@ namespace _Project.Scripts.Periphery.Configurations
         {
             var namingConvention = new CamelCaseNamingConvention();
             var deserializer = new DeserializerBuilder().WithNamingConvention(namingConvention).Build();
-            
+
             return deserializer.Deserialize<InTrainingConfiguration>(document);
         }
     }

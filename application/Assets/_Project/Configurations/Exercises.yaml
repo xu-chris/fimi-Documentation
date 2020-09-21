@@ -1,36 +1,89 @@
 exercises:
   - type: squatArmRaise
     rules:
-      - rule:
-          !rangeOfMotionRule
-          lowerThreshold: 0
-          upperThreshold: 95
+      - !rangeOfMotionRule
+        lowerThreshold: 0
+        upperThreshold: 95
         bones:
           - LeftLowerLeg
           - LeftThigh
-      - rule:
-          !rangeOfMotionRule
-          lowerThreshold: 0
-          upperThreshold: 95
+      - !rangeOfMotionRule
+        lowerThreshold: 0
+        upperThreshold: 95
         bones:
           - RightLowerLeg
           - RightThigh
-      - rule:
-          !angleRule
-          expectedAngle: 0
-          lowerTolerance: 10
-          upperTolerance: 10
+      - !angleRule
+        expectedAngle: 0
+        lowerTolerance: 10
+        upperTolerance: 10
         bones:
           - LeftElbow
           - LeftForearm
-      - rule:
-          !angleRule
-          expectedAngle: 0
-          lowerTolerance: 10
-          upperTolerance: 10
+      - !angleRule
+        expectedAngle: 0
+        lowerTolerance: 10
+        upperTolerance: 10
         bones:
           - RightElbow
           - RightForearm
+      - !horizontallyRule
+        bones:
+          - LeftHand
+          - LeftForearm
+          - LeftElbow
+          - RightHand
+          - RightForearm
+          - RightElbow
+      - !verticallyRule
+        tolerance: 5
+        bones:
+          - LowerBody
+          - UpperBody
+          - Neck
+          - Head
+      - !symmetryRule
+        leftBones:
+          - LeftShoulder
+          - LeftElbow
+          - LeftForearm
+          - LeftHand
+          - LeftThigh
+          - LeftLowerLeg
+          - LeftFoot
+        rightBones:
+          - RightShoulder
+          - RightElbow
+          - RightForearm
+          - RightHand
+          - RightThigh
+          - RightLowerLeg
+          - RightFoot
+        centerBone: UpperBody
+        tolerance: 5
+      - !linearityRule
+        bones:
+          - LeftElbow
+          - LeftForearm
+        tolerance: 0.1
+      - !speedRule
+        bones:
+          - LeftShoulder
+          - LeftElbow
+          - LeftForearm
+          - LeftHand
+          - LeftThigh
+          - LeftLowerLeg
+          - LeftFoot
+          - RightShoulder
+          - RightElbow
+          - RightForearm
+          - RightHand
+          - RightThigh
+          - RightLowerLeg
+          - RightFoot
+        lowerDistanceChangeThreshold: 0.1
+        upperDistanceChangeThreshold: 10
 
 trainings:
   - name: "Mobilize your body"

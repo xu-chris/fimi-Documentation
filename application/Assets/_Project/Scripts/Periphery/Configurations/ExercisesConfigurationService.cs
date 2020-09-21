@@ -1,9 +1,7 @@
-using _Project.Scripts.DomainObjects;
 using _Project.Scripts.DomainObjects.Configurations;
 using _Project.Scripts.DomainObjects.Rules;
 using UnityEngine;
 using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.Converters;
 using YamlDotNet.Serialization.NamingConventions;
 
 namespace _Project.Scripts.Periphery.Configurations
@@ -25,8 +23,13 @@ namespace _Project.Scripts.Periphery.Configurations
                 .WithNamingConvention(namingConvention)
                 .WithTagMapping("!rangeOfMotionRule", typeof(RangeOfMotionRule))
                 .WithTagMapping("!angleRule", typeof(AngleRule))
+                .WithTagMapping("!symmetryRule", typeof(SymmetryRule))
+                .WithTagMapping("!linearityRule", typeof(LinearityRule))
+                .WithTagMapping("!horizontallyRule", typeof(HorizontallyRule))
+                .WithTagMapping("!verticallyRule", typeof(VerticallyRule))
+                .WithTagMapping("!speedRule", typeof(SpeedRule))
                 .Build();
-            
+
             return deserializer.Deserialize<ExercisesConfiguration>(document);
         }
     }

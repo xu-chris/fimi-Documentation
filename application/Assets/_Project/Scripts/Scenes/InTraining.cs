@@ -1,4 +1,3 @@
-using _Project.Scripts.DomainObjects;
 using _Project.Scripts.DomainObjects.Configurations;
 using _Project.Scripts.Periphery.Clients;
 using _Project.Scripts.Periphery.Configurations;
@@ -10,26 +9,26 @@ namespace _Project.Scripts.Scenes
     {
         public TextAsset inTrainingConfigurationFile;
         public TextAsset exercisesConfigurationFile;
-
-        private WebSocketClient webSocketClient;
-        private SkeletonOrchestrator skeletonOrchestrator;
+        private ExercisesConfiguration exercisesConfiguration;
 
         private InTrainingConfiguration inTrainingConfiguration;
-        private ExercisesConfiguration exercisesConfiguration;
-        
+
         private Vector3 offset;
         private Vector3 parentCamPos;
 
         private Quaternion parentCamRot;
         private Vector3 parentCamScale;
+        private SkeletonOrchestrator skeletonOrchestrator;
+
+        private WebSocketClient webSocketClient;
 
         public void Start()
         {
             Application.runInBackground = true;
-            
+
             var inTrainingConfigurationService = new InTrainingConfigurationService(inTrainingConfigurationFile);
             inTrainingConfiguration = inTrainingConfigurationService.configuration;
-            
+
             var exerciseConfigurationService = new ExercisesConfigurationService(exercisesConfigurationFile);
             exercisesConfiguration = exerciseConfigurationService.configuration;
 

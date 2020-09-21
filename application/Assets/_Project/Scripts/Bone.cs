@@ -7,19 +7,20 @@ namespace _Project.Scripts
     public class Bone
     {
         internal readonly BoneType boneType;
+
+        private readonly GameObject gameObject;
         public readonly int jointIndexA;
         public readonly int jointIndexB;
         public Vector3 boneVector;
 
-        private readonly GameObject gameObject;
-
-        public Bone(BoneType boneType, int jointIndexA, int jointIndexB, Color color, GameObject parentObject, bool createGameObject = true)
+        public Bone(BoneType boneType, int jointIndexA, int jointIndexB, Color color, GameObject parentObject,
+            bool createGameObject = true)
         {
             this.boneType = boneType;
             this.jointIndexA = jointIndexA;
             this.jointIndexB = jointIndexB;
             gameObject = createGameObject ? InitGameObject(parentObject, boneType, color) : new GameObject();
-            
+
             boneVector = Vector3.zero;
         }
 
@@ -62,7 +63,7 @@ namespace _Project.Scripts
             gameObject.transform.rotation = Quaternion.LookRotation(boneVector.normalized);
             // Position at middle
             gameObject.transform.position = (start + end) / 2.0f;
-            
+
             Assert.AreEqual(boneVector, end - start);
         }
     }

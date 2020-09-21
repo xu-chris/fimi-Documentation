@@ -1,16 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using _Project.Scripts.DomainObjects.Rules;
 using _Project.Scripts.DomainValues;
 
 namespace _Project.Scripts.DomainObjects
 {
-    public struct ExerciseAspect
+    public static class ListExtension
     {
-        public List<string> bones;
-        public Rule rule;
-
-        public List<BoneType> BoneTypes()
+        public static List<BoneType> ToBoneTypes(this List<string> bones)
         {
             return bones.Select(boneType => boneType.ToBoneType()).ToList();
         }

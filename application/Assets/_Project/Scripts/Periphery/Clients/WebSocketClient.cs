@@ -10,17 +10,17 @@ namespace _Project.Scripts.Periphery.Clients
 {
     public class WebSocketClient : MonoBehaviour
     {
-        private bool enableLogging = false;
-        public WebSocketConfiguration webSocketConfiguration;
-        public Person[] detectedPersons;
+        public Person[] detectedPersons = new Person[]{};
+        private readonly bool enableLogging = false;
 
         private bool isWsConnected;
 
-        private string message;
-        private WebSocket webSocket;
-        private bool reconnecting = false;
-
         internal float lowestY = 999.0f;
+
+        private string message;
+        private bool reconnecting;
+        private WebSocket webSocket;
+        public WebSocketConfiguration webSocketConfiguration;
 
         public void Start()
         {
@@ -65,14 +65,11 @@ namespace _Project.Scripts.Periphery.Clients
                 Debug.Log("Not connected to server. Will try to connect now.");
                 yield return new WaitForSeconds(1);
                 if (webSocket == null)
-                {
                     ConnectToWebSocketServer();
-                }
                 else
-                {
                     webSocket.Connect();
-                }
             }
+
             reconnecting = false;
         }
 
@@ -131,7 +128,8 @@ namespace _Project.Scripts.Periphery.Clients
             }
 
             var currentNumPeople = (tokens.Length - parseOffset) / 3 / maxNumberOfJoints;
-            Debug.Log("Detected " + (tokens.Length - parseOffset) / 3 + " joints. Number of detected people " + currentNumPeople);
+            Debug.Log("Detected " + (tokens.Length - parseOffset) / 3 + " joints. Number of detected people " +
+                      currentNumPeople);
 
             var newDetection = new Person[currentNumPeople];
 
