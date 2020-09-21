@@ -36,6 +36,7 @@ exercises:
           - RightForearm
           - RightElbow
       - !verticallyRule
+        tolerance: 5
         bones:
           - LowerBody
           - UpperBody
@@ -59,6 +60,7 @@ exercises:
           - RightLowerLeg
           - RightFoot
         centerBone: UpperBody
+        tolerance: 5
       - !linearityRule
         bones:
           - LeftElbow

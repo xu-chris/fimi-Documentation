@@ -10,11 +10,20 @@ namespace _Project.Scripts.DomainObjects.Rules
 
         public override bool IsInvalidated(List<Bone> boneObjects)
         {
-            var runningDotProduct = 0f;
+            var runningAngle = 0f;
             for (var i = 0; i < boneObjects.Count - 1; i++)
-                runningDotProduct += Vector3.Dot(boneObjects[i].boneVector, boneObjects[i + 1].boneVector);
+                runningAngle += Vector3.Angle(boneObjects[i].boneVector, boneObjects[i + 1].boneVector);
 
-            return runningDotProduct > tolerance || runningDotProduct < -tolerance;
+            // Allow both 0 and 180 degree
+            runningAngle %= 180;
+
+            return runningAngle > tolerance || runningAngle < -tolerance;
+        }
+
+        public override string ToString()
+        {
+            return "Rule: " + GetType().Name + ", tolerance: " + tolerance + ", bones: " +
+                   string.Join(", ", bones.ToArray());
         }
     }
 }

@@ -19,5 +19,11 @@ namespace _Project.Scripts.DomainObjects.Rules
             var calculatedAngle = Vector3.Angle(boneObjects[0].boneVector, boneObjects[1].boneVector);
             return calculatedAngle > upperThreshold || calculatedAngle < lowerThreshold;
         }
+
+        public override string ToString()
+        {
+            return "Rule: " + GetType().Name + ", threshold range: (" +
+                   lowerThreshold + ", " + upperThreshold + "), bones: " + string.Join(", ", bones.ToArray());
+        }
     }
 }

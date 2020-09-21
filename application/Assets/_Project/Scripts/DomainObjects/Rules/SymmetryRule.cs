@@ -8,6 +8,7 @@ namespace _Project.Scripts.DomainObjects.Rules
         public string centerBone;
         public List<string> leftBones;
         public List<string> rightBones;
+        public float tolerance;
 
         public override bool IsInvalidated(List<Bone> boneObjects)
         {
