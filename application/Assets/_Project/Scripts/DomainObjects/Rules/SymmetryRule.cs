@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Vector3 = UnityEngine.Vector3;
 
 namespace _Project.Scripts.DomainObjects.Rules
@@ -24,6 +24,7 @@ namespace _Project.Scripts.DomainObjects.Rules
                 gameObject.transform.position = leftBoneObject.boneVector;
                 gameObject.transform.RotateAround(referenceBone.boneVector, referenceBone.boneVector, 180);
                 reflectedLeftBoneVectors.Add(gameObject.transform.position);
+                Object.Destroy(gameObject);
             }
 
             var runningDistance = 0f;
