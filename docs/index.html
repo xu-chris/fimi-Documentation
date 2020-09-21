@@ -8,6 +8,7 @@
   <meta name="viewport" content="viewport-fit=cover" />
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <script src="//unpkg.com/mermaid/dist/mermaid.js" />
   <script src="//unpkg.com/docsify-mermaid@latest/dist/docsify-mermaid.js" />
   <script>mermaid.initialize({ startOnLoad: true });</script>
@@ -27,6 +28,92 @@
           max-width: 30%;
         }
 
+        .sidebar-nav a:hover {
+          background-color: rgba(0, 0, 0, 0.05);
+          text-decoration: none !important;
+        }
+
+        a {
+        border-radius: 6px;
+          padding: 1px 5px;
+        }
+
+        .pagination-item a {
+           display: block;
+           padding: 5px 10px;
+        }
+
+        .pagination-item a:hover div {
+           text-decoration: none !important;
+        }
+
+        a:hover {
+          background-color: rgba(0, 0, 0, 0.05);
+          text-decoration: none !important;
+        }
+
+        .sidebar-nav a {
+          border-radius: 6px;
+          padding: 1px 10px;
+          display: block;
+          margin-right: 10px;
+        }
+
+        .sidebar-nav ul {
+          padding: 0;
+          margin: 0;
+          position: relative;
+        }
+
+        .sidebar-nav li {
+          margin-left: 15px;
+        }
+
+        .sidebar ul li.active>a {
+          border: 0;
+          background-color: var(--theme-color,#42b983);
+          color: white;
+        }
+
+        .sidebar {
+          background-color: rgba(0, 0, 0, 0.04);
+          border-right: none;
+        }
+
+        .app-sub-sidebar {
+          background-color: rgba(0, 0, 0, 0.05);
+          padding-top: 10px !important;
+          padding-bottom: 10px !important;
+          margin: 10px 10px 0 10px !important;
+          border-radius: 12px;
+        }
+
+        .app-sub-sidebar li:before {
+          content: '';
+        }
+
+        .app-sub-sidebar::before {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 0;
+          bottom: 100%;
+          left: 15px;
+          border: .5rem solid transparent;
+          border-top: none;
+          border-bottom-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .search {
+          background: white;
+          border-right: 1px solid #eee;
+        }
+
+        .sidebar-nav hr {
+          border: 1px dotted rgba(0, 0, 0, 0.07);
+          margin-top: 20px;
+          margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>

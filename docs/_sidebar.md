@@ -1,14 +1,13 @@
 <!-- docs/_sidebar.md -->
 
-* [Home](/)
-* [**Introduction**](README.md)
+* [**<i class="lab la-readme"></i> Introduction**](README.md)
     * [Motivation](introduction/motivation.md)
     * [Similar Approaches](introduction/similar-approaches.md)
     * [Definition: Training](introduction/training-definition.md)
-    * Exercises
+    * [Exercises]()
         * [Squat Arm Raise](introduction/exercises/squat-arm-raise.md)
 ----
-* [**Application**](application/application.md)
+* [**<i class="lab la-app-store"></i> Application**](application/application.md)
     * [Architecture](application/architecture/architecture.md)
         * [Pose Estimation](application/pose-estimation/pose-estimation.md)
             * [XNECT 3D Multi-Person](application/pose-estimation/XNECT/xnect.md)
@@ -18,7 +17,7 @@
             * [Rule based](application/pose-evaluation/rule-based.md)
             * [Datasets](application/pose-evaluation/datasets.md)
     * [User Interface & Interaction](application/ui/ui.md)
-        * Welcome / Training selection
+        * [Welcome / Training selection]()
         * [Pre-Training](application/ui/pre-training.md)
         * [In-Training](application/ui/in-training.md)
             * [Pre-Exercise](application/ui/pre-exercise.md)
@@ -26,9 +25,9 @@
             * [Post-Exercise](application/ui/post-exercise.md)
         * [Post-Training](application/ui/post-training.md)
 ----
-* [**Hardware**](hardware/hardware.md)
+* [**<i class="las la-microchip"></i> Hardware**](hardware/hardware.md)
     * [Camera](hardware/camera/camera.md)
     * [Mirror](hardware/mirror/mirror.md)
     * [Display](hardware/display/display.md)
 ----
-* [**Evaluation**](evaluation/evaluation.md)
+* [**<i class="las la-vials"></i> Evaluation**](evaluation/evaluation.md)
