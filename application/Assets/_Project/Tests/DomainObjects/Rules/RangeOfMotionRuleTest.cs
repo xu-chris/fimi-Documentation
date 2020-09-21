@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Tests.DomainObjects.Rules
 {
-    public class RangeOfMotionRuleTest
+    public class RangeOfMotionRuleTest : RuleTest
     {
         private const float lowerThreshold = 70f;
         private const float upperThreshold = 100f;
@@ -29,108 +29,84 @@ namespace Tests.DomainObjects.Rules
         [Test]
         public void ShouldReturnInvalidIfOutsideOfThreshold()
         {
-            var bone1 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
+            // GIVEN
+            var bone1 = CreateDummyBone(Vector3.up);
+            var bone2 = CreateDummyBone(Vector3.up);
 
-            var bone2 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
-
+            // WHEN
             var result = rule.IsInvalidated(new List<Bone> {bone1, bone2});
 
+            // THEN
             Assert.IsTrue(result);
         }
 
         [Test]
         public void ShouldReturnValidIfInsideOfThreshold()
         {
-            var bone1 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
+            // GIVEN
+            var bone1 = CreateDummyBone(Vector3.up);
+            var bone2 = CreateDummyBone(Vector3.right);
 
-            var bone2 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.right
-            };
-
+            // WHEN
             var result = rule.IsInvalidated(new List<Bone> {bone1, bone2});
 
+            // THEN
             Assert.IsFalse(result);
         }
 
         [Test]
         public void ShouldReturnInvalidIfOutsideOfLowerThreshold()
         {
-            var bone1 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
+            // GIVEN
+            var bone1 = CreateDummyBone(Vector3.up);
+            var bone2 = CreateRotatedDummyBone(lowerThreshold - 1);
 
-            var bone2 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.RotateTowards(Vector3.up, Vector3.down, (lowerThreshold - 1) * Mathf.Deg2Rad, 1)
-            };
-
+            // WHEN
             var result = rule.IsInvalidated(new List<Bone> {bone1, bone2});
 
+            // THEN
             Assert.IsTrue(result);
         }
 
         [Test]
         public void ShouldReturnValidIfInsideOfLowerThreshold()
         {
-            var bone1 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
+            // GIVEN
+            var bone1 = CreateDummyBone(Vector3.up);
+            var bone2 = CreateRotatedDummyBone(lowerThreshold + 1);
 
-            var bone2 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.RotateTowards(Vector3.up, Vector3.down, (lowerThreshold + 1) * Mathf.Deg2Rad, 1)
-            };
-
+            // WHEN
             var result = rule.IsInvalidated(new List<Bone> {bone1, bone2});
 
+            // THEN
             Assert.IsFalse(result);
         }
 
         [Test]
         public void ShouldReturnInvalidIfOutsideOfUpperThreshold()
         {
-            var bone1 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
+            // GIVEN
+            var bone1 = CreateDummyBone(Vector3.up);
+            var bone2 = CreateRotatedDummyBone(upperThreshold + 1);
 
-            var bone2 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.RotateTowards(Vector3.up, Vector3.down, (upperThreshold + 1) * Mathf.Deg2Rad, 1)
-            };
-
+            // WHEN
             var result = rule.IsInvalidated(new List<Bone> {bone1, bone2});
 
+            // THEN
             Assert.IsTrue(result);
         }
 
         [Test]
         public void ShouldReturnValidIfInsideOfUpperThreshold()
         {
-            var bone1 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
+            // GIVEN
+            var bone1 = CreateDummyBone(Vector3.up);
+            var bone2 = CreateRotatedDummyBone(upperThreshold - 1);
 
-            var bone2 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.RotateTowards(Vector3.up, Vector3.down, (upperThreshold - 1) * Mathf.Deg2Rad, 1)
-            };
-
+            // WHEN
             var result = rule.IsInvalidated(new List<Bone> {bone1, bone2});
 
+            // THEN
             Assert.IsFalse(result);
         }
     }

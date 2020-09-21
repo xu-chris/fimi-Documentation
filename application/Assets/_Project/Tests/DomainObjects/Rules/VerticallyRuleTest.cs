@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Tests.DomainObjects.Rules
 {
-    public class VerticallyRuleTest
+    public class VerticallyRuleTest : RuleTest
     {
         private VerticallyRule verticallyRule;
 
@@ -23,57 +23,53 @@ namespace Tests.DomainObjects.Rules
         [Test]
         public void ShouldCountNoDifferenceInYAsValid()
         {
-            var bone = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.back
-            };
+            // GIVEN
+            var bone = CreateDummyBone(Vector3.back);
 
+            // WHEN
             var result = verticallyRule.IsInvalidated(new List<Bone> {bone});
 
+            // THEN
             Assert.IsFalse(result);
         }
 
         [Test]
         public void ShouldReturnInvalidWhenBoneIsToLeft()
         {
-            var bone = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.left
-            };
+            // GIVEN
+            var bone = CreateDummyBone(Vector3.left);
 
+            // WHEN
             var result = verticallyRule.IsInvalidated(new List<Bone> {bone});
 
+            // THEN
             Assert.IsTrue(result);
         }
 
         [Test]
         public void ShouldReturnInvalidIfOneOfTwoBonesIsToLeft()
         {
-            var bone1 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.left
-            };
+            // GIVEN
+            var bone1 = CreateDummyBone(Vector3.left);
+            var bone2 = CreateDummyBone(Vector3.up);
 
-            var bone2 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
-
+            // WHEN
             var result = verticallyRule.IsInvalidated(new List<Bone> {bone1, bone2});
 
+            // THEN
             Assert.IsTrue(result);
         }
 
         [Test]
         public void ShouldReturnValidForUpVectors()
         {
-            var bone1 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
+            // GIVEN
+            var bone1 = CreateDummyBone(Vector3.up);
 
+            // WHEN
             var result = verticallyRule.IsInvalidated(new List<Bone> {bone1});
 
+            // THEN
             Assert.IsFalse(result);
         }
     }

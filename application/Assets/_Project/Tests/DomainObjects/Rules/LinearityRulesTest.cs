@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Tests.DomainObjects.Rules
 {
-    public class LinearityRulesTest
+    public class LinearityRulesTest : RuleTest
     {
         private const float tolerance = 5f;
         private readonly List<string> bones = new List<string> {"LeftForearm", "LeftElbow"};
@@ -27,95 +27,71 @@ namespace Tests.DomainObjects.Rules
         [Test]
         public void ShouldReturnInvalidIfPerpendicular()
         {
-            var bone1 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
+            // GIVEN
+            var bone1 = CreateDummyBone(Vector3.up);
+            var bone2 = CreateDummyBone(Vector3.left);
 
-            var bone2 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.left
-            };
-
+            // WHEN
             var result = rule.IsInvalidated(new List<Bone> {bone1, bone2});
 
+            // THEN
             Assert.IsTrue(result);
         }
 
         [Test]
         public void ShouldReturnValidIfExactLinear()
         {
-            var bone1 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
+            // GIVEN
+            var bone1 = CreateDummyBone(Vector3.up);
+            var bone2 = CreateDummyBone(Vector3.down);
 
-            var bone2 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.down
-            };
-
+            // WHEN
             var result = rule.IsInvalidated(new List<Bone> {bone1, bone2});
 
+            // THEN
             Assert.IsFalse(result);
         }
 
         [Test]
         public void ShouldReturnInvalidIfOutsideOfTolerance()
         {
-            var bone1 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
+            // GIVEN
+            var bone1 = CreateDummyBone(Vector3.up);
+            var bone2 = CreateRotatedDummyBone(tolerance + 1);
 
-            var bone2 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.RotateTowards(Vector3.up, Vector3.down, (tolerance + 1) * Mathf.Deg2Rad, 1)
-            };
-
+            // WHEN
             var result = rule.IsInvalidated(new List<Bone> {bone1, bone2});
 
+            // THEN
             Assert.IsTrue(result);
         }
 
         [Test]
         public void ShouldReturnValidIfInsideOfTolerance()
         {
-            var bone1 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
+            // GIVEN
+            var bone1 = CreateDummyBone(Vector3.up);
+            var bone2 = CreateRotatedDummyBone(tolerance - 1);
 
-            var bone2 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.RotateTowards(Vector3.up, Vector3.down, (tolerance - 1) * Mathf.Deg2Rad, 1)
-            };
-
+            // WHEN
             var result = rule.IsInvalidated(new List<Bone> {bone1, bone2});
 
+            // THEN
             Assert.IsFalse(result);
         }
 
         [Test]
         public void ShouldReturnValidWhenChainOfBonesIsSlightlyTurnedButInsideOfTolerance()
         {
-            var bone1 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.up
-            };
+            // GIVEN
+            var bone1 = CreateDummyBone(Vector3.up);
+            var bone2 = CreateRotatedDummyBone(tolerance - 1);
+            var bone3 = CreateDummyBone(Vector3.down);
 
-            var bone2 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.RotateTowards(Vector3.up, Vector3.down, (tolerance - 1) * Mathf.Deg2Rad, 1)
-            };
-
-            var bone3 = new Bone(BoneType.HEAD, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = Vector3.down
-            };
-
+            // WHEN
             var result = rule.IsInvalidated(new List<Bone> {bone1, bone2, bone3});
 
+            // THEN
             Assert.IsFalse(result);
         }
     }

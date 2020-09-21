@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Tests.DomainObjects.Rules
 {
-    public class SymmetryRuleTest
+    public class SymmetryRuleTest : RuleTest
     {
         private const float tolerance = 5f;
         private readonly List<string> leftSideBones = new List<string> {"LeftForearm", "LeftElbow"};
@@ -29,46 +29,30 @@ namespace Tests.DomainObjects.Rules
         [Test]
         public void ShouldReturnValidIfBothAreSymmetrical()
         {
-            var leftBone = new Bone(BoneType.LEFT_HAND, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = new Vector3(-1, 1, 0)
-            };
-            
-            var rightBone = new Bone(BoneType.RIGHT_HAND, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = new Vector3(1, 1, 0)
-            };
-            
-            var referenceBone = new Bone(BoneType.LOWER_BODY, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = new Vector3(0, 1, 0)
-            };
+            // GIVEN
+            var leftBone = CreateDummyBone(new Vector3(-1, 1, 0));
+            var rightBone = CreateDummyBone(new Vector3(1, 1, 0));
+            var referenceBone = CreateDummyBone(new Vector3(0, 1, 0));
 
+            // WHEN
             var result = rule.IsInvalidated(new List<Bone>{leftBone}, new List<Bone>{rightBone}, referenceBone);
 
+            // THEN
             Assert.IsFalse(result);
         }
         
         [Test]
         public void ShouldReturnInvalidIfBothAreAsymmetrical()
         {
-            var leftBone = new Bone(BoneType.LEFT_HAND, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = new Vector3(-1, 1, 0)
-            };
-            
-            var rightBone = new Bone(BoneType.RIGHT_HAND, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = new Vector3(1, 1, tolerance + 1)
-            };
-            
-            var referenceBone = new Bone(BoneType.LOWER_BODY, 0, 1, Color.black, new GameObject(), false)
-            {
-                boneVector = new Vector3(0, 1, 0)
-            };
+            // GIVEN
+            var leftBone = CreateDummyBone(new Vector3(-1, 1, 0));
+            var rightBone = CreateDummyBone(new Vector3(1, 1, tolerance + 1));
+            var referenceBone = CreateDummyBone(new Vector3(0, 1, 0));
 
+            // WHEN
             var result = rule.IsInvalidated(new List<Bone>{leftBone}, new List<Bone>{rightBone}, referenceBone);
 
+            // THEN
             Assert.IsTrue(result);
         }
     }
