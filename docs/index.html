@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <script src="//unpkg.com/mermaid/dist/mermaid.js" />
   <script src="//unpkg.com/docsify-mermaid@latest/dist/docsify-mermaid.js" />
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://unpkg.com/d3-3d/build/d3-3d.js"></script>
   <script>mermaid.initialize({ startOnLoad: true });</script>
   <style>
         /* Fix issue on mobile devices where a custom cover image goes off the screen. */
@@ -31,6 +33,11 @@
         .sidebar-nav a:hover {
           background-color: rgba(0, 0, 0, 0.05);
           text-decoration: none !important;
+        }
+
+        .sidebar-nav h1 a:hover {
+          background: none !important;
+          cursor: default;
         }
 
         a {
