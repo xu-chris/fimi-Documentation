@@ -69,6 +69,55 @@
           margin-left: 15px;
         }
 
+        .sidebar-nav li ul li {
+          border-left: 1px dotted rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-toggle {
+          height: 45px;
+          width: 45px;
+          border-radius: 50%;
+          background-color: var(--theme-color,#42b983);
+          box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, .3), 0 0.0625rem 0.125rem rgba(0, 0, 0, .2);
+          margin-bottom: 20px;
+          margin-left: 20px;
+        }
+
+        .sidebar-toggle-button {
+          margin: 0 auto;
+          width: 16px;
+        }
+
+        .sidebar .sidebar-nav {
+          padding-bottom: 75px;
+        }
+
+        body.close .sidebar-toggle {
+          width: 45px;
+        }
+
+        .sidebar-toggle-button span {
+          background-color: white;
+          margin-top: 4px;
+          margin-bottom: 4px;
+        }
+
+        @media screen and (max-width: 768px) {
+          .sidebar-toggle {
+             padding: 0;
+          }
+        }
+
+        @media screen and (max-width: 768px) {
+          body.close .sidebar-toggle {
+            background-color: var(--theme-color,#42b983);
+          }
+        }
+
+        .github-corner {
+          padding: 0;
+        }
+
         .sidebar ul li.active>a {
           border: 0;
           background-color: var(--theme-color,#42b983);
