@@ -90,28 +90,28 @@ namespace _Project.Scripts
             gameObject.SetActive(visibility);
         }
 
-        public void SetSkeleton(Vector3[] jointEstimation)
+        public void SetSkeleton(Vector3[] jointEstimation, float lowestY)
         {
-            UpdateJoints(jointEstimation);
-            UpdateBones(jointEstimation);
+            UpdateJoints(jointEstimation, lowestY);
+            UpdateBones(jointEstimation, lowestY);
         }
 
-        private void UpdateJoints(Vector3[] jointEstimation)
+        private void UpdateJoints(Vector3[] jointEstimation, float lowestY)
         {
             for (var i = 0; i < joints.Count; i++)
             {
-                var vector = new Vector3(jointEstimation[i][0], jointEstimation[i][1], jointEstimation[i][2]);
+                var vector = new Vector3(jointEstimation[i][0], jointEstimation[i][1] - lowestY, jointEstimation[i][2]);
                 joints[i].SetJointPosition(vector);
             }
         }
 
-        private void UpdateBones(Vector3[] jointEstimation)
+        private void UpdateBones(Vector3[] jointEstimation, float lowestY)
         {
             foreach (var bone in bones)
             {
                 var startJoint = jointEstimation[bone.jointIndexA];
                 var endJoint = jointEstimation[bone.jointIndexB];
-                bone.SetBoneSizeAndPosition(startJoint, endJoint);
+                bone.SetBoneSizeAndPosition(startJoint, endJoint, lowestY);
             }
         }
 

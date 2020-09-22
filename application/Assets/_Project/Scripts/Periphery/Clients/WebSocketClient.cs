@@ -15,8 +15,6 @@ namespace _Project.Scripts.Periphery.Clients
 
         private bool isWsConnected;
 
-        internal float lowestY = 999.0f;
-
         private string message;
         private bool reconnecting;
         private WebSocket webSocket;
@@ -132,15 +130,16 @@ namespace _Project.Scripts.Periphery.Clients
                       currentNumPeople);
 
             var newDetection = new Person[currentNumPeople];
-
+            
             for (var p = 0; p < currentNumPeople; ++p)
             {
                 newDetection[p].joints = new Vector3[maxNumberOfJoints];
                 newDetection[p].id = p;
+                var lowestY = 999.0f;
                 for (var i = 0; i < maxNumberOfJoints - 1; ++i)
                 {
-                    var tokenIndex = 3 * p * maxNumberOfJoints + 3 * i + 3;
 
+                    var tokenIndex = 3 * p * maxNumberOfJoints + 3 * i + 3;
                     newDetection[p].joints[i].x =
                         float.Parse(tokens[tokenIndex + 0]) * 0.001f; // Can be flipped here for mirroring
                     newDetection[p].joints[i].y = float.Parse(tokens[tokenIndex + 1]) * 0.001f;
@@ -149,6 +148,8 @@ namespace _Project.Scripts.Periphery.Clients
                     if (newDetection[p].joints[i].y < lowestY)
                         lowestY = newDetection[p].joints[i].y;
                 }
+
+                newDetection[p].lowestY = lowestY;
             }
 
             return newDetection;

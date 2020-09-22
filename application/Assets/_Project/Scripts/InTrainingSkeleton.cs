@@ -103,5 +103,10 @@ namespace _Project.Scripts
         {
             exerciseReport = new ExerciseReport(rules);
         }
+
+        public string GetReport()
+        {
+            return exerciseReport.ToString();
+        }
     }
 }

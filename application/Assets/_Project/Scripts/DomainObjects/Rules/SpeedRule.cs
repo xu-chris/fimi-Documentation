@@ -55,5 +55,11 @@ namespace _Project.Scripts.DomainObjects.Rules
 
             return initialized && (runningDistance < lowerDistanceChangeThreshold || runningDistance > upperDistanceChangeThreshold);
         }
+
+        public override string ToString()
+        {
+            return "Rule: " + GetType().Name + ", lower distance change threshold: " + lowerDistanceChangeThreshold + ", upper distance change threshold:" + upperDistanceChangeThreshold + ", bones: " +
+                   string.Join(", ", bones.ToArray());
+        }
     }
 }

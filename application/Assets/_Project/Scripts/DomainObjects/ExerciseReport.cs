@@ -58,7 +58,7 @@ namespace _Project.Scripts.DomainObjects
         public override string ToString()
         {
             results = results.OrderByDescending(i => i.count).ToList();
-            return results.Aggregate("", (current, result) => current + (result.count + " times for rule: " + result.rule.ToString() + "\n"));
+            return results.Aggregate("", (current, result) => current + (result.count + " times for " + result.rule.ToString() + "\n"));
         }
     }
 }

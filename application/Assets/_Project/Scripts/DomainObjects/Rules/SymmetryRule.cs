@@ -42,5 +42,12 @@ namespace _Project.Scripts.DomainObjects.Rules
         {
             throw new NotImplementedException();
         }
+
+        public override string ToString()
+        {
+            return "Rule: " + GetType().Name + ", tolerance: " + tolerance + ", left bones: " +
+                   string.Join(", ", leftBones.ToArray()) + ", right bones: " +
+                   string.Join(", ", leftBones.ToArray()) + ", center / reference bone: " + centerBone;
+        }
     }
 }

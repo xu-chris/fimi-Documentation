@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using _Project.Scripts.DomainObjects;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Project.Scripts
 {
@@ -12,9 +13,12 @@ namespace _Project.Scripts
         private InTrainingSkeleton[] skeletons;
         private List<int> validJointIdx;
 
-        public SkeletonOrchestrator(int maxNumberOfPeople)
+        private Text reportTextField;
+
+        public SkeletonOrchestrator(int maxNumberOfPeople, Text reportTextField)
         {
             this.maxNumberOfPeople = maxNumberOfPeople;
+            this.reportTextField = reportTextField;
             InitializeAllSkeletons();
         }
 
@@ -35,9 +39,10 @@ namespace _Project.Scripts
                 // Set and activate only skeletons that are detected.
                 if (p >= 0 && detectedPersons.Length > p && p == detectedPersons[p].id)
                 {
-                    skeletons[p].SetSkeleton(detectedPersons[p].joints);
+                    skeletons[p].SetSkeleton(detectedPersons[p].joints, detectedPersons[p].lowestY);
                     skeletons[p].SetIsVisible(true);
                     skeletons[p].CheckRules(currentExercise.rules);
+                    reportTextField.text = skeletons[p].GetReport();
                 }
                 else
                 {

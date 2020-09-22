@@ -2,15 +2,16 @@ using _Project.Scripts.DomainObjects.Configurations;
 using _Project.Scripts.Periphery.Clients;
 using _Project.Scripts.Periphery.Configurations;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Project.Scripts.Scenes
 {
     public class InTraining : MonoBehaviour
     {
-        public TextAsset inTrainingConfigurationFile;
         public TextAsset exercisesConfigurationFile;
         private ExercisesConfiguration exercisesConfiguration;
 
+        public TextAsset inTrainingConfigurationFile;
         private InTrainingConfiguration inTrainingConfiguration;
 
         private Vector3 offset;
@@ -21,6 +22,8 @@ namespace _Project.Scripts.Scenes
         private SkeletonOrchestrator skeletonOrchestrator;
 
         private WebSocketClient webSocketClient;
+
+        public Text reportingTextField;
 
         public void Start()
         {
@@ -34,7 +37,7 @@ namespace _Project.Scripts.Scenes
 
             webSocketClient = gameObject.AddComponent<WebSocketClient>();
             webSocketClient.webSocketConfiguration = inTrainingConfiguration.webSocket;
-            skeletonOrchestrator = new SkeletonOrchestrator(inTrainingConfiguration.maxNumberOfPeople);
+            skeletonOrchestrator = new SkeletonOrchestrator(inTrainingConfiguration.maxNumberOfPeople, reportingTextField);
             skeletonOrchestrator.SetCurrentExercise(exercisesConfiguration.exercises[0]);
 
             parentCamRot = transform.rotation;
@@ -45,7 +48,6 @@ namespace _Project.Scripts.Scenes
         public void Update()
         {
             var detectedPersons = webSocketClient.detectedPersons;
-            var lowestY = webSocketClient.lowestY;
             skeletonOrchestrator?.Update(detectedPersons);
         }
 
