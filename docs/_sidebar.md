@@ -1,7 +1,7 @@
 <!-- docs/_sidebar.md -->
 
 # <i class="lab la-readme"></i> Introduction <!-- {docsify-ignore} --> 
-
+* [Start](README.md)
 * [Motivation](introduction/motivation.md)
 * [Similar Approaches](introduction/similar-approaches.md)
 * [Definition: Training](introduction/training-definition.md)
