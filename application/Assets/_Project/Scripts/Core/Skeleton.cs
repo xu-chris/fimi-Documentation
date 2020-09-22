@@ -1,11 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
-using _Project.Scripts.DomainObjects;
-using _Project.Scripts.DomainObjects.Rules;
 using _Project.Scripts.DomainValues;
 using UnityEngine;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.Core
 {
     public class Skeleton
     {

@@ -1,28 +1,27 @@
 ﻿using System.Collections.Generic;
+using _Project.Scripts.Core.InTraining;
 using _Project.Scripts.DomainObjects;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.Core
 {
     public class SkeletonOrchestrator
     {
-        private readonly int maxNumberOfPeople;
+        protected readonly int maxNumberOfPeople;
 
         private Exercise currentExercise;
-        private InTrainingSkeleton[] skeletons;
+        protected InTrainingSkeleton[] skeletons;
         private List<int> validJointIdx;
 
-        private Text reportTextField;
+        
 
-        public SkeletonOrchestrator(int maxNumberOfPeople, Text reportTextField)
+        public SkeletonOrchestrator(int maxNumberOfPeople)
         {
             this.maxNumberOfPeople = maxNumberOfPeople;
-            this.reportTextField = reportTextField;
             InitializeAllSkeletons();
         }
 
-        public void Update(Person[] detectedPersons)
+        public virtual void Update(Person[] detectedPersons)
         {
             if (detectedPersons == null)
                 return;
@@ -39,10 +38,7 @@ namespace _Project.Scripts
                 // Set and activate only skeletons that are detected.
                 if (p >= 0 && detectedPersons.Length > p && p == detectedPersons[p].id)
                 {
-                    skeletons[p].SetSkeleton(detectedPersons[p].joints, detectedPersons[p].lowestY);
-                    skeletons[p].SetIsVisible(true);
-                    skeletons[p].CheckRules(currentExercise.rules);
-                    reportTextField.text = skeletons[p].GetReport();
+                    UpdateSkeleton(skeletons[p], detectedPersons[p]);
                 }
                 else
                 {
@@ -50,14 +46,11 @@ namespace _Project.Scripts
                 }
             }
         }
-
-        public void SetCurrentExercise(Exercise exercise)
+        
+        protected virtual void UpdateSkeleton(Skeleton skeleton, Person person)
         {
-            currentExercise = exercise;
-            foreach (var skeleton in skeletons)
-            {
-                skeleton.SetUpExerciseReport(exercise);
-            }
+            skeleton.SetSkeleton(person.joints, person.lowestY);
+            skeleton.SetIsVisible(true);
         }
 
         private void InitializeAllSkeletons()

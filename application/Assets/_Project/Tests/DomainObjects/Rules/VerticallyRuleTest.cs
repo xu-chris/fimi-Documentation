@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _Project.Scripts;
+using _Project.Scripts.Core;
 using _Project.Scripts.DomainObjects.Rules;
 using _Project.Scripts.DomainValues;
 using NUnit.Framework;

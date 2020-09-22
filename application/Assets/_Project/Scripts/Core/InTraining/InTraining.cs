@@ -1,43 +1,39 @@
 using _Project.Scripts.DomainObjects.Configurations;
-using _Project.Scripts.Periphery.Clients;
 using _Project.Scripts.Periphery.Configurations;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project.Scripts.Scenes
+namespace _Project.Scripts.Core.InTraining
 {
-    public class InTraining : MonoBehaviour
+    public class InTraining : Scene
     {
         public TextAsset exercisesConfigurationFile;
         private ExercisesConfiguration exercisesConfiguration;
 
         public TextAsset inTrainingConfigurationFile;
-        private InTrainingConfiguration inTrainingConfiguration;
+        // private InTrainingConfiguration inTrainingConfiguration;
 
         private Vector3 offset;
         private Vector3 parentCamPos;
 
         private Quaternion parentCamRot;
         private Vector3 parentCamScale;
-        private SkeletonOrchestrator skeletonOrchestrator;
-
-        private WebSocketClient webSocketClient;
+        private InTrainingSkeletonOrchestrator skeletonOrchestrator;
 
         public Text reportingTextField;
 
         public void Start()
         {
+            SetUpWebSocket();
             Application.runInBackground = true;
 
-            var inTrainingConfigurationService = new InTrainingConfigurationService(inTrainingConfigurationFile);
-            inTrainingConfiguration = inTrainingConfigurationService.configuration;
+            // var inTrainingConfigurationService = new InTrainingConfigurationService(inTrainingConfigurationFile);
+            // inTrainingConfiguration = inTrainingConfigurationService.configuration;
 
             var exerciseConfigurationService = new ExercisesConfigurationService(exercisesConfigurationFile);
             exercisesConfiguration = exerciseConfigurationService.configuration;
 
-            webSocketClient = gameObject.AddComponent<WebSocketClient>();
-            webSocketClient.webSocketConfiguration = inTrainingConfiguration.webSocket;
-            skeletonOrchestrator = new SkeletonOrchestrator(inTrainingConfiguration.maxNumberOfPeople, reportingTextField);
+            skeletonOrchestrator = new InTrainingSkeletonOrchestrator(applicationConfiguration.maxNumberOfPeople, reportingTextField);
             skeletonOrchestrator.SetCurrentExercise(exercisesConfiguration.exercises[0]);
 
             parentCamRot = transform.rotation;

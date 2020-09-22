@@ -4,7 +4,7 @@ using _Project.Scripts.DomainObjects;
 using _Project.Scripts.DomainObjects.Rules;
 using UnityEngine;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.Core.InTraining
 {
     public class InTrainingSkeleton : Skeleton
     {

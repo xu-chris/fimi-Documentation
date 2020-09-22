@@ -2,7 +2,7 @@ using _Project.Scripts.DomainValues;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace _Project.Scripts
+namespace _Project.Scripts.Core
 {
     public class Bone
     {
