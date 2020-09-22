@@ -162,7 +162,28 @@
 
         .search {
           background: white;
-          border-right: 1px solid #eee;
+          margin: 10px;
+          border-radius: 6px;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .search:focus-within {
+          box-shadow: 0 0 5px var(--theme-color, #42b983);
+          border: 1px solid var(--theme-color, #42b983);
+        }
+
+        .search input {
+          line-height: 20px !important;
+          border: none !important;
+        }
+
+        .search input:focus {
+          box-shadow: none !important;
+          border: none !important;
+        }
+
+        .search a {
+          display: block;
         }
 
         .sidebar-nav hr {
