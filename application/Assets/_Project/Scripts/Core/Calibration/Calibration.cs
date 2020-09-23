@@ -10,6 +10,7 @@ namespace _Project.Scripts.Core.Calibration
         public TextAsset calibrationConfigurationFile;
         public Text title;
         public GameObject dummy;
+        public GameObject particleSystemForceField;
         
         private CalibrationConfiguration calibrationConfiguration;
         private SkeletonOrchestrator skeletonOrchestrator;
@@ -26,6 +27,16 @@ namespace _Project.Scripts.Core.Calibration
         {
             var detectedPersons = webSocketClient.detectedPersons;
             skeletonOrchestrator?.Update(detectedPersons);
+
+            if (IsSkeletonCollidingWithDummy())
+            {
+                particleSystemForceField.SetActive(true);
+            }
+        }
+
+        private bool IsSkeletonCollidingWithDummy()
+        {
+            return true;
         }
     }
 }
