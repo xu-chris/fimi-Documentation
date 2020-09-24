@@ -71,6 +71,15 @@ jobs:
         with:
           name: Test results (all modes)
           path: ${{ steps.tests.outputs.artifactsPath }}
+          
+      # Clean
+      - uses: AutoModality/action-clean@v1
+
+      # Checkout again
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: true
 
       # Build
       - name: Build project
@@ -87,3 +96,21 @@ jobs:
         with:
           name: Build
           path: ${{ matrix.projectPath }}/build/${{ matrix.targetPlatform }}
+          
+      # Get potential tag label
+      - uses: zwaldowski/match-label-action@v1
+        id: bump
+        with:
+          allowed: >
+            major
+            minor
+            patch
+            
+      - run: echo "${{ steps.bump.outputs.version }}"
+          
+      # Create new tag
+      - uses: zwaldowski/semver-release-action@v1
+        with:
+          prefix: v
+          bump: ${{ steps.bump.outputs.match }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
