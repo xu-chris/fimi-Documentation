@@ -102,7 +102,7 @@ jobs:
             minor
             patch
             
-      - name: Return versuon number
+      - name: Return version number
         run: echo "${{ steps.bump.outputs.version }}"
           
       # Create new tag
