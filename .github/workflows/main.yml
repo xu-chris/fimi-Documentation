@@ -74,6 +74,7 @@ jobs:
       - name: Build project
         uses: webbertakken/unity-builder@v1.2
         with:
+          versioning: Semantic
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
@@ -82,4 +83,4 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: Build
-          path: ${{ matrix.projectPath }}/build
+          path: ${{ matrix.projectPath }}/build/${{ matrix.targetPlatform }}
