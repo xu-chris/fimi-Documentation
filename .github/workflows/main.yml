@@ -35,9 +35,7 @@ jobs:
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
           - StandaloneLinux64 # Build a Linux 64-bit standalone.
         testMode:
-          - playmode
-          - editmode
-
+          - all
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checkout
