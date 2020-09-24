@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Build Unity Project
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -32,6 +32,9 @@ jobs:
           - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
           - StandaloneLinux64 # Build a Linux 64-bit standalone.
+        testMode:
+          - playmode
+          - editmode
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -44,25 +47,30 @@ jobs:
       # Cache
       - uses: actions/cache@v1.1.0
         with:
-          path: ${{ matrix.projectPath }}//Library
-          key: Library
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-${{ matrix.projectPath }}-
+            Library-
 
       # Test
       - name: Run tests
-        uses: webbertakken/unity-test-runner@v1.3
+        uses: webbertakken/unity-test-runner@v1.6
         with:
+          testMode: ${{ matrix.testMode }}
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
+          artifactsPath: ${{ matrix.testMode }}-artifacts
           
       # Upload Test Results
       - uses: actions/upload-artifact@v1
         with:
           name: Test results (all modes)
-          path: ${{ steps.testRunner.outputs.artifactsPath }}
+          path: ${{ steps.tests.outputs.artifactsPath }}
 
       # Build
       - name: Build project
-        uses: webbertakken/unity-builder@v0.10
+        uses: webbertakken/unity-builder@v1.2
         with:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
