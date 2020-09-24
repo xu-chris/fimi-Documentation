@@ -59,6 +59,7 @@ jobs:
         with:
           testMode: ${{ matrix.testMode }}
           projectPath: ${{ matrix.projectPath }}
+          customParameters: '-nographics'
           unityVersion: ${{ matrix.unityVersion }}
           artifactsPath: ${{ matrix.testMode }}-artifacts
           
