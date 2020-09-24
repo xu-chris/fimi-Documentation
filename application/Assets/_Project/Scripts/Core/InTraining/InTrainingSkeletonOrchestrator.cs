@@ -1,20 +1,27 @@
+using System.Collections.Generic;
 using _Project.Scripts.DomainObjects;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace _Project.Scripts.Core.InTraining
 {
-    public class InTrainingSkeletonOrchestrator : SkeletonOrchestrator
+
+    public class InTrainingSkeletonOrchestrator : ISkeletonOrchestrator
     {
-        private Text reportTextField;
+        public ExerciseReport[] exerciseReports;
         private Exercise currentExercise;
+
+        private InTrainingSkeleton[] skeletons;
+        private readonly int maxNumberOfPeople;
         
-        public InTrainingSkeletonOrchestrator(int maxNumberOfPeople, Text reportTextField) : base(maxNumberOfPeople)
+        public InTrainingSkeletonOrchestrator(int maxNumberOfPeople, Exercise currentExercise)
         {
-            this.reportTextField = reportTextField;
+            this.maxNumberOfPeople = maxNumberOfPeople;
+            this.currentExercise = currentExercise;
+            this.exerciseReports = new ExerciseReport[maxNumberOfPeople];
+            InitializeAllSkeletons();
         }
         
-        public override void Update(Person[] detectedPersons)
+        public void Update(Person[] detectedPersons)
         {
             if (detectedPersons == null)
                 return;
@@ -33,13 +40,20 @@ namespace _Project.Scripts.Core.InTraining
                 {
                     UpdateSkeleton(skeletons[p], detectedPersons[p]);
                     skeletons[p].CheckRules(currentExercise.rules);
-                    reportTextField.text = skeletons[p].GetReport();
+                    
+                    exerciseReports[p] = skeletons[p].GetReport();
                 }
                 else
                 {
                     skeletons[p].SetIsVisible(false);
                 }
             }
+        }
+
+        private void UpdateSkeleton(InTrainingSkeleton skeleton, Person person)
+        {
+            skeleton.SetSkeleton(person.joints, person.lowestY);
+            skeleton.SetIsVisible(true);
         }
         
         public void SetCurrentExercise(Exercise exercise)
@@ -48,6 +62,16 @@ namespace _Project.Scripts.Core.InTraining
             foreach (var skeleton in skeletons)
             {
                 skeleton.SetUpExerciseReport(exercise);
+            }
+        }
+
+        public void InitializeAllSkeletons()
+        {
+            skeletons = new InTrainingSkeleton[maxNumberOfPeople];
+            for (var p = 0; p < maxNumberOfPeople; p++)
+            {
+                skeletons[p] = new InTrainingSkeleton(p);
+                skeletons[p].SetIsVisible(false);
             }
         }
     }

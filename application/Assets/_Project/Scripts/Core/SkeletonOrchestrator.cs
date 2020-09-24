@@ -1,19 +1,13 @@
-﻿using System.Collections.Generic;
-using _Project.Scripts.Core.InTraining;
-using _Project.Scripts.DomainObjects;
+﻿using _Project.Scripts.DomainObjects;
 using UnityEngine;
 
 namespace _Project.Scripts.Core
 {
-    public class SkeletonOrchestrator
+    public sealed class SkeletonOrchestrator : ISkeletonOrchestrator
     {
-        protected readonly int maxNumberOfPeople;
+        private readonly int maxNumberOfPeople;
 
-        private Exercise currentExercise;
-        protected InTrainingSkeleton[] skeletons;
-        private List<int> validJointIdx;
-
-        
+        private Skeleton[] skeletons;
 
         public SkeletonOrchestrator(int maxNumberOfPeople)
         {
@@ -21,7 +15,7 @@ namespace _Project.Scripts.Core
             InitializeAllSkeletons();
         }
 
-        public virtual void Update(Person[] detectedPersons)
+        public void Update(Person[] detectedPersons)
         {
             if (detectedPersons == null)
                 return;
@@ -31,7 +25,7 @@ namespace _Project.Scripts.Core
                 // Init skeleton if not given.
                 if (skeletons[p] == null)
                 {
-                    skeletons[p] = new InTrainingSkeleton(p);
+                    skeletons[p] = new Skeleton(p);
                     Debug.LogError("Initialized a new skeleton which should be already there 🤔. p: " + p);
                 }
 
@@ -46,19 +40,19 @@ namespace _Project.Scripts.Core
                 }
             }
         }
-        
-        protected virtual void UpdateSkeleton(Skeleton skeleton, Person person)
+
+        private void UpdateSkeleton(Skeleton skeleton, Person person)
         {
             skeleton.SetSkeleton(person.joints, person.lowestY);
             skeleton.SetIsVisible(true);
         }
 
-        private void InitializeAllSkeletons()
+        public void InitializeAllSkeletons()
         {
-            skeletons = new InTrainingSkeleton[maxNumberOfPeople];
+            skeletons = new Skeleton[maxNumberOfPeople];
             for (var p = 0; p < maxNumberOfPeople; p++)
             {
-                skeletons[p] = new InTrainingSkeleton(p);
+                skeletons[p] = new Skeleton(p);
                 skeletons[p].SetIsVisible(false);
             }
         }

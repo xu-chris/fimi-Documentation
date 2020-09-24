@@ -2,47 +2,33 @@ exercises:
   - type: squatArmRaise
     rules:
       - !rangeOfMotionRule
+        notificationText: "Don't overstretch your knees"
+        colorize: true
         lowerThreshold: 0
         upperThreshold: 95
         bones:
           - LeftLowerLeg
           - LeftThigh
       - !rangeOfMotionRule
+        notificationText: "Don't overstretch your knees"
+        colorize: true
         lowerThreshold: 0
         upperThreshold: 95
         bones:
           - RightLowerLeg
           - RightThigh
-      - !angleRule
-        expectedAngle: 0
-        lowerTolerance: 10
-        upperTolerance: 10
-        bones:
-          - LeftElbow
-          - LeftForearm
-      - !angleRule
-        expectedAngle: 0
-        lowerTolerance: 10
-        upperTolerance: 10
-        bones:
-          - RightElbow
-          - RightForearm
-      - !horizontallyRule
-        bones:
-          - LeftHand
-          - LeftForearm
-          - LeftElbow
-          - RightHand
-          - RightForearm
-          - RightElbow
       - !verticallyRule
-        tolerance: 5
+        notificationText: "Keep your head, neck and body vertical"
+        colorize: true
+        tolerance: 10
         bones:
           - LowerBody
           - UpperBody
           - Neck
           - Head
       - !symmetryRule
+        notificationText: "Move symmetrically with your body"
+        colorize: false
         leftBones:
           - LeftShoulder
           - LeftElbow
@@ -60,13 +46,24 @@ exercises:
           - RightLowerLeg
           - RightFoot
         centerBone: UpperBody
-        tolerance: 5
+        tolerance: 20
       - !linearityRule
+        notificationText: "Keep your left arm straight"
+        colorize: true
         bones:
           - LeftElbow
           - LeftForearm
-        tolerance: 0.1
+        tolerance: 5
+      - !linearityRule
+        notificationText: "Keep your right arm straight"
+        colorize: true
+        bones:
+          - RightElbow
+          - RightForearm
+        tolerance: 5
       - !speedRule
+        notificationText: "Move slower"
+        colorize: false
         bones:
           - LeftShoulder
           - LeftElbow
