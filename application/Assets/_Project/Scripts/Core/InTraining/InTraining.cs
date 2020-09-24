@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using _Project.Scripts.DomainObjects;
 using _Project.Scripts.DomainObjects.Configurations;
 using _Project.Scripts.Periphery.Configurations;
 using UnityEngine;
@@ -11,55 +14,83 @@ namespace _Project.Scripts.Core.InTraining
         private ExercisesConfiguration exercisesConfiguration;
 
         public TextAsset inTrainingConfigurationFile;
-        // private InTrainingConfiguration inTrainingConfiguration;
+        private InTrainingConfiguration inTrainingConfiguration;
 
         private Vector3 offset;
-        private Vector3 parentCamPos;
-
-        private Quaternion parentCamRot;
-        private Vector3 parentCamScale;
         private InTrainingSkeletonOrchestrator skeletonOrchestrator;
 
         public Text reportingTextField;
+
+        public GameObject notificationPanel;
+        private bool notificationShown = false;
 
         public void Start()
         {
             SetUpWebSocket();
             Application.runInBackground = true;
 
-            // var inTrainingConfigurationService = new InTrainingConfigurationService(inTrainingConfigurationFile);
-            // inTrainingConfiguration = inTrainingConfigurationService.configuration;
+            var inTrainingConfigurationService = new InTrainingConfigurationService(inTrainingConfigurationFile);
+            inTrainingConfiguration = inTrainingConfigurationService.configuration;
 
             var exerciseConfigurationService = new ExercisesConfigurationService(exercisesConfigurationFile);
             exercisesConfiguration = exerciseConfigurationService.configuration;
 
-            skeletonOrchestrator = new InTrainingSkeletonOrchestrator(applicationConfiguration.maxNumberOfPeople, reportingTextField);
+            skeletonOrchestrator =
+                new InTrainingSkeletonOrchestrator(applicationConfiguration.maxNumberOfPeople, exercisesConfiguration.exercises[0]);
             skeletonOrchestrator.SetCurrentExercise(exercisesConfiguration.exercises[0]);
-
-            parentCamRot = transform.rotation;
-            parentCamPos = transform.position;
-            parentCamScale = transform.localScale;
         }
 
         public void Update()
         {
             var detectedPersons = webSocketClient.detectedPersons;
-            skeletonOrchestrator?.Update(detectedPersons);
+            
+            if (skeletonOrchestrator == null) return;
+            skeletonOrchestrator.Update(detectedPersons);
+            var reports = skeletonOrchestrator.exerciseReports;
+            if (reports != null)
+                CheckReports(reports);
         }
 
-        private void LateUpdate()
+        private void CheckReports(ExerciseReport[] reports)
         {
-            if (Input.GetKey(KeyCode.C))
+            ExerciseReport.Result highestInfectedRule = null; 
+            foreach (var report in reports)
             {
-                Debug.Log("Before cam: " + transform.position);
-                Debug.Log("Before parent cam: " + parentCamPos);
-                transform.position = parentCamPos;
-                transform.rotation = parentCamRot;
-                transform.localScale = parentCamScale;
-                Debug.Log("After: " + transform.position);
-
-                Debug.Log("Reset camera to original position.");
+                if (report == null) continue;
+                if (highestInfectedRule == null)
+                {
+                    highestInfectedRule = report.Report()[0];
+                    continue;
+                }
+                
+                if (report.Report()[0].count > highestInfectedRule.count)
+                {
+                    highestInfectedRule = report.Report()[0];
+                }
             }
+
+            if (highestInfectedRule != null) NotifyUser(highestInfectedRule.rule.notificationText);
+        }
+
+        private void NotifyUser(string text)
+        {
+            var animator = notificationPanel.GetComponent<Animator>();
+
+            if (animator == null) return; // Exists
+            if (animator.GetBool("show") || notificationShown) return; // Is not already shown
+            notificationPanel.GetComponentInChildren<Text>().text = text;
+            animator.SetBool("show", true);
+            StartCoroutine(HideNotification(animator));
+            notificationShown = true;
+        }
+
+        private IEnumerator HideNotification(Animator animator)
+        {
+            if (!animator.GetBool("show")) yield break;
+            yield return new WaitForSeconds(inTrainingConfiguration.showNotificationDurationInSeconds);
+            animator.SetBool("show", false);
+            yield return new WaitForSeconds(1); // Can be removed when more stable
+            notificationShown = false;
         }
     }
 }
