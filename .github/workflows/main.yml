@@ -72,16 +72,6 @@ jobs:
         with:
           name: Test results (all modes)
           path: ${{ steps.tests.outputs.artifactsPath }}
-          
-      # Clean
-      - name: Clean working directory
-        uses: AutoModality/action-clean@v1
-
-      # Checkout again
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          lfs: true
 
       # Build
       - name: Build project
