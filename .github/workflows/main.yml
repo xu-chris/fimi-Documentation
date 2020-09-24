@@ -67,13 +67,15 @@ jobs:
           artifactsPath: ${{ matrix.testMode }}-artifacts
           
       # Upload Test Results
-      - uses: actions/upload-artifact@v1
+      - name: Upload test results
+        uses: actions/upload-artifact@v1
         with:
           name: Test results (all modes)
           path: ${{ steps.tests.outputs.artifactsPath }}
           
       # Clean
-      - uses: AutoModality/action-clean@v1
+      - name: Clean working directory
+        uses: AutoModality/action-clean@v1
 
       # Checkout again
       - name: Checkout repository
@@ -92,13 +94,15 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
 
       # Output
-      - uses: actions/upload-artifact@v1
+      - name: Upload build
+        uses: actions/upload-artifact@v1
         with:
           name: Build
           path: ${{ matrix.projectPath }}/build/${{ matrix.targetPlatform }}
           
       # Get potential tag label
-      - uses: zwaldowski/match-label-action@v1
+      - name: Fetch tag label by matching
+        uses: zwaldowski/match-label-action@v1
         id: bump
         with:
           allowed: >
@@ -106,10 +110,12 @@ jobs:
             minor
             patch
             
-      - run: echo "${{ steps.bump.outputs.version }}"
+      - name: Return versuon number
+        run: echo "${{ steps.bump.outputs.version }}"
           
       # Create new tag
-      - uses: zwaldowski/semver-release-action@v1
+      - name: Create new tag
+        uses: zwaldowski/semver-release-action@v1
         with:
           prefix: v
           bump: ${{ steps.bump.outputs.match }}
