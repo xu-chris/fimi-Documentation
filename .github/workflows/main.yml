@@ -82,6 +82,10 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
+      
+      # Create folders if necessary
+      - name: Create output folders
+        run: mkdir -p ${{ matrix.projectPath }}/build/${{ matrix.targetPlatform }}
 
       # Output
       - name: Upload build
