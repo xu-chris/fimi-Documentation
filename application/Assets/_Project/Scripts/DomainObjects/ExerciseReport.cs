@@ -6,44 +6,47 @@ namespace _Project.Scripts.DomainObjects
 {
     public class ExerciseReport
     {
-        private List<Result> results;
+        private Result[] results;
 
-        public ExerciseReport(List<Rule> rules)
+        public ExerciseReport(IEnumerable<Rule> rules)
         {
-            results = new List<Result>();
-            foreach (var newResult in rules.Select(rule => new Result(rule))) results.Add(newResult);
+            results = rules.Select(rule => new Result(rule)).ToArray();
         }
 
         public void Count(Rule rule)
         {
-            if (results.Exists(i => i.rule == rule))
-            {
-                results.Find(i => { return i.rule == rule; }).Increment();
-            }
-            else
-            {
-                var result = new Result(rule);
-                result.Increment();
-                results.Add(result);
-            }
+            results.First(i => i.rule == rule).Increment();
         }
 
-        public List<Result> Report()
+        public Result[] Results()
         {
-            results = results.OrderByDescending(i => i.count).ToList();
+            OrderResults();
             return results;
+        }
+
+        public void Reset()
+        {
+            foreach (var result in results)
+            {
+                result.count = 0;
+            }
         }
 
         public override string ToString()
         {
-            results = results.OrderByDescending(i => i.count).ToList();
+            OrderResults();
             return results.Aggregate("",
                 (current, result) => current + result.count + " times for " + result.rule + "\n");
         }
 
+        private void OrderResults()
+        {
+            results = results.OrderBy(i => i.rule.priority).ThenByDescending(i => i.count).ToArray();
+        }
+
         public class Result
         {
-            internal readonly Rule rule;
+            internal Rule rule;
             internal float count;
 
             public Result(Rule rule)
