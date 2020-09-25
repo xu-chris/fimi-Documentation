@@ -67,7 +67,7 @@ jobs:
           
       # Upload Test Results
       - name: Upload test results
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: Test results (all modes)
           path: ${{ steps.tests.outputs.artifactsPath }}
@@ -88,9 +88,9 @@ jobs:
 
       # Output
       - name: Upload build
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          name: Build
+          name: Build-${{ matrix.targetPlatform }}
           path: ${{ matrix.projectPath }}/Builds/${{ matrix.targetPlatform }}
 
       # Create new tag
