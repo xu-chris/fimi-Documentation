@@ -107,24 +107,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag_prefix: v
           release_branches: master
-          
-      # Create Changelog
-      - run: |
-          git fetch --prune --unshallow --tags
-      - name: Create changelogs
-        id: changelogs
-        uses: heineiuo/create-changelogs@master
-
-      # Create release
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ steps.tagcreation.outputs.new_version }}
-          release_name: Release ${{ steps.tagcreation.outputs.new_version }}
-          body: |
-            ${{ steps.changelogs.outputs.changelogs }}
-          draft: false
-          prerelease: ${{ steps.changelogs.outputs.release_type == 'prerelease' }}
