@@ -7,14 +7,14 @@ namespace _Project.Scripts.Core
 {
     public class Scene : MonoBehaviour
     {
-        protected WebSocketClient webSocketClient;
         public TextAsset applicationConfigurationFile;
         protected ApplicationConfiguration applicationConfiguration;
+        protected WebSocketClient webSocketClient;
 
         public void SetUpWebSocket()
         {
             Application.runInBackground = true;
-            
+
             applicationConfiguration = new ApplicationConfigurationService(applicationConfigurationFile).configuration;
             webSocketClient = gameObject.AddComponent<WebSocketClient>();
             webSocketClient.webSocketConfiguration = applicationConfiguration.webSocket;

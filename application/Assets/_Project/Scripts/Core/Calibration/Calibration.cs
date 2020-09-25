@@ -11,7 +11,7 @@ namespace _Project.Scripts.Core.Calibration
         public Text title;
         public GameObject dummy;
         public GameObject particleSystemForceField;
-        
+
         private CalibrationConfiguration calibrationConfiguration;
         private SkeletonOrchestrator skeletonOrchestrator;
 
@@ -19,19 +19,16 @@ namespace _Project.Scripts.Core.Calibration
         {
             SetUpWebSocket();
             calibrationConfiguration = new CalibrationConfigurationService(calibrationConfigurationFile).configuration;
-            
+
             skeletonOrchestrator = new SkeletonOrchestrator(applicationConfiguration.maxNumberOfPeople);
         }
-        
+
         public void Update()
         {
             var detectedPersons = webSocketClient.detectedPersons;
             skeletonOrchestrator?.Update(detectedPersons);
 
-            if (IsSkeletonCollidingWithDummy())
-            {
-                particleSystemForceField.SetActive(true);
-            }
+            if (IsSkeletonCollidingWithDummy()) particleSystemForceField.SetActive(true);
         }
 
         private bool IsSkeletonCollidingWithDummy()

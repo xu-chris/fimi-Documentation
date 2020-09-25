@@ -8,21 +8,17 @@ namespace _Project.Scripts.Core.InTraining
 {
     public class InTrainingSkeleton : Skeleton
     {
-        
         // Parameters
         private ExerciseReport exerciseReport;
-        
+
         public InTrainingSkeleton(int id, bool withGameObjects = true) : base(id, withGameObjects)
         {
         }
-        
+
         public void CheckRules(List<Rule> rules)
         {
-            if (exerciseReport == null)
-            {
-                InitExerciseReport(rules);
-            }
-            
+            if (exerciseReport == null) InitExerciseReport(rules);
+
             foreach (var rule in rules)
             {
                 List<Bone> bonesConsideredForGivenRule;
@@ -76,7 +72,7 @@ namespace _Project.Scripts.Core.InTraining
                 }
             }
         }
-        
+
         private static void RedNeutralColoring(List<Bone> bones, bool colorRed)
         {
             var color = colorRed ? Color.red : skeletonColor;

@@ -31,20 +31,10 @@ namespace _Project.Scripts.Core
 
                 // Set and activate only skeletons that are detected.
                 if (p >= 0 && detectedPersons.Length > p && p == detectedPersons[p].id)
-                {
                     UpdateSkeleton(skeletons[p], detectedPersons[p]);
-                }
                 else
-                {
                     skeletons[p].SetIsVisible(false);
-                }
             }
-        }
-
-        private void UpdateSkeleton(Skeleton skeleton, Person person)
-        {
-            skeleton.SetSkeleton(person.joints, person.lowestY);
-            skeleton.SetIsVisible(true);
         }
 
         public void InitializeAllSkeletons()
@@ -55,6 +45,12 @@ namespace _Project.Scripts.Core
                 skeletons[p] = new Skeleton(p);
                 skeletons[p].SetIsVisible(false);
             }
+        }
+
+        private void UpdateSkeleton(Skeleton skeleton, Person person)
+        {
+            skeleton.SetSkeleton(person.joints, person.lowestY);
+            skeleton.SetIsVisible(true);
         }
     }
 }

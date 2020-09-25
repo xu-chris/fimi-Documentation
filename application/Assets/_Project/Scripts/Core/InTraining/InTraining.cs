@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using _Project.Scripts.DomainObjects;
 using _Project.Scripts.DomainObjects.Configurations;
 using _Project.Scripts.Periphery.Configurations;
@@ -11,18 +10,18 @@ namespace _Project.Scripts.Core.InTraining
     public class InTraining : Scene
     {
         public TextAsset exercisesConfigurationFile;
-        private ExercisesConfiguration exercisesConfiguration;
 
         public TextAsset inTrainingConfigurationFile;
-        private InTrainingConfiguration inTrainingConfiguration;
-
-        private Vector3 offset;
-        private InTrainingSkeletonOrchestrator skeletonOrchestrator;
 
         public Text reportingTextField;
 
         public GameObject notificationPanel;
-        private bool notificationShown = false;
+        private ExercisesConfiguration exercisesConfiguration;
+        private InTrainingConfiguration inTrainingConfiguration;
+        private bool notificationShown;
+
+        private Vector3 offset;
+        private InTrainingSkeletonOrchestrator skeletonOrchestrator;
 
         public void Start()
         {
@@ -36,14 +35,15 @@ namespace _Project.Scripts.Core.InTraining
             exercisesConfiguration = exerciseConfigurationService.configuration;
 
             skeletonOrchestrator =
-                new InTrainingSkeletonOrchestrator(applicationConfiguration.maxNumberOfPeople, exercisesConfiguration.exercises[0]);
+                new InTrainingSkeletonOrchestrator(applicationConfiguration.maxNumberOfPeople,
+                    exercisesConfiguration.exercises[0]);
             skeletonOrchestrator.SetCurrentExercise(exercisesConfiguration.exercises[0]);
         }
 
         public void Update()
         {
             var detectedPersons = webSocketClient.detectedPersons;
-            
+
             if (skeletonOrchestrator == null) return;
             skeletonOrchestrator.Update(detectedPersons);
             var reports = skeletonOrchestrator.exerciseReports;
@@ -53,7 +53,7 @@ namespace _Project.Scripts.Core.InTraining
 
         private void CheckReports(ExerciseReport[] reports)
         {
-            ExerciseReport.Result highestInfectedRule = null; 
+            ExerciseReport.Result highestInfectedRule = null;
             foreach (var report in reports)
             {
                 if (report == null) continue;
@@ -62,11 +62,8 @@ namespace _Project.Scripts.Core.InTraining
                     highestInfectedRule = report.Report()[0];
                     continue;
                 }
-                
-                if (report.Report()[0].count > highestInfectedRule.count)
-                {
-                    highestInfectedRule = report.Report()[0];
-                }
+
+                if (report.Report()[0].count > highestInfectedRule.count) highestInfectedRule = report.Report()[0];
             }
 
             if (highestInfectedRule != null) NotifyUser(highestInfectedRule.rule.notificationText);
