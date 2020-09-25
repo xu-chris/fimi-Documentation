@@ -4,6 +4,7 @@ exercises:
       - !rangeOfMotionRule
         notificationText: "Don't overstretch your knees"
         colorize: true
+        priority: 10
         lowerThreshold: 0
         upperThreshold: 95
         bones:
@@ -12,6 +13,7 @@ exercises:
       - !rangeOfMotionRule
         notificationText: "Don't overstretch your knees"
         colorize: true
+        priority: 10
         lowerThreshold: 0
         upperThreshold: 95
         bones:
@@ -20,6 +22,7 @@ exercises:
       - !verticallyRule
         notificationText: "Keep your head, neck and body vertical"
         colorize: true
+        priority: 10
         tolerance: 10
         bones:
           - LowerBody
@@ -29,6 +32,7 @@ exercises:
       - !symmetryRule
         notificationText: "Move symmetrically with your body"
         colorize: false
+        priority: 10
         leftBones:
           - LeftShoulder
           - LeftElbow
@@ -50,6 +54,7 @@ exercises:
       - !linearityRule
         notificationText: "Keep your left arm straight"
         colorize: true
+        priority: 10
         bones:
           - LeftElbow
           - LeftForearm
@@ -57,6 +62,7 @@ exercises:
       - !linearityRule
         notificationText: "Keep your right arm straight"
         colorize: true
+        priority: 10
         bones:
           - RightElbow
           - RightForearm
@@ -64,6 +70,7 @@ exercises:
       - !speedRule
         notificationText: "Move slower"
         colorize: false
+        priority: 10
         bones:
           - LeftShoulder
           - LeftElbow

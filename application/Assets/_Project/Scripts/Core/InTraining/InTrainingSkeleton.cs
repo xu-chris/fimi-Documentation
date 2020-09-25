@@ -90,11 +90,6 @@ namespace _Project.Scripts.Core.InTraining
             foreach (var bone in bones) bone.Colorize(color);
         }
 
-        private static void CreatePole(Vector2 from, Vector3 to)
-        {
-            var pole = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        }
-
         public void SetUpExerciseReport(Exercise exercise)
         {
             InitExerciseReport(exercise.rules);
@@ -102,7 +97,7 @@ namespace _Project.Scripts.Core.InTraining
 
         private void InitExerciseReport(List<Rule> rules)
         {
-            exerciseReport = new ExerciseReport(rules);
+            exerciseReport = new ExerciseReport(rules.ToArray());
         }
 
         public ExerciseReport GetReport()

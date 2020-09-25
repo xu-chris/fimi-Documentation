@@ -7,6 +7,8 @@ namespace _Project.Scripts.DomainObjects.Rules
     {
         public bool colorize;
         public string notificationText;
+        public int priority;
+        
         public abstract bool IsInvalidated(List<Bone> boneObjects);
     }
 }
