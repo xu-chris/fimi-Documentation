@@ -92,12 +92,6 @@ jobs:
         with:
           name: Build
           path: ${{ matrix.projectPath }}/Builds/${{ matrix.targetPlatform }}
-          
-      # Get last checkout again
-      - uses: actions/checkout@master
-        with:
-          # Fetches entire history, so we can analyze commits since last tag
-          fetch-depth: 0
 
       # Create new tag
       - name: Create new tag
