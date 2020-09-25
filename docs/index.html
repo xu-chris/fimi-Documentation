@@ -43,6 +43,7 @@
         a {
         border-radius: 6px;
           padding: 1px 5px;
+          margin: -1px -5px;
         }
 
         .pagination-item a {
@@ -209,6 +210,9 @@
       subMaxLevel: 3,
       maxLevel: 4,
       themeColor: '#33ccff',
+      plantuml: {
+        skin: 'classic'
+      },
       search: {
         maxAge: 86400000, // Expiration time, the default one day
         paths: 'auto',
@@ -256,6 +260,7 @@
   <script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/zoom-image.min.js"></script>
   <script src="//unpkg.com/docsify-copy-code@2"></script>
+  <script src="//unpkg.com/docsify-plantuml/dist/docsify-plantuml.min.js"></script>
   <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
