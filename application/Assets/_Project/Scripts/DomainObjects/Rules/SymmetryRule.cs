@@ -21,11 +21,9 @@ namespace _Project.Scripts.DomainObjects.Rules
             // Reflect bone vectors of one list
             foreach (var leftBoneObject in leftBoneObjects)
             {
-                var gameObject = new GameObject();
-                gameObject.transform.position = leftBoneObject.boneVector;
-                gameObject.transform.RotateAround(referenceBone.boneVector, referenceBone.boneVector, 180);
-                reflectedLeftBoneVectors.Add(gameObject.transform.position);
-                Object.Destroy(gameObject);
+                var flippedVector = RotateAround(leftBoneObject.boneVector, referenceBone.boneVector, referenceBone.boneVector, 180);
+                reflectedLeftBoneVectors.Add(flippedVector);
+
             }
 
             var runningDistance = 0f;
@@ -49,6 +47,12 @@ namespace _Project.Scripts.DomainObjects.Rules
             return "Rule: " + GetType().Name + ", tolerance: " + tolerance + ", left bones: " +
                    string.Join(", ", leftBones.ToArray()) + ", right bones: " +
                    string.Join(", ", leftBones.ToArray()) + ", center / reference bone: " + centerBone;
+        }
+        
+        private Vector3 RotateAround(Vector3 fromPoint, Vector3 aroundPoint, Vector3 aroundAxis, float angle)
+        {
+            Vector3 vector3 = Quaternion.AngleAxis(angle, aroundAxis) * (fromPoint - aroundPoint);
+            return aroundPoint + vector3;
         }
     }
 }
