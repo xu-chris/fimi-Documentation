@@ -91,7 +91,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Build
-          path: ${{ matrix.projectPath }}/build/${{ matrix.targetPlatform }}
+          path: ${{ matrix.projectPath }}/Builds/${{ matrix.targetPlatform }}
 
       # Create new tag
       - name: Create new tag
