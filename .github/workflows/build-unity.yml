@@ -83,7 +83,7 @@ jobs:
       
       # Create folders if necessary
       - name: Create output folders
-        run: mkdir -p ${{ matrix.projectPath }}/build/${{ matrix.targetPlatform }}
+        run: mkdir -p ${{ matrix.projectPath }}/Builds/${{ matrix.targetPlatform }}
 
       # Output
       - name: Upload build
