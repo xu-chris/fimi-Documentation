@@ -1,4 +1,6 @@
 # fimi - Safety First Smart Fitness Mirror
+![Build Unity Project](https://github.com/creichel/FiMi-Fitness-Smart-Mirror/workflows/Build%20Unity%20Project/badge.svg)
+
 ## Installation for RTX-2080
 
 ### 1. Prerequisites

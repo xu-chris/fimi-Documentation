@@ -35,9 +35,7 @@ jobs:
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
           - StandaloneLinux64 # Build a Linux 64-bit standalone.
         testMode:
-          - playmode
-          - editmode
-
+          - all
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checkout
@@ -67,7 +65,8 @@ jobs:
           artifactsPath: ${{ matrix.testMode }}-artifacts
           
       # Upload Test Results
-      - uses: actions/upload-artifact@v1
+      - name: Upload test results
+        uses: actions/upload-artifact@v1
         with:
           name: Test results (all modes)
           path: ${{ steps.tests.outputs.artifactsPath }}
@@ -81,9 +80,35 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
+      
+      # Create folders if necessary
+      - name: Create output folders
+        run: mkdir -p ${{ matrix.projectPath }}/build/${{ matrix.targetPlatform }}
 
       # Output
-      - uses: actions/upload-artifact@v1
+      - name: Upload build
+        uses: actions/upload-artifact@v1
         with:
           name: Build
           path: ${{ matrix.projectPath }}/build/${{ matrix.targetPlatform }}
+          
+      # Get potential tag label
+      - name: Fetch tag label by matching
+        uses: zwaldowski/match-label-action@v1
+        id: bump
+        with:
+          allowed: >
+            major
+            minor
+            patch
+            
+      - name: Return version number
+        run: echo "${{ steps.bump.outputs.version }}"
+          
+      # Create new tag
+      - name: Create new tag
+        uses: zwaldowski/semver-release-action@v1
+        with:
+          prefix: v
+          bump: ${{ steps.bump.outputs.match }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
