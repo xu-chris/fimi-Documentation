@@ -7,7 +7,7 @@ namespace _Project.Scripts.Core.InTraining
     {
         private readonly int maxNumberOfPeople;
         private Exercise currentExercise;
-        public ExerciseReport[] exerciseReports;
+        public ExerciseReport[] exerciseReports { get; }
 
         private InTrainingSkeleton[] skeletons;
 

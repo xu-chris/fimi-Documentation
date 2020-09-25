@@ -59,11 +59,19 @@ namespace _Project.Scripts.Core.InTraining
                 if (report == null) continue;
                 if (highestInfectedRule == null)
                 {
-                    highestInfectedRule = report.Report()[0];
+                    highestInfectedRule = report.Results()[0];
                     continue;
                 }
 
-                if (report.Report()[0].count > highestInfectedRule.count) highestInfectedRule = report.Report()[0];
+                foreach (var result in report.Results())
+                {
+                    if (result.count != 0) continue;
+
+                    if (!(report.Results()[0].count > highestInfectedRule.count)) continue;
+                    
+                    highestInfectedRule = report.Results()[0];
+                    break;
+                }
             }
 
             if (highestInfectedRule != null) NotifyUser(highestInfectedRule.rule.notificationText);
