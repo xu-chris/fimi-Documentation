@@ -10,8 +10,8 @@ namespace _Project.Scripts.Periphery.Clients
 {
     public class WebSocketClient : MonoBehaviour
     {
-        public Person[] detectedPersons = new Person[]{};
         private readonly bool enableLogging = false;
+        public Person[] detectedPersons = { };
 
         private bool isWsConnected;
 
@@ -130,7 +130,7 @@ namespace _Project.Scripts.Periphery.Clients
                       currentNumPeople);
 
             var newDetection = new Person[currentNumPeople];
-            
+
             for (var p = 0; p < currentNumPeople; ++p)
             {
                 newDetection[p].joints = new Vector3[maxNumberOfJoints];
@@ -138,7 +138,6 @@ namespace _Project.Scripts.Periphery.Clients
                 var lowestY = 999.0f;
                 for (var i = 0; i < maxNumberOfJoints - 1; ++i)
                 {
-
                     var tokenIndex = 3 * p * maxNumberOfJoints + 3 * i + 3;
                     newDetection[p].joints[i].x =
                         float.Parse(tokens[tokenIndex + 0]) * 0.001f; // Can be flipped here for mirroring
