@@ -47,7 +47,7 @@ SecondNetWeights: ../../data/CNNModels/XNECT/StageII/new/snapshot.caffemodel
 WritePositions: 1
 
 # Horizontally flip input to switch between a mirror interaction like setup and true view setup
-FlipInput: 0
+FlipInput: 1
 
 # To toggle filtering for 2D and 3D pose estimation
 UseOneEuroFilter2D: 1
@@ -60,5 +60,3 @@ IK2DTermWeight: 25e-6
 SmoothnessTermWeight: 1e-5
 JointLimitsTermWeight: 1
 DepthPenaltyWeight:6e-10
-
-

@@ -14,7 +14,7 @@
 
 #define SHOW_WINDOW 1
 #define REPEAT_VIDEO 0
-Mode mode = Mode::SIMULATION;
+Mode mode = Mode::LIVE;
 
 std::string images_to_load = "../../data/images";
 std::string videoFilePath = "../../data/videos/pepper_front_1.mp4";
@@ -131,6 +131,7 @@ void writeCameraFPS(cv::Mat &frame, double time)
 
 void processImage(cv::Mat &frame, XNECT &xnect, bool showImage = true, std::string windowName = "main", bool sendToUnity = true) {
 
+	flip(frame, frame, 1);
 	int frame_width = frame.cols;
 	int frame_height = frame.rows;
     int64 start = cv::getTickCount();
