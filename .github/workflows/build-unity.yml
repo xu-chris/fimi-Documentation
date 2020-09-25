@@ -20,7 +20,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    name: Building fimi
+    name: fimi Build
     runs-on: ubuntu-latest
     
     strategy:
@@ -42,6 +42,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
+          fetch-depth: 0
           lfs: true
 
       # Cache
@@ -66,7 +67,7 @@ jobs:
           
       # Upload Test Results
       - name: Upload test results
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: Test results (all modes)
           path: ${{ steps.tests.outputs.artifactsPath }}
@@ -83,32 +84,20 @@ jobs:
       
       # Create folders if necessary
       - name: Create output folders
-        run: mkdir -p ${{ matrix.projectPath }}/build/${{ matrix.targetPlatform }}
+        run: mkdir -p ${{ matrix.projectPath }}/Builds/${{ matrix.targetPlatform }}
 
       # Output
       - name: Upload build
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          name: Build
-          path: ${{ matrix.projectPath }}/build/${{ matrix.targetPlatform }}
-          
-      # Get potential tag label
-      - name: Fetch tag label by matching
-        uses: zwaldowski/match-label-action@v1
-        id: bump
-        with:
-          allowed: >
-            major
-            minor
-            patch
-            
-      - name: Return version number
-        run: echo "${{ steps.bump.outputs.version }}"
-          
+          name: Build-${{ matrix.targetPlatform }}
+          path: ${{ matrix.projectPath }}/Builds/${{ matrix.targetPlatform }}
+
       # Create new tag
       - name: Create new tag
-        uses: zwaldowski/semver-release-action@v1
+        id: tagcreation
+        uses: mathieudutour/github-tag-action@v4.6
         with:
-          prefix: v
-          bump: ${{ steps.bump.outputs.match }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag_prefix: v
+          release_branches: master
