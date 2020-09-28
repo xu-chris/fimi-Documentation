@@ -23,7 +23,7 @@ exercises:
         notificationText: "Keep your head, neck and body vertical"
         colorize: true
         priority: 10
-        tolerance: 10
+        tolerance: 12
         bones:
           - LowerBody
           - UpperBody
@@ -54,23 +54,23 @@ exercises:
       - !linearityRule
         notificationText: "Keep your left arm straight"
         colorize: true
-        priority: 10
+        priority: 15
         bones:
           - LeftElbow
           - LeftForearm
-        tolerance: 5
+        tolerance: 10
       - !linearityRule
         notificationText: "Keep your right arm straight"
         colorize: true
-        priority: 10
+        priority: 15
         bones:
           - RightElbow
           - RightForearm
-        tolerance: 5
+        tolerance: 10
       - !speedRule
         notificationText: "Move slower"
         colorize: false
-        priority: 10
+        priority: 15
         bones:
           - LeftShoulder
           - LeftElbow
