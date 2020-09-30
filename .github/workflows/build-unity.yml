@@ -93,7 +93,7 @@ jobs:
           name: Build-${{ matrix.targetPlatform }}
           path: ${{ matrix.projectPath }}/Builds/${{ matrix.targetPlatform }}
 
-      # Create new tag
+      # Create tag
       - name: Create new tag
         id: tagcreation
         uses: mathieudutour/github-tag-action@v4.6
@@ -101,3 +101,17 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag_prefix: v
           release_branches: master
+          
+      # Create release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ steps.tagcreation.outputs.new_tag }}
+          release_name: Release ${{ steps.tagcreation.outputs.new_tag }}
+          body: |
+            ${{ steps.tagcreation.outputs.changelog }}
+          draft: false
+          prerelease: false
