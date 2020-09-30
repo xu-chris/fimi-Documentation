@@ -18,38 +18,36 @@ graph TD;
 
 The application flow for a live mode is sketched as the following:
 
-```mermaid
-sequenceDiagram
-    autonumber
-    PoseEstimation->>XNECT: Init
-    Note right of XNECT: The responsibility of creating the websocket server will be moved to PoseEstimation
-    XNECT-->>WebSocketServer: Initialize server
-    UI->>UI: Setup
-    UI-->>WebSocketServer: Connect via websocket address
-    PoseEstimation->>OpenCV: Get VideoCapture of 0
-    OpenCV->>PoseEstimation: VideoCapture(0)
-    loop For every frame of VideoCapture
-        PoseEstimation->>XNECT: Process image
-        XNECT-->>XNECT: Preprocess image
-        XNECT-->>XNECT: Estimate pose
-        alt Size of skeleton has been fitted
-            XNECT-->>XNECT: Store joints and bones
-        end
-        PoseEstimation->>PoseEstimation: Draw Bones and Joints
-        PoseEstimation->>PoseEstimation: Draw FPS
-        PoseEstimation-->>XNECT: Send data via Websocket to Unity
-        XNECT->>XNECT: Convert vector to string
-        XNECT->>WebSocketServer: Send message
-        par Receiving and interpreting poses
-            WebSocketServer-->> UI: Send Message
-            UI->>UI: Fit Skeleton
-            UI->>UI: Apply poses to skeleton
-            UI->>UI: Evaluate poses
-            Note right of UI: Missing part
-        and Displaying webcam video with pose
-            PoseEstimation->>OpenCV: Open window with image
-        end
+```plantuml
+@startuml
+title Application flow
+autonumber
+== Init services and handshake ==
+PoseEstimation->XNECT: Init
+PoseEstimation-->WebSocketServer: Initialize server
+UI->UI: Setup
+UI-->WebSocketServer: Connect via websocket address
+PoseEstimation->OpenCV: Get VideoCapture of 0
+OpenCV->PoseEstimation: VideoCapture(0)
+== Pose estimation ==
+loop For every frame of VideoCapture
+    PoseEstimation->XNECT: Process image
+    XNECT-->XNECT: Preprocess image
+    XNECT-->XNECT: Estimate pose
+    alt Size of skeleton has been fitted
+        XNECT-->XNECT: Store joints and bones
     end
+    PoseEstimation->PoseEstimation: Draw Bones and Joints
+    PoseEstimation->PoseEstimation: Draw FPS
+    PoseEstimation-->XNECT: Send data via Websocket to Unity
+    XNECT->XNECT: Convert vector to string
+    XNECT->WebSocketServer: Send message
+    == Receiving and interpreting poses ==
+    WebSocketServer--> UI: Send Message
+    UI->UI: Adjust  skeleton
+    UI->UI: Evaluate poses
+end
+@enduml
 ```
 
 To work and test the UI independently from XNECT, I have set up a mock recorder and a mock player inside of `PoseEstimation`. The mock recorder records the pose data that has been sent to Unity including a delay and stores the data into a `.mock` file which looks like this:
