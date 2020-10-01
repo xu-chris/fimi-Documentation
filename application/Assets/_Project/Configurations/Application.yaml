@@ -1,3 +1,0 @@
-webSocket:
-  url: "ws://localhost:8080/"
-maxNumberOfPeople: 5

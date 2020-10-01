@@ -1,3 +1,0 @@
-[submodule "estimator/extern/xnect"]
-	path = estimator/extern/xnect
-	url = https://creichel@github.com/creichel/xnect.git
