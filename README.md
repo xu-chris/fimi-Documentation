@@ -1,6 +1,6 @@
 # fimi - Smart Mirror Application For Workouts With Form Correction Hints
 
-**Check out the [Full Documentation](https://creichel.github.io/fimi-Documentation/) of fimi.**
+**Check out the [Full Documentation](https://xu-chris.github.io/fimi-Documentation/) of fimi.**
 
 fimi is an application which tries to resemble a coach while you doing workout by analyzing your posture and giving you feedback about what you should watch more often. To run it, you need a **webcam**, a big screen and your smartphone (and some room space). You control the big screen with your smartphone by simply scanning the displayed QR code (being in the same wifi net is necessary).
 
@@ -12,11 +12,11 @@ This is the documentation for the whole project.
 
 ## The different parts
 fimi has 3 parts which depend on each other:
-1. The [pose estimation server](https://github.com/creichel/fimi-Server)
-2. The [client application](https://github.com/creichel/fimi-Client)
-3. The [controller application](https://github.com/creichel/fimi-Controller)
+1. The [pose estimation server](https://github.com/xu-chris/fimi-Server)
+2. The [client application](https://github.com/xu-chris/fimi-Client)
+3. The [controller application](https://github.com/xu-chris/fimi-Controller)
 
-For development purposes, you can use the [pose estimation mock server](https://github.com/creichel/fimi-Mock-Server) during development of the [client application](https://github.com/creichel/fimi-Client).
+For development purposes, you can use the [pose estimation mock server](https://github.com/xu-chris/fimi-Mock-Server) during development of the [client application](https://github.com/xu-chris/fimi-Client).
 
 ## Used technology
 
